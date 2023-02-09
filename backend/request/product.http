@@ -1,0 +1,10 @@
+GET http://localhost:4000/afaps
+
+###
+GET http://localhost:4000/afaps/46206379
+
+###
+GET http://localhost:4000/ultimaConsulta
+
+###
+POST http://localhost:4000/montevideo

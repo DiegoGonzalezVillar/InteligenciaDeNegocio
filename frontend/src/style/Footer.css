@@ -1,0 +1,16 @@
+.Footer {
+    bottom : 0;
+    background-color: rgb(2, 2, 2)
+}
+
+.Box{
+    background-color: rgb(2, 2, 2)
+}
+
+.AppBar{
+    background-color: rgb(2, 2, 2)
+}
+
+svg:hover {
+    fill: #4c2882;
+  }

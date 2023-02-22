@@ -26,9 +26,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "4.0.2",
-    "uglify-js": "^3.17.2"
-    
-    
+    "uglify-js": "^3.17.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
@@ -50,6 +49,5 @@
     "webpack-cli": "^4.10.0",
     "webpack-dev-middleware": "^5.3.3",
     "webpack-livereload-plugin": "^3.0.2"
-    
   }
 }

@@ -7,6 +7,7 @@ const dbSettings = {
     server: db.server,
     database: db.database,
     database2: db.database2,
+    database3: db.database3,
     options:{
         trustServerCertificate: true,
         encrypt: false

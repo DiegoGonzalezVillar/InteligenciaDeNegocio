@@ -1,7 +1,7 @@
 
 import { Router } from 'express';
 
-import { login,getTotalAfiliados,getUltimaConsultaMontevideoPeriferia,getUltimaConsultaInteriorSZ,getUltimaConsultaMontevideoSur,getUltimaConsultaInteriorDR,getUltimaConsultaInteriorAC,cargarDatosParaConsultar } from "../controllers/afaps.controller"
+import { login,getDatosCurvaS,getTotalAfiliados,getUltimaConsultaMontevideoPeriferia,getUltimaConsultaInteriorSZ,getUltimaConsultaMontevideoSur,getUltimaConsultaInteriorDR,getUltimaConsultaInteriorAC,cargarDatosParaConsultar, getDatosApp,getAfisPorAsesor,getTotalAfiliadosAnterior } from "../controllers/afaps.controller"
 
 const router = Router()
 
@@ -12,6 +12,10 @@ router.get('/montevideoSur',getUltimaConsultaMontevideoSur)
 router.get('/interiorAC',getUltimaConsultaInteriorAC)
 router.get('/interiorDR',getUltimaConsultaInteriorDR)
 router.get('/interiorSZ',getUltimaConsultaInteriorSZ)
+router.get('/datosaApp', getDatosApp)
+router.get('/afisPorAsesor', getAfisPorAsesor)
+router.get('/curvaS', getDatosCurvaS)
+router.get('/totalAfiliadosAnterior',getTotalAfiliadosAnterior)
 router.post('/ultimaConsulta',cargarDatosParaConsultar)
 
 

@@ -7,12 +7,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Container } from '@mui/material'
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import TextField2 from '@mui/material/TextField';
-import {Container} from '@mui/material'
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -22,6 +22,8 @@ import Dialog from '@material-ui/core/Dialog';
 import { DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import Snackbar from '@material-ui/core/Snackbar'
 import { useNavigate } from 'react-router-dom'
+import { Typography } from '@material-ui/core';
+
 
 dayjs.extend(isSameOrBefore);
 
@@ -37,9 +39,7 @@ const useStyles = makeStyles({
   },
 });
 
-
-const DataGrid = () => {
-
+export default function InteriorDR() {
   const urlParams = new URLSearchParams(window.location.search);
   const user = urlParams.get('user');
   const navigate = useNavigate()
@@ -48,9 +48,8 @@ const DataGrid = () => {
         navigate('/');
       }
     },);
-
   const url = 'http://appcomercial.iafap.local:4000/'
-  //const url = 'http://localhost:4000/'
+  //const url= 'http://localhost:4000/'
   const [arrayDatosConsultas, setArrayDatosConsultas] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const classes = useStyles();
@@ -128,6 +127,7 @@ const DataGrid = () => {
     }
     setFilteredData(filtered);
   }, [filterCount, filter, filterCiudad, value, arrayDatosConsultas]);
+
 
 
   const filtroDepartamento = event => {
@@ -208,27 +208,27 @@ const DataGrid = () => {
     setFilteredData(filtered);
   };
 
+  const fetchData = async () => {
+    const res = await fetch(`${url}interiorDR`, {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+      },
+    });
+    const data = await res.json();
+
+    data.forEach(item => {
+      item.Fecha_Consulta = new Date(item.Fecha_Consulta).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    });
+
+    setArrayDatosConsultas(data);
+    setFilteredData(data);
+
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(`${url}montevideoSur`, {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-        },
-      });
-      const data = await res.json();
-
-      data.forEach(item => {
-        item.Fecha_Consulta = new Date(item.Fecha_Consulta).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-      });
-      setArrayDatosConsultas(data);
-      setFilteredData(data);
-
-    };
-
     fetchData();
   }, []);
-
 
   const cargarDatos = async () => {
     try {
@@ -250,6 +250,7 @@ const DataGrid = () => {
       setResponseMessage(json.message);
       setOpenSnackbar(true);
       handleClose()
+      fetchData();
     } catch (error) {
       console.error(error);
       setResponseMessage('Ha ocurrido un error, por favor intente nuevamente');
@@ -257,10 +258,11 @@ const DataGrid = () => {
     }
   }
 
+
   return (
     <Container>
       <nav className="navbar d-flex justify-content-center">
-        <h2 className="navbar-brand mx-auto text-center" style={{ color: "#B83E42" }}>Montevideo Sur</h2>
+        <h2 className="navbar-brand mx-auto text-center" style={{ color: "#B83E42" }}>Interior D-R</h2>
       </nav>
       <Box component="form" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <TextField
@@ -291,7 +293,7 @@ const DataGrid = () => {
           style={{ marginLeft: "1rem" }}
         />
 
-        <Button  style={{color: "#BE3A4A", marginTop: '1em',marginLeft: "10rem" }} className={classes.containedRight} onClick={handleClickOpen}>Consultar</Button>
+        <Button style={{ color: "#BE3A4A", marginTop: '1em', marginLeft: "10rem" }} className={classes.containedRight} onClick={handleClickOpen}>Consultar</Button>
       </Box>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Confirmar</DialogTitle>
@@ -316,7 +318,6 @@ const DataGrid = () => {
         autoHideDuration={5000}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       />
-
       <TableContainer className={classes.container} component={Paper} style={{ overflowX: 'auto', marginTop: '1em' }}>
         <Table className={classes.table} aria-label="data grid">
           <TableHead >
@@ -343,8 +344,9 @@ const DataGrid = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <p>Cantidad de registros: {filteredData.length}</p>
+      <Typography variant="h6" style={{ color: '#BE3A4A'}} >
+                Cantidad de registros: {filteredData.length}
+             </Typography>
     </Container>
   );
 }
-export default DataGrid

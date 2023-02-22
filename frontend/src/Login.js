@@ -10,6 +10,8 @@ export default function LoginPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const url = 'http://appcomercial.iafap.local:4000/'
+  //const url= 'http://localhost:4000/'
 
 const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,7 +20,7 @@ const handleSubmit = async (event) => {
         body: JSON.stringify({username, password}),
         headers: { 'Content-Type': 'application/json' }
     };
-    const response = await fetch('http://localhost:4000/login', options);
+    const response = await fetch(`${url}login`, options);
     if (!response.ok) {
         throw new Error("Error logging in");
     }

@@ -7,12 +7,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Container } from '@mui/material'
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import TextField2 from '@mui/material/TextField';
+import { Container } from '@mui/material'
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -22,7 +22,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import Snackbar from '@material-ui/core/Snackbar'
 import { useNavigate } from 'react-router-dom'
-
+import { Typography } from '@material-ui/core';
 
 dayjs.extend(isSameOrBefore);
 
@@ -38,17 +38,20 @@ const useStyles = makeStyles({
   },
 });
 
-export default function DataGrid() {
+
+const MontevideoSur = () => {
+
   const urlParams = new URLSearchParams(window.location.search);
   const user = urlParams.get('user');
   const navigate = useNavigate()
   useEffect(() => {
-      if (!user) {
-        navigate('/');
-      }
-    },);
+    if (!user) {
+      navigate('/');
+    }
+  },);
+
   const url = 'http://appcomercial.iafap.local:4000/'
-  //const url= 'http://localhost:4000/'
+  //const url = 'http://localhost:4000/'
   const [arrayDatosConsultas, setArrayDatosConsultas] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const classes = useStyles();
@@ -126,7 +129,6 @@ export default function DataGrid() {
     }
     setFilteredData(filtered);
   }, [filterCount, filter, filterCiudad, value, arrayDatosConsultas]);
-
 
 
   const filtroDepartamento = event => {
@@ -207,24 +209,25 @@ export default function DataGrid() {
     setFilteredData(filtered);
   };
 
+  const fetchData = async () => {
+    const res = await fetch(`${url}montevideoSur`, {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+      },
+    });
+    const data = await res.json();
+
+    data.forEach(item => {
+      item.Fecha_Consulta = new Date(item.Fecha_Consulta).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    });
+
+    setArrayDatosConsultas(data);
+    setFilteredData(data);
+
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(`${url}interiorDR`, {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-        },
-      });
-      const data = await res.json();
-
-      data.forEach(item => {
-        item.Fecha_Consulta = new Date(item.Fecha_Consulta).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-      });
-      setArrayDatosConsultas(data);
-      setFilteredData(data);
-
-    };
-
     fetchData();
   }, []);
 
@@ -232,10 +235,10 @@ export default function DataGrid() {
   const cargarDatos = async () => {
     try {
       const datos = filteredData.map(item => {
-        console.log(item.fechaN)
         return {
           cedula: item.cedula,
           fechaN: item.fechaN
+          
         }
       });
       const response = await fetch(`${url}ultimaConsulta/`, {
@@ -249,18 +252,17 @@ export default function DataGrid() {
       setResponseMessage(json.message);
       setOpenSnackbar(true);
       handleClose()
+      fetchData();
     } catch (error) {
-      console.error(error);
-      setResponseMessage('Ha ocurrido un error, por favor intente nuevamente');
+      setResponseMessage(error);
       setOpenSnackbar(true);
     }
   }
 
-
   return (
     <Container>
       <nav className="navbar d-flex justify-content-center">
-        <h2 className="navbar-brand mx-auto text-center" style={{ color: "#B83E42" }}>Interior D-R</h2>
+        <h2 className="navbar-brand mx-auto text-center" style={{ color: "#B83E42" }}>Montevideo Sur</h2>
       </nav>
       <Box component="form" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <TextField
@@ -316,6 +318,7 @@ export default function DataGrid() {
         autoHideDuration={5000}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       />
+
       <TableContainer className={classes.container} component={Paper} style={{ overflowX: 'auto', marginTop: '1em' }}>
         <Table className={classes.table} aria-label="data grid">
           <TableHead >
@@ -342,7 +345,10 @@ export default function DataGrid() {
           </TableBody>
         </Table>
       </TableContainer>
-      <p>Cantidad de registros: {filteredData.length}</p>
+      <Typography variant="h6" style={{ color: '#BE3A4A' }} >
+        Cantidad de registros: {filteredData.length}
+      </Typography>
     </Container>
   );
 }
+export default MontevideoSur

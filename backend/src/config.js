@@ -8,7 +8,8 @@ module.exports ={
         password : '[#"d+Y_6GnSt_x?*',
         server : '192.168.20.5',
         database: 'AFAP_Gestion',
-        database2: 'SOLO_ACTIVIDAD'
+        database2: 'SOLO_ACTIVIDAD',
+        database3: 'afapformularios'
     },
     //baseURL: baseURL
 }

@@ -1,63 +1,52 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
-var _webpack = _interopRequireDefault(require("webpack"));
-
-var _htmlWebpackPlugin = _interopRequireDefault(require("html-webpack-plugin"));
-
-var _webpackLivereloadPlugin = _interopRequireDefault(require("webpack-livereload-plugin"));
-
-var TerserPlugin = require("terser-webpack-plugin");
-
+var HtmlWebpackPlugin = require("html-webpack-plugin");
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
-var _default = {
-  entry: './src/index.js',
-  target: 'node',
-  optimization: {
-    minimize: true,
-    minimizer: [new TerserPlugin()]
-  },
-  output: {
-    path: '/',
-    filename: 'bundle.js'
-  },
-  module: {
-    rules: [{
-      use: 'babel-loader',
-      test: /\.js$/,
-      exclude: /node_modules/
-    }, {
-      use: [MiniCssExtractPlugin.loader, "css-loader"],
-      test: /\.css$/
-    }, {
-      test: /\.scss$/,
-      use: [{
-        loader: 'style-loader'
-      }, {
-        loader: 'css-loader',
-        options: {
-          sourceMap: true
+var OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+var TerserPlugin = require("terser-webpack-plugin");
+module.exports = function (env, argv) {
+  var isProduction = argv.mode === "production";
+  return {
+    entry: "./src/index.js",
+    output: {
+      filename: "bundle.js",
+      path: __dirname + "/dist"
+    },
+    module: {
+      rules: [{
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
         }
       }, {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: true
-        }
+        test: /\.(css|scss)$/,
+        use: [{
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            hmr: !isProduction
+          }
+        }, "css-loader", "sass-loader"]
       }]
-    }]
-  },
-  plugins: [new _htmlWebpackPlugin["default"]({
-    template: './src/client/index.html'
-  }), new _webpackLivereloadPlugin["default"](), new MiniCssExtractPlugin({
-    filename: "[name].css",
-    chunkFilename: "[id].css"
-  })]
+    },
+    plugins: [new HtmlWebpackPlugin({
+      template: "./public/index.html"
+    }), new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })],
+    optimization: {
+      minimizer: [new TerserPlugin({
+        terserOptions: {
+          output: {
+            comments: false
+          }
+        }
+      }), new OptimizeCSSAssetsPlugin({})]
+    },
+    devServer: {
+      contentBase: "./dist",
+      historyApiFallback: true
+    }
+  };
 };
-exports["default"] = _default;

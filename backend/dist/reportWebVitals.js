@@ -1,4 +1,6 @@
-/*var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -25,4 +27,4 @@ var reportWebVitals = function reportWebVitals(onPerfEntry) {
   }
 };
 var _default = reportWebVitals;
-exports["default"] = _default;*/
+exports["default"] = _default;

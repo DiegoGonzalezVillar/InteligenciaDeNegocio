@@ -1,17 +1,18 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TextField from '@material-ui/core/TextField';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
+import { Container } from '@mui/material'
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Container } from '@mui/material'
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { useNavigate } from 'react-router-dom'
 import TextField2 from '@mui/material/TextField';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -21,9 +22,7 @@ import '../style/Button.css'
 import Dialog from '@material-ui/core/Dialog';
 import { DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import Snackbar from '@material-ui/core/Snackbar'
-import { useNavigate } from 'react-router-dom'
-
-
+import { Typography } from '@material-ui/core';
 
 dayjs.extend(isSameOrBefore);
 
@@ -39,16 +38,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function DataGrid() {
+export default function InteriorAC() {
   const urlParams = new URLSearchParams(window.location.search);
   const user = urlParams.get('user');
   const navigate = useNavigate()
   useEffect(() => {
-      if (!user) {
-        navigate('/');
-      }
-    },);
-
+    if (!user) {
+      navigate('/');
+    }
+  },);
   const url = 'http://appcomercial.iafap.local:4000/'
   //const url = 'http://localhost:4000/'
   const [arrayDatosConsultas, setArrayDatosConsultas] = useState([]);
@@ -129,6 +127,7 @@ export default function DataGrid() {
     setFilteredData(filtered);
   }, [filterCount, filter, filterCiudad, value, arrayDatosConsultas]);
 
+
   const filtroDepartamento = event => {
     setFilter(event.target.value);
     let filtered = arrayDatosConsultas;
@@ -203,28 +202,28 @@ export default function DataGrid() {
         return date.isBefore(newValue.$d) || date.isSame(newValue.$d);
       });
     }
-
     setFilteredData(filtered);
   };
 
+  const fetchData = async () => {
+    const res = await fetch(`${url}interiorAC`, {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+      },
+    });
+    const data = await res.json();
+
+    data.forEach(item => {
+      item.Fecha_Consulta = new Date(item.Fecha_Consulta).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    });
+
+    setArrayDatosConsultas(data);
+    setFilteredData(data);
+
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(`${url}interiorSZ`, {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-        },
-      });
-      const data = await res.json();
-
-      data.forEach(item => {
-        item.Fecha_Consulta = new Date(item.Fecha_Consulta).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-      });
-      setArrayDatosConsultas(data);
-      setFilteredData(data);
-
-    };
-
     fetchData();
   }, []);
 
@@ -249,6 +248,7 @@ export default function DataGrid() {
       setResponseMessage(json.message);
       setOpenSnackbar(true);
       handleClose()
+      fetchData();
     } catch (error) {
       console.error(error);
       setResponseMessage('Ha ocurrido un error, por favor intente nuevamente');
@@ -259,7 +259,7 @@ export default function DataGrid() {
   return (
     <Container>
       <nav className="navbar d-flex justify-content-center">
-        <h2 className="navbar-brand mx-auto text-center" style={{ color: "#B83E42" }}>Interior S-Z</h2>
+        <h2 className="navbar-brand mx-auto text-center" style={{ color: "#B83E42" }}>Interior A-C</h2>
       </nav>
       <Box component="form" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <TextField
@@ -290,7 +290,7 @@ export default function DataGrid() {
           style={{ marginLeft: "1rem" }}
         />
 
-        <Button  style={{color: "#BE3A4A", marginTop: '1em',marginLeft: "10rem" }}  className={classes.containedRight} onClick={handleClickOpen}>Consultar</Button>
+        <Button style={{ color: "#BE3A4A", marginTop: '1em', marginLeft: "10rem" }} onClick={handleClickOpen}>Consultar</Button>
       </Box>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Confirmar</DialogTitle>
@@ -341,7 +341,9 @@ export default function DataGrid() {
           </TableBody>
         </Table>
       </TableContainer>
-      <p>Cantidad de registros: {filteredData.length}</p>
+      <Typography variant="h6" style={{ color: '#BE3A4A' }} >
+        Cantidad de registros: {filteredData.length}
+      </Typography>
     </Container>
   );
 }

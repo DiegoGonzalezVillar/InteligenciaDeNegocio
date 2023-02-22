@@ -1,12 +1,12 @@
-import { Button, Box, AppBar, Container, Toolbar, Typography } from '@mui/material'
+import { Button, Box, AppBar, Toolbar, Typography } from '@mui/material'
+//import {makeStyles} from '@material-ui/core';
 import { useNavigate } from 'react-router-dom'
 import React, { useState } from 'react';
 import logo2 from '../imagenes/logo.svg'
 import { Form, Modal } from 'react-bootstrap';
 import Snackbar from '@material-ui/core/Snackbar'
-import '../style/Navbar.css'
 
-export default function Navbar() {
+const Navbar = () => {
     const navigate = useNavigate()
     const url = 'http://appcomercial.iafap.local:4000/'
     //const url = 'http://localhost:4000/'
@@ -27,9 +27,9 @@ export default function Navbar() {
             setShow(true);
         }
     }
-   /* window.addEventListener("beforeunload", (event) => {
-        localStorage.removeItem("isLoggedIn");
-    });*/
+    /* window.addEventListener("beforeunload", (event) => {
+         localStorage.removeItem("isLoggedIn");
+     });*/
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -54,57 +54,96 @@ export default function Navbar() {
             setResponseMessage(json.message);
         setOpenSnackbar(true);
     }
-    return (
 
-        <Box sx={{ flexGrow: 1 }}>
+    const Logout = () => {
+        const cerrarSesion = () => {
+            localStorage.removeItem("isLoggedIn");
+            setResponseMessage('Sesion Finalizada');
+            setOpenSnackbar(true);
+            navigate('/');
+        }
+        return (
             <AppBar position='static' color='transparent' style={{ backgroundColor: '#FFFFFF' }}>
-                <Container>
-                    <Toolbar>
-                        <Typography sx={{ flexGrow: 1 }} >
-                            <img src={logo2} className="mySvg" flex={1} width={200} height={60} resizemode={'contain'} alt="Logo Iafap" onClick={() => navigate('/')}>
-                            </img>
-                        </Typography>
-                        <Button variante='container' style={{ color: "#BE3A4A" }} onClick={handleShow}>
-                            Actividad
-                        </Button>
-                    </Toolbar>
-                    <Modal animation={false} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                        show={show} onHide={handleClose}>
-                        <Modal.Header closeButton >
-                            <Modal.Title style={{ color: '#BE3A4A' }}>Inicio de sesión</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Form>
-                                <Form.Group controlId="formBasicEmail">
-                                    <Form.Label style={{ color: '#BE3A4A' }} >Usuario</Form.Label>
-                                    <Form.Control type=" text" placeholder="Ingresar Usuario" onChange={(event) => setUsername(event.target.value)} />
-                                </Form.Group>
-                                <Form.Group controlId="formBasicPassword" style={{ marginTop: '10px' }}>
-                                    <Form.Label style={{ color: '#BE3A4A' }}>Contraseña</Form.Label>
-                                    <Form.Control type="password" placeholder=" Ingresar Contraseña" onChange={(event) => setPassword(event.target.value)} />
-                                </Form.Group>
-                            </Form>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secundario" onClick={handleClose} style={{ color: '#BE3A4A' }}>
-                                Cerrar
-                            </Button>
-                            <Button variant="primary" style={{ color: '#BE3A4A' }} onClick={handleSubmit}>
-                                Iniciar Sesión
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-                    <Snackbar
-                        open={openSnackbar}
-                        onClose={() => setOpenSnackbar(false)}
-                        message={responseMessage}
-                        autoHideDuration={3000}
-
-                    />
-
-                </Container>
+                <Toolbar>
+                    <Typography sx={{ flexGrow: 1 }} >
+                        <img src={logo2} className="mySvg" flex={1} width={'15%'} height={60} resizemode={'contain'} alt="Logo Iafap" onClick={() => navigate('/')}>
+                        </img>
+                    </Typography>
+                    <Button style={{ color: '#BE3A4A', marginRight: '20px', fontSize: "90%" }} onClick={handleShow}>
+                        Comercial
+                    </Button>
+                    <Button style={{ color: '#BE3A4A', marginRight: '20px' }} onClick={() => navigate('/tablero')}>
+                        Dashboard
+                    </Button>
+                    <Button style={{ color: '#BE3A4A', marginRight: '100ox' }} onClick={() => navigate('/curvaS')}>
+                        Curva S
+                    </Button>
+                    <Button style={{ color: '#BE3A4A', marginRight: '50px', fontSize: "90%" }} onClick={cerrarSesion}>
+                        Cerrar sesion
+                    </Button>
+                </Toolbar>
             </AppBar>
-        </Box>
 
+        )
+    }
+    const Login = () => {
+        return (
+            <AppBar position='static' color='transparent' style={{ backgroundColor: '#FFFFFF' }}>
+                <Toolbar>
+                    <Typography sx={{ flexGrow: 1 }} >
+                        <img src={logo2} className="mySvg" flex={1} width={200} height={60} resizemode={'contain'} alt="Logo Iafap" onClick={() => navigate('/')}>
+                        </img>
+                    </Typography>
+                    <Button style={{ color: '#BE3A4A', marginRight: '100ox' }} onClick={handleShow}>
+                        Comercial
+                    </Button>
+                    <Button style={{ color: '#BE3A4A', marginRight: '100ox' }} onClick={() => navigate('/tablero')}>
+                        Dashboard
+                    </Button>
+                    <Button style={{ color: '#BE3A4A', marginRight: '100ox' }} onClick={() => navigate('/curvaS')}>
+                        Curva S
+                    </Button>
+                </Toolbar>
+                <Modal animation={false} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    show={show} onHide={handleClose}>
+                    <Modal.Header closeButton >
+                        <Modal.Title style={{ color: '#BE3A4A' }}>Inicio de sesión</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label style={{ color: '#BE3A4A' }} >Usuario</Form.Label>
+                                <Form.Control type=" text" placeholder="Ingresar Usuario" onChange={(event) => setUsername(event.target.value)} />
+                            </Form.Group>
+                            <Form.Group controlId="formBasicPassword" style={{ marginTop: '10px' }}>
+                                <Form.Label style={{ color: '#BE3A4A' }}>Contraseña</Form.Label>
+                                <Form.Control type="password" placeholder=" Ingresar Contraseña" onChange={(event) => setPassword(event.target.value)} />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secundario" onClick={handleClose} style={{ color: '#BE3A4A' }}>
+                            Cerrar
+                        </Button>
+                        <Button variant="primary" style={{ color: '#BE3A4A' }} onClick={handleSubmit}>
+                            Iniciar Sesión
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                <Snackbar
+                    open={openSnackbar}
+                    onClose={() => setOpenSnackbar(false)}
+                    message={responseMessage}
+                    autoHideDuration={4000}
+                />
+            </AppBar>
+        )
+    }
+    return (
+        <Box sx={{ flexGrow: 1 }}>
+            {!isLoggedIn ? Login(): Logout()}
+        </Box>
     )
 }
+
+export default Navbar;

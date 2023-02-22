@@ -22,6 +22,7 @@ import { DialogTitle, DialogContent, DialogContentText, DialogActions } from '@m
 import Snackbar from '@material-ui/core/Snackbar'
 import { Container } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { Typography } from '@material-ui/core';
 
 
 dayjs.extend(isSameOrBefore);
@@ -36,15 +37,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function DataGrid() {
+export default function MontevideoPeriferia() {
   const urlParams = new URLSearchParams(window.location.search);
   const user = urlParams.get('user');
   const navigate = useNavigate()
   useEffect(() => {
-      if (!user) {
-        navigate('/');
-      }
-    },);
+    if (!user) {
+      navigate('/');
+    }
+  },);
   const url = 'http://appcomercial.iafap.local:4000/'
   //const url = 'http://localhost:4000/'
   const [arrayDatosConsultas, setArrayDatosConsultas] = useState([]);
@@ -96,6 +97,7 @@ export default function DataGrid() {
 
     setFilteredData(filtered);
   };
+
   useEffect(() => {
     let filtered = arrayDatosConsultas;
     if (filter !== '') {
@@ -204,24 +206,25 @@ export default function DataGrid() {
     setFilteredData(filtered);
   };
 
+  const fetchData = async () => {
+    const res = await fetch(`${url}montevideoPeriferia`, {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+      },
+    });
+    const data = await res.json();
+
+    data.forEach(item => {
+      item.Fecha_Consulta = new Date(item.Fecha_Consulta).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    });
+
+    setArrayDatosConsultas(data);
+    setFilteredData(data);
+
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(`${url}montevideoPeriferia`, {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-        },
-      });
-      const data = await res.json();
-
-      data.forEach(item => {
-        item.Fecha_Consulta = new Date(item.Fecha_Consulta).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-      });
-      setArrayDatosConsultas(data);
-      setFilteredData(data);
-
-    };
-
     fetchData();
   }, []);
 
@@ -232,7 +235,7 @@ export default function DataGrid() {
         console.log(item.fechaN)
         return {
           cedula: item.cedula,
-          fechaN: item.fechaN
+          fechaN: dayjs(item.Fecha_Consulta, 'DD/MM/YYYY'),
         }
       });
       const response = await fetch(`${url}ultimaConsulta/`, {
@@ -246,6 +249,7 @@ export default function DataGrid() {
       setResponseMessage(json.message);
       setOpenSnackbar(true);
       handleClose()
+      fetchData();
     } catch (error) {
       console.error(error);
       setResponseMessage('Ha ocurrido un error, por favor intente nuevamente');
@@ -338,7 +342,9 @@ export default function DataGrid() {
           </TableBody>
         </Table>
       </TableContainer>
-      <p>Cantidad de registros: {filteredData.length}</p>
+      <Typography variant="h6" style={{ color: '#BE3A4A' }} >
+        Cantidad de registros: {filteredData.length}
+      </Typography>
     </Container>
   );
 }

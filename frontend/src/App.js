@@ -4,14 +4,17 @@ import React, { useState } from 'react';
 import Navbar from './componentes/Navbar'
 import Calendario from './componentes/Calendarios'
 import Inicio from './Principal'
-import Consultas from './actividad/Consultas'
-import MontevideoSur from './actividad/MontevideoSur'
-import InteriorAC from './actividad/InteriorAC'
-import InteriorDR from './actividad/InteriorDR'
-import InteriorSZ from './actividad/InteriorSZ'
-import MontevideoPeriferia from './actividad/MontevideoPeriferia'
+import Consultas from './comercial/Consultas'
+import MontevideoSur from './comercial/MontevideoSur'
+import InteriorAC from './comercial/InteriorAC'
+import InteriorDR from './comercial/InteriorDR'
+import InteriorSZ from './comercial/InteriorSZ'
+import MontevideoPeriferia from './comercial/MontevideoPeriferia'
 import Footer from './componentes/Footer'
 import './App.css'
+import ConsulasApp from "./comercial/ConsultasApp";
+import Tablero from './comercial/Tablero'
+import CurvaS from './comercial/CurvaS'
 //import { AuthProvider } from '../src/componentes/Context';
 
 export const userContext = React.createContext();
@@ -30,6 +33,9 @@ const App = () => {
           <Route path='/interiorAC' element={<InteriorAC />}></Route>
           <Route path='/interiorDR' element={<InteriorDR />}></Route>
           <Route path='/interiorSZ' element={<InteriorSZ />}></Route>
+          <Route path='/datosaApp' element={<ConsulasApp />}></Route>
+          <Route path='/tablero' element={<Tablero />}></Route>
+          <Route path='/curvaS' element={<CurvaS />}></Route>
           <Route path='/calendarios' element={<Calendario />}></Route>
         </Routes>
         <Footer />

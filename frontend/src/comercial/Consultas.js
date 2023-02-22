@@ -14,6 +14,10 @@ const useStyles = makeStyles({
     media: {
         height: 450,
     },
+    texto:{
+        fontWeight: 'bold',
+        fontSize: 20,
+    }
 });
 
 const Consultas = () => {
@@ -28,8 +32,27 @@ const Consultas = () => {
         }
       },);
 
-    function handleClick(user) {
+    function montevideoSur(user) {
         window.location.href = `/montevideoSur?user=${user}`;
+    }
+
+    function montevideoPeriferia(user) {
+        window.location.href = `/montevideoPeriferia?user=${user}`;
+    }
+
+    function InteriorAC(user) {
+        window.location.href = `/InteriorAC?user=${user}`;
+    }
+
+    function InteriorDR(user) {
+        window.location.href = `/InteriorDR?user=${user}`;
+    }
+
+    function InteriorSZ(user) {
+        window.location.href = `/InteriorSZ?user=${user}`;
+    }
+    function datosEnLaApp(user) {
+        window.location.href = `/datosaApp?user=${user}`;
     }
 
     return (
@@ -43,14 +66,14 @@ const Consultas = () => {
                         title="Montevideo Sur"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography className={classes.texto}>
                             Montevideo Sur
                         </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="primary"  onClick={() => handleClick(user)}>
-                        ir a Consultas de Montevideo Sur
+                    <Button size="small" style={{ color: '#BE3A4A'}}  onClick={() => montevideoSur(user)}>
+                        ir a Montevideo Sur
                     </Button>
                 </CardActions>
             </Card>
@@ -62,14 +85,14 @@ const Consultas = () => {
                         title="Montevideo Periferia"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography className={classes.texto}>
                             Montevideo Periferia
                         </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="primary" onClick={() => handleClick(user)}>
-                        Ir a Consultas de Montevideo Periferia
+                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => montevideoPeriferia(user)}>
+                        Ir a Montevideo Periferia
                     </Button>
                 </CardActions>
             </Card>
@@ -82,14 +105,14 @@ const Consultas = () => {
                         title="Interior AC"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography className={classes.texto}>
                             Interior AC
                         </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="primary" onClick={() => handleClick(user)}>
-                        Ir a Consultas de Interior AC
+                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => InteriorAC(user)}>
+                        Ir a Interior AC
                     </Button>
                 </CardActions>
             </Card>
@@ -101,14 +124,14 @@ const Consultas = () => {
                         title="Interior DR"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography className={classes.texto}>
                             Interior DR
                         </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="primary" onClick={() => handleClick(user)}>
-                        Ir a Consultas de Interior DR
+                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => InteriorDR(user)}>
+                        Ir a Interior DR
                     </Button>
                 </CardActions>
             </Card>
@@ -120,14 +143,33 @@ const Consultas = () => {
                         title="Interior SZ"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography className={classes.texto}>
                             Interior SZ
                         </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="primary" onClick={() => handleClick(user)}>
-                        Ir a Consultas de Interior SZ
+                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => InteriorSZ(user)}>
+                        Ir a Interior SZ
+                    </Button>
+                </CardActions>
+            </Card>
+            <Card className={classes.card}>
+                <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                        image={iafap2}
+                        title="Datos cargados en la app"
+                    />
+                    <CardContent>
+                        <Typography className={classes.texto}>
+                            Datos App
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => datosEnLaApp(user)}>
+                        Ir a Datos App
                     </Button>
                 </CardActions>
             </Card>

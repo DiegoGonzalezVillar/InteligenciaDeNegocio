@@ -13,5 +13,6 @@ export const queries = {
     getDatosApp: 'SELECT * FROM [AFAP_Gestion].[dbo].[consultasAppWeb]',
     getAfisPorAsesor: 'SELECT RTRIM(a.asenom) asesor, count(bpsdocu)cantidad FROM [afapformularios].[dbo].[DATBPS] as d, [afapformularios].[dbo].[ASESORES] as a where d.bpsprom = a.asenum and bpsfbps > (SELECT DATEFROMPARTS(YEAR(GETDATE()), 1, 1))group by (RTRIM(a.asenom))',
     getTotalAfiliadosAnterior:'select count(*)Cantidad from [afapformularios].[dbo].[DATBPS] where bpsfbps between (SELECT DATEFROMPARTS(YEAR(GETDATE())-1, 1, 1)) and (SELECT DATEADD(year, -1, GETDATE()))',
+    getInfoDisponible:'SELECT * FROM [AFAP_Gestion].[dbo].[INFO_DISPONIBLE]',
 };
 

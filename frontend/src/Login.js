@@ -4,7 +4,7 @@ import { Card, Grid,CardContent,Box } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar'
 import { Link } from "react-router-dom";
 
-export default function LoginPage() {
+export default function LoginPage(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,6 +35,12 @@ const handleSubmit = async (event) => {
       setResponseMessage(json.message);
       setOpenSnackbar(true);
   }
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      handleSubmit(event);
+    }
+  }
+
 
 
   return (
@@ -44,7 +50,7 @@ const handleSubmit = async (event) => {
         <Box m={3} display="flex" alignItems="center">
         <Card>
           <CardContent>
-            <form>
+            <form onKeyDown={handleKeyDown}>
               <Grid container direction="column" alignItems="center">
                 <Grid item xs={12} style={{marginTop: '20px'}}>
                   <TextField label="Username" variant="outlined" fullWidth onChange={(event) => setUsername(event.target.value)} />

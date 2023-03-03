@@ -55,6 +55,13 @@ const Navbar = () => {
         setOpenSnackbar(true);
     }
 
+    const handleKeyDown = (event) => {
+        if (event.keyCode === 13) {
+          handleSubmit(event);
+        }
+      }
+    
+
     const Logout = () => {
         const cerrarSesion = () => {
             localStorage.removeItem("isLoggedIn");
@@ -66,7 +73,7 @@ const Navbar = () => {
             <AppBar position='static' color='transparent' style={{ backgroundColor: '#FFFFFF' }}>
                 <Toolbar>
                     <Typography sx={{ flexGrow: 1 }} >
-                        <img src={logo2} className="mySvg" flex={1} width={'15%'} height={60} resizemode={'contain'} alt="Logo Iafap" onClick={() => navigate('/')}>
+                        <img src={logo2} className="mySvg" style={{ cursor: 'pointer' }} flex={1} width={'15%'} height={60} resizemode={'contain'} alt="Logo Iafap" onClick={() => navigate('/')}>
                         </img>
                     </Typography>
                     <Button style={{ color: '#BE3A4A', marginRight: '20px', fontSize: "90%" }} onClick={handleShow}>
@@ -91,7 +98,7 @@ const Navbar = () => {
             <AppBar position='static' color='transparent' style={{ backgroundColor: '#FFFFFF' }}>
                 <Toolbar>
                     <Typography sx={{ flexGrow: 1 }} >
-                        <img src={logo2} className="mySvg" flex={1} width={200} height={60} resizemode={'contain'} alt="Logo Iafap" onClick={() => navigate('/')}>
+                        <img src={logo2} style={{ cursor: 'pointer' }} className="mySvg" flex={1} width={200} height={60} resizemode={'contain'} alt="Logo Iafap" onClick={() => navigate('/')}  >
                         </img>
                     </Typography>
                     <Button style={{ color: '#BE3A4A', marginRight: '100ox' }} onClick={handleShow}>
@@ -110,7 +117,7 @@ const Navbar = () => {
                         <Modal.Title style={{ color: '#BE3A4A' }}>Inicio de sesión</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form>
+                        <Form onKeyDown={handleKeyDown}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label style={{ color: '#BE3A4A' }} >Usuario</Form.Label>
                                 <Form.Control type=" text" placeholder="Ingresar Usuario" onChange={(event) => setUsername(event.target.value)} />

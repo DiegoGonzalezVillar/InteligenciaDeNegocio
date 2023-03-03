@@ -12,16 +12,24 @@ export const getUltimaConsultaMontevideoPeriferia = async (req, res) => {
 }
 
 export const getDatosCurvaS = async (req, res) => {
-  const workbook = XLSX.readFile('F:\\Usuario\\Escritorio\\NodeSQL\\backend\\df2023.xlsx');
+  //const workbook = XLSX.readFile('F:\\Usuario\\Escritorio\\NodeSQL\\backend\\src\\controllers\\df2023.xlsx');
+  const workbook = XLSX.readFile('C:\\Compartida Python\\df2023.xlsx');
   const worksheet = workbook.Sheets[workbook.SheetNames[0]];
   const data = XLSX.utils.sheet_to_json(worksheet);
-  res.send(data);
+  res.send(data)
 };
 
 export const getUltimaConsultaMontevideoSur = async (req, res) => {
   const pool = await getConnection()
   const result = await pool.request()
     .query(queries.getUltimaConsultaMontevideoSur);
+  res.json(result.recordset)
+}
+
+export const getInfoDisponible = async (req, res) => {
+  const pool = await getConnection()
+  const result = await pool.request()
+    .query(queries.getInfoDisponible);
   res.json(result.recordset)
 }
 export const getUltimaConsultaInteriorAC = async (req, res) => {

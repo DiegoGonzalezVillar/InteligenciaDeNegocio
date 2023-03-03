@@ -57,6 +57,7 @@ const MontevideoSur = () => {
   const classes = useStyles();
   const [filter, setFilter] = useState('');
   const [filterCiudad, setFilterCiudad] = useState('');
+  const [filterCodigoPostal, setFilterCodigoPostal] = useState('');
   const [value, setValue] = useState(dayjs().startOf('day'));
   const [open, setOpen] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -85,7 +86,11 @@ const MontevideoSur = () => {
         return item.Ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
       });
     }
-
+    if (filterCodigoPostal !== '') {
+      filtered = filtered.filter(item => {
+          return item.CodigoPostal === parseInt(filterCodigoPostal, 10);
+      });
+    }
     if (value) {
       filtered = filtered.filter(item => {
         const date = dayjs(item.Fecha_Consulta, 'DD/MM/YYYY');
@@ -114,7 +119,11 @@ const MontevideoSur = () => {
         return item.Ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
       });
     }
-
+    if (filterCodigoPostal !== '') {
+      filtered = filtered.filter(item => {
+          return item.CodigoPostal === parseInt(filterCodigoPostal, 10);
+      });
+    }
     if (value) {
       filtered = filtered.filter(item => {
         const date = dayjs(item.Fecha_Consulta, 'DD/MM/YYYY');
@@ -128,7 +137,7 @@ const MontevideoSur = () => {
       filtered = filtered.slice(0, filtered.length);
     }
     setFilteredData(filtered);
-  }, [filterCount, filter, filterCiudad, value, arrayDatosConsultas]);
+  }, [filterCount, filter, filterCiudad, value, arrayDatosConsultas, filterCodigoPostal]);
 
 
   const filtroDepartamento = event => {
@@ -146,7 +155,11 @@ const MontevideoSur = () => {
         return item.Ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
       });
     }
-
+    if (filterCodigoPostal !== '') {
+      filtered = filtered.filter(item => {
+          return item.CodigoPostal === parseInt(filterCodigoPostal, 10);
+      });
+    }
     if (value) {
       filtered = filtered.filter(item => {
         const date = dayjs(item.Fecha_Consulta, 'DD/MM/YYYY');
@@ -170,6 +183,12 @@ const MontevideoSur = () => {
     if (filterCiudad !== '') {
       filtered = filtered.filter(item => {
         return item.Ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
+      });
+    }
+    
+    if (filterCodigoPostal !== '') {
+      filtered = filtered.filter(item => {
+          return item.CodigoPostal === parseInt(filterCodigoPostal, 10);
       });
     }
 
@@ -198,7 +217,11 @@ const MontevideoSur = () => {
         return item.Ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
       });
     }
-
+    if (filterCodigoPostal !== '') {
+      filtered = filtered.filter(item => {
+          return item.CodigoPostal === parseInt(filterCodigoPostal, 10);
+      });
+    }
     if (newValue) {
       filtered = filtered.filter(item => {
         const date = dayjs(item.Fecha_Consulta, 'DD/MM/YYYY');
@@ -208,6 +231,37 @@ const MontevideoSur = () => {
 
     setFilteredData(filtered);
   };
+  const filtroCodigoPostal = event => {
+    setFilterCodigoPostal(event.target.value);
+    let filtered = arrayDatosConsultas;
+
+    if (filter !== '') {
+        filtered = filtered.filter(item => {
+            return item.departamento.toLowerCase().includes(filter.toLowerCase());
+        });
+    }
+
+    if (filterCiudad !== '') {
+        filtered = filtered.filter(item => {
+            return item.ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
+        });
+    }
+
+    if (value) {
+      filtered = filtered.filter(item => {
+        const date = dayjs(item.Fecha_Consulta, 'DD/MM/YYYY');
+        return date.isBefore(value.$d) || date.isSame(value.$d);
+      });
+    }
+
+    if (filterCodigoPostal !== '') {
+        filtered = filtered.filter(item => {
+            return item.CodigoPostal === parseInt(filterCodigoPostal, 10);
+        });
+    }
+
+    setFilteredData(filtered);
+};
 
   const fetchData = async () => {
     const res = await fetch(`${url}montevideoSur`, {
@@ -277,6 +331,12 @@ const MontevideoSur = () => {
           value={filterCiudad}
           style={{ marginRight: "1rem" }}
         />
+        <TextField
+          label="Filtro CP"
+          onChange={filtroCodigoPostal}
+          value={filterCodigoPostal}
+          style={{ marginRight: "1rem" }}
+        />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
             label="Seleccionar fecha"
@@ -293,7 +353,7 @@ const MontevideoSur = () => {
           style={{ marginLeft: "1rem" }}
         />
 
-        <Button style={{ color: "#BE3A4A", marginTop: '1em', marginLeft: "10rem" }} className={classes.containedRight} onClick={handleClickOpen}>Consultar</Button>
+        <Button style={{ color: "#BE3A4A", marginTop: '1em', marginLeft: "1rem" }} className={classes.containedRight} onClick={handleClickOpen}>Consultar</Button>
       </Box>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Confirmar</DialogTitle>
@@ -327,6 +387,7 @@ const MontevideoSur = () => {
               <TableCell>Fecha</TableCell>
               <TableCell>Departamento</TableCell>
               <TableCell>Ciudad</TableCell>
+              <TableCell>Codigo Postal</TableCell>
               <TableCell>Ultima Consulta</TableCell>
             </TableRow>
           </TableHead>
@@ -339,6 +400,7 @@ const MontevideoSur = () => {
                 <TableCell>{row.fechaN}</TableCell>
                 <TableCell>{row.Departamento}</TableCell>
                 <TableCell>{row.Ciudad}</TableCell>
+                <TableCell>{row.CodigoPostal}</TableCell>
                 <TableCell>{row.Fecha_Consulta}</TableCell>
               </TableRow>
             ))}

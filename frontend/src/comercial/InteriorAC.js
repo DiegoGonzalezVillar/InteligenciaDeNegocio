@@ -231,7 +231,6 @@ export default function InteriorAC() {
   const cargarDatos = async () => {
     try {
       const datos = filteredData.map(item => {
-        console.log(item.fechaN)
         return {
           cedula: item.cedula,
           fechaN: item.fechaN

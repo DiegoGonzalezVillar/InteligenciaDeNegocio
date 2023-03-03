@@ -15,6 +15,7 @@ import './App.css'
 import ConsulasApp from "./comercial/ConsultasApp";
 import Tablero from './comercial/Tablero'
 import CurvaS from './comercial/CurvaS'
+import InfoDisponible from "./comercial/InfoDisponible";
 //import { AuthProvider } from '../src/componentes/Context';
 
 export const userContext = React.createContext();
@@ -36,6 +37,7 @@ const App = () => {
           <Route path='/datosaApp' element={<ConsulasApp />}></Route>
           <Route path='/tablero' element={<Tablero />}></Route>
           <Route path='/curvaS' element={<CurvaS />}></Route>
+          <Route path='/getInfoDisponible' element={<InfoDisponible />}></Route>
           <Route path='/calendarios' element={<Calendario />}></Route>
         </Routes>
         <Footer />

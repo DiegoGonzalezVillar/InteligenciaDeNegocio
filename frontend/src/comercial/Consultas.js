@@ -25,7 +25,6 @@ const Consultas = () => {
     const navigate = useNavigate()
     let user = localStorage.getItem('isLoggedIn')
 
-    console.log(user)
     useEffect(() => {
         if (!user) {
           navigate('/');
@@ -54,6 +53,9 @@ const Consultas = () => {
     function datosEnLaApp(user) {
         window.location.href = `/datosaApp?user=${user}`;
     }
+    function infoDisponible(user) {
+        window.location.href = `/getInfoDisponible?user=${user}`;
+    }
 
     return (
 
@@ -64,6 +66,7 @@ const Consultas = () => {
                         className={classes.media}
                         image={iafap}
                         title="Montevideo Sur"
+                        onClick={() => montevideoSur(user)}
                     />
                     <CardContent>
                         <Typography className={classes.texto}>
@@ -83,6 +86,7 @@ const Consultas = () => {
                         className={classes.media}
                         image={iafap2}
                         title="Montevideo Periferia"
+                        onClick={() => montevideoPeriferia(user)}
                     />
                     <CardContent>
                         <Typography className={classes.texto}>
@@ -103,6 +107,7 @@ const Consultas = () => {
                         className={classes.media}
                         image={iafap}
                         title="Interior AC"
+                        onClick={() => InteriorAC(user)}
                     />
                     <CardContent>
                         <Typography className={classes.texto}>
@@ -122,6 +127,7 @@ const Consultas = () => {
                         className={classes.media}
                         image={iafap2}
                         title="Interior DR"
+                        onClick={() => InteriorDR(user)}
                     />
                     <CardContent>
                         <Typography className={classes.texto}>
@@ -141,6 +147,7 @@ const Consultas = () => {
                         className={classes.media}
                         image={iafap}
                         title="Interior SZ"
+                        onClick={() => InteriorSZ(user)}
                     />
                     <CardContent>
                         <Typography className={classes.texto}>
@@ -160,6 +167,7 @@ const Consultas = () => {
                         className={classes.media}
                         image={iafap2}
                         title="Datos cargados en la app"
+                        onClick={() => datosEnLaApp(user)}
                     />
                     <CardContent>
                         <Typography className={classes.texto}>
@@ -170,6 +178,26 @@ const Consultas = () => {
                 <CardActions>
                     <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => datosEnLaApp(user)}>
                         Ir a Datos App
+                    </Button>
+                </CardActions>
+            </Card>
+            <Card className={classes.card}>
+                <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                        image={iafap}
+                        title="Informacion Disponible"
+                        onClick={() => infoDisponible(user)}
+                    />
+                    <CardContent>
+                        <Typography className={classes.texto}>
+                            Información Disponible
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => infoDisponible(user)}>
+                        Ir a Info Disponible
                     </Button>
                 </CardActions>
             </Card>

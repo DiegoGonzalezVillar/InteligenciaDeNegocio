@@ -85,6 +85,7 @@ function Simulador() {
                     <Form.Group controlId="formBasicActividad" style={{ marginTop: '10px' }} className="d-flex align-items-center">
                         <Form.Label style={{ color: '#BE3A4A' }}>Actividad</Form.Label>
                         <Form.Control style={{ width: '50%', marginLeft: 'auto' }} as="select" onChange={(event) => setActividad(event.target.value)}>
+                            <option value="">Seleccion una opcion</option>
                             <option value="Industria y Comercio">Industria y Comercio</option>
                             <option value="Civil">Civil</option>
                             <option value="Rural">Rural</option>

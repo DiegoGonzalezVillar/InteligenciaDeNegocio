@@ -56,9 +56,9 @@ export const simuladorProyeccionJubilatoria = (req, res) => {
   const sueldoNumero = parseInt(sueldo)
   const edadNumero = parseInt(edad)
   const args = [sueldoNumero, actividad, art8, edadNumero, parseInt(añosActividad),genero]; 
-  
+
   let returnData = ''
-  const pythonProcess = spawn('python', ['F:\\Usuario\\Escritorio\\Archivos Python\\archivos py\\pruebaSimulador2.py', ...args]);
+  const pythonProcess = spawn('python', ['Y:\\Diego\\Ronald\\pruebaSimulador2.py', ...args]);
 
   pythonProcess.stdout.on('data', (data) => {
     returnData += data

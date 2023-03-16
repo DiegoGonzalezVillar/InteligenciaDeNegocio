@@ -12,7 +12,10 @@ export const queries = {
     insertParaConsultar : "INSERT INTO [SOLOACTIVIDAD].[dbo].[SMSENTRADALEVEL1]([smsnumero], [smscedula], [smsfecnac], [smsresultado], [smscuando], [smstexto], [smsobs], [smseltipo], [smstiempo], [asesor]) VALUES (@numero, @cedula, @fechaN ,0,'17530101 00:00:00.000','',@asesor,5,NULL,@asesor)",
     getDatosApp: 'SELECT * FROM [AFAP_Gestion].[dbo].[consultasAppWeb]',
     getAfisPorAsesor: 'SELECT RTRIM(a.asenom) asesor, count(bpsdocu)cantidad FROM [afapformularios].[dbo].[DATBPS] as d, [afapformularios].[dbo].[ASESORES] as a where d.bpsprom = a.asenum and bpsfbps > (SELECT DATEFROMPARTS(YEAR(GETDATE()), 1, 1))group by (RTRIM(a.asenom))',
-    getTotalAfiliadosAnterior:'select count(*)Cantidad from [afapformularios].[dbo].[DATBPS] where bpsfbps between (SELECT DATEFROMPARTS(YEAR(GETDATE())-1, 1, 1)) and (SELECT DATEADD(year, -1, GETDATE()))',
+    getTotalAfiliadosAnterior:'select count(*)Cantidad from [afapformularios].[dbo].[DATBPS] where bpsfbps >(SELECT DATEFROMPARTS(YEAR(GETDATE())-1, 1, 1))and bpsfbps < (SELECT DATEADD(year, -1, (SELECT CONVERT(date, GETDATE()))))',
     getInfoDisponible:'SELECT * FROM [AFAP_Gestion].[dbo].[INFO_DISPONIBLE]',
+    getDatosAppPorCantidad : 'SELECT departamento as Departamento,ciudad as Ciudad, Count(cedula)Cantidad FROM [AFAP_Gestion].[dbo].[consultasAppWeb] group by departamento,ciudad',
+    getPendientesConsultasComercial: 'SELECT * FROM [AFAP_Gestion].[dbo].[PENDIENTES_CONSULTAS_COMERCIAL]',
+    getAfisPorDepartamento: "SELECT REPLACE(departamento, ' ', '') departamento,[año],sum([cantidad])cantidad FROM [AFAP_Gestion].[dbo].[AFIS_DEPARTAMENTOS]group by [departamento] ,[año] order by departamento",
 };
 

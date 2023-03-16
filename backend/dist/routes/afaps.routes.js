@@ -19,6 +19,7 @@ router.get('/afisPorAsesor', _afaps.getAfisPorAsesor);
 router.get('/curvaS', _afaps.getDatosCurvaS);
 router.get('/totalAfiliadosAnterior', _afaps.getTotalAfiliadosAnterior);
 router.get('/getInfoDisponible', _afaps.getInfoDisponible);
+router.get('/getDatosAppPorCantidad', _afaps.getDatosAppPorCantidad);
 router.post('/ultimaConsulta', _afaps.cargarDatosParaConsultar);
 var _default = router;
 exports["default"] = _default;

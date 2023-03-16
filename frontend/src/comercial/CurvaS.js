@@ -155,7 +155,7 @@ function CurvaS() {
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 datalabels: {
                     anchor: 'end',
-                    align: 'bottom',
+                    align: 'top',
                     offset: 8,
                 }
             },
@@ -169,7 +169,7 @@ function CurvaS() {
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
                 datalabels: {
                     anchor: 'end',
-                    align: 'top',
+                    align: 'bottom',
                     offset: 8,
                 }
             },

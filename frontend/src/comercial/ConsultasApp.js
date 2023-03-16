@@ -17,6 +17,9 @@ import { DialogTitle, DialogContent, DialogContentText, DialogActions } from '@m
 import Snackbar from '@material-ui/core/Snackbar'
 import { useNavigate } from 'react-router-dom'
 import { Typography } from '@material-ui/core';
+import { Modal } from 'react-bootstrap';
+import '../style/TablaModal.css'
+
 
 const useStyles = makeStyles({
     table: {
@@ -28,6 +31,11 @@ const useStyles = makeStyles({
         maxHeight: 440,
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
     },
+    modalDialog: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
 });
 
 export default function ConsulasApp() {
@@ -39,8 +47,9 @@ export default function ConsulasApp() {
             navigate('/');
         }
     },);
-    const url = 'http://appcomercial.iafap.local:4000/'
-    //const url = 'http://localhost:4000/'
+    //const url = 'http://appcomercial.iafap.local:4000/'
+    const url = 'http://localhost:4000/'
+    const [show, setShow] = useState(false);
     const [arrayDatosConsultas, setArrayDatosConsultas] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const classes = useStyles();
@@ -51,6 +60,7 @@ export default function ConsulasApp() {
     const [open, setOpen] = useState(false);
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [responseMessage, setResponseMessage] = useState('');
+    const [arrayPendientesConsultasComercial, setArrayPendientesConsultasComercial] = useState([]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -59,6 +69,8 @@ export default function ConsulasApp() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const cerrarModal = () => setShow(false);
 
     const filtroDepartamento = event => {
         setFilter(event.target.value);
@@ -212,7 +224,7 @@ export default function ConsulasApp() {
 
 
     const fetchData = async () => {
-        const res = await fetch(`${url}datosaApp`, {
+        const res = await fetch(`${url}datosApp`, {
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -254,6 +266,18 @@ export default function ConsulasApp() {
             setResponseMessage(error);
             setOpenSnackbar(true);
         }
+    }
+
+    const pendientesConsultasComercial = async () => {
+        setShow(true);
+        const res = await fetch(`${url}getPendientesConsultasComercial`, {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+            },
+        });
+        const data = await res.json();
+        setArrayPendientesConsultasComercial(data);
     }
 
     return (
@@ -314,7 +338,7 @@ export default function ConsulasApp() {
                 autoHideDuration={5000}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             />
-            <TableContainer className={classes.container} component={Paper} style={{ overflowX: 'auto', marginTop: '1em' }}>
+            <TableContainer className={classes.container} component={Paper} style={{ overflowX: 'auto', marginTop: '1em',width: "auto" }}>
                 <Table className={classes.table} aria-label="data grid">
                     <TableHead >
                         <TableRow >
@@ -342,9 +366,43 @@ export default function ConsulasApp() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Typography variant="h6" style={{ color: '#BE3A4A' }} >
-                Cantidad de registros: {filteredData.length}
-            </Typography>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography variant="h6" style={{ color: '#BE3A4A' }} >
+                    Cantidad de registros: {filteredData.length}
+                </Typography>
+                <Button style={{ color: "#BE3A4A" }} onClick={pendientesConsultasComercial}>Ver datos pendientes</Button>
+            </div>
+
+            <Modal dialogClassName= "modal-dialog" animation={false} show={show} onHide={cerrarModal}>
+                <Modal.Header closeButton >
+                    <Modal.Title style={{ color: '#BE3A4A' }}>Datos pendientes de consulta</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <TableContainer className={classes.container} component={Paper} style={{ overflowX: 'auto', marginTop: '1em' }}>
+                        <Table className={classes.table} aria-label="data grid">
+                            <TableHead >
+                                <TableRow >
+                                    <TableCell>Departamento</TableCell>
+                                    <TableCell>Cantidad</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {arrayPendientesConsultasComercial.map(row => (
+                                    <TableRow key={row.Departamento}>
+                                        <TableCell>{row.Departamento}</TableCell>
+                                        <TableCell>{row.Cantidad}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={cerrarModal} style={{ color: '#BE3A4A' }}>
+                        Cerrar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     );
 }

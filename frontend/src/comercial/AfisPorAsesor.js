@@ -7,7 +7,6 @@ import { Bar } from 'react-chartjs-2';
 import { Table, TableHead, TableBody, TableRow, TableCell,TableContainer,Paper  } from '@material-ui/core';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const useStyles = makeStyles(() => ({
@@ -28,7 +27,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-function Tablero(props) {
+function AfisPorAsesor(props) {
     const classes = useStyles()
     const fecha = new Date()
     const añoActual = fecha.getFullYear();
@@ -111,15 +110,19 @@ function Tablero(props) {
     };
 
     const data = {
-        labels: arrayAfisPorAsesor.map((datos) => datos.asesor),
+        labels: arrayAfisPorAsesor
+          .sort((a, b) => b.cantidad - a.cantidad) // ordenar el array por cantidad de mayor a menor
+          .map((datos) => datos.asesor),
         datasets: [
-            {
-                label: 'Cantidad',
-                data: arrayAfisPorAsesor.map((datos) => datos.cantidad),
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            },
+          {
+            label: 'Cantidad',
+            data: arrayAfisPorAsesor
+              .sort((a, b) => b.cantidad - a.cantidad) // ordenar el array por cantidad de mayor a menor
+              .map((datos) => datos.cantidad),
+            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+          },
         ],
-    };
+      };
 
     return (
         <div>
@@ -180,7 +183,7 @@ function Tablero(props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {arrayAfisPorAsesor.map((row) => (
+                            {arrayAfisPorAsesor.sort((a,b)=>a.asesor.localeCompare(b.asesor)).sort((a,b)=> b.cantidad - a.cantidad).map((row) => (
                                 <TableRow key={row.asesor}>
                                     <TableCell>{row.asesor}</TableCell>
                                     <TableCell>{row.cantidad}</TableCell>
@@ -195,4 +198,4 @@ function Tablero(props) {
     );
 }
 
-export default Tablero;
+export default AfisPorAsesor;

@@ -76,18 +76,19 @@ const Navbar = () => {
                         <img src={logo2} className="mySvg" style={{ cursor: 'pointer' }} flex={1} width={'15%'} height={60} resizemode={'contain'} alt="Logo Iafap" onClick={() => navigate('/')}>
                         </img>
                     </Typography>
+                    <Button style={{ color: '#BE3A4A', marginRight: '20px', fontSize: "90%" }} onClick={() => navigate('/simulador')}>
+                        Simulador
+                    </Button>
                     <Button style={{ color: '#BE3A4A', marginRight: '20px', fontSize: "90%" }} onClick={handleShow}>
                         Comercial
                     </Button>
-                    <Button style={{ color: '#BE3A4A', marginRight: '20px' }} onClick={() => navigate('/tablero')}>
-                        Dashboard
-                    </Button>
-                    <Button style={{ color: '#BE3A4A', marginRight: '100ox' }} onClick={() => navigate('/curvaS')}>
-                        Curva S
+                    <Button style={{ color: '#BE3A4A', marginRight: '20px' }} onClick={() => navigate('/tableros')}>
+                        Informacion
                     </Button>
                     <Button style={{ color: '#BE3A4A', marginRight: '50px', fontSize: "90%" }} onClick={cerrarSesion}>
                         Cerrar sesion
                     </Button>
+                    
                 </Toolbar>
             </AppBar>
 
@@ -101,14 +102,14 @@ const Navbar = () => {
                         <img src={logo2} style={{ cursor: 'pointer' }} className="mySvg" flex={1} width={200} height={60} resizemode={'contain'} alt="Logo Iafap" onClick={() => navigate('/')}  >
                         </img>
                     </Typography>
+                    <Button style={{ color: '#BE3A4A', marginRight: '20px', fontSize: "90%" }} onClick={() => navigate('/simulador')}>
+                        Simulador
+                    </Button>
                     <Button style={{ color: '#BE3A4A', marginRight: '100ox' }} onClick={handleShow}>
                         Comercial
                     </Button>
-                    <Button style={{ color: '#BE3A4A', marginRight: '100ox' }} onClick={() => navigate('/tablero')}>
-                        Dashboard
-                    </Button>
-                    <Button style={{ color: '#BE3A4A', marginRight: '100ox' }} onClick={() => navigate('/curvaS')}>
-                        Curva S
+                    <Button style={{ color: '#BE3A4A', marginRight: '20px' }} onClick={() => navigate('/tableros')}>
+                        Informacion
                     </Button>
                 </Toolbar>
                 <Modal animation={false} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}

@@ -13,9 +13,13 @@ import MontevideoPeriferia from './comercial/MontevideoPeriferia'
 import Footer from './componentes/Footer'
 import './App.css'
 import ConsulasApp from "./comercial/ConsultasApp";
-import Tablero from './comercial/Tablero'
 import CurvaS from './comercial/CurvaS'
 import InfoDisponible from "./comercial/InfoDisponible";
+import DatosApp from "./comercial/DatosApp";
+import AfisPorAsesor from "./comercial/AfisPorAsesor";
+import AfisPorDepartamento from "./comercial/AfisPorDepartamento";
+import Tableros from "./comercial/Tableros";
+import Simulador from "./comercial/Simulador";
 //import { AuthProvider } from '../src/componentes/Context';
 
 export const userContext = React.createContext();
@@ -34,10 +38,14 @@ const App = () => {
           <Route path='/interiorAC' element={<InteriorAC />}></Route>
           <Route path='/interiorDR' element={<InteriorDR />}></Route>
           <Route path='/interiorSZ' element={<InteriorSZ />}></Route>
-          <Route path='/datosaApp' element={<ConsulasApp />}></Route>
-          <Route path='/tablero' element={<Tablero />}></Route>
+          <Route path='/consultarDatosaApp' element={<ConsulasApp />}></Route>
+          <Route path='/getDatosaApp' element={<DatosApp/>}></Route>
+          <Route path='/afisPorAsesor' element={<AfisPorAsesor />}></Route>
           <Route path='/curvaS' element={<CurvaS />}></Route>
           <Route path='/getInfoDisponible' element={<InfoDisponible />}></Route>
+          <Route path='/afisPorDepartamento' element={<AfisPorDepartamento />}></Route>
+          <Route path='/simulador' element={<Simulador />}></Route>
+          <Route path='/tableros' element={<Tableros />}></Route>
           <Route path='/calendarios' element={<Calendario />}></Route>
         </Routes>
         <Footer />

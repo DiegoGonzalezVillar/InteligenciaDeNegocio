@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 });
 
 
-function InfoDisponible(props) {
+function DatosApp(props) {
     const classes = useStyles();
     const urlParams = new URLSearchParams(window.location.search);
     const user = urlParams.get('user');
@@ -63,7 +63,7 @@ function InfoDisponible(props) {
     };
 
     const infoD = async () => {
-        const res = await fetch(`${url}getInfoDisponible`, {
+        const res = await fetch(`${url}getDatosAppPorCantidad`, {
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -98,7 +98,7 @@ function InfoDisponible(props) {
         <div>
             <Container>
                 <nav className="navbar d-flex justify-content-center">
-                    <h2 className="navbar-brand mx-auto text-center" style={{ color: "#B83E42" }}>Información Disponible</h2>
+                    <h2 className="navbar-brand mx-auto text-center" style={{ color: "#B83E42" }}>Datos cargados en la App</h2>
                 </nav>
                 <Box component="form" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}></Box>
                 {/* Creamos la tabla */}
@@ -136,7 +136,6 @@ function InfoDisponible(props) {
                                     return isAsc ? aCantidad - bCantidad : bCantidad - aCantidad;
                                 })
                                 .map((departamento) => {
-                                    console.log(departamento)
                                     const informacionPorDepartamento = informacionDisponible.filter(
                                         (item) => item.Departamento === departamento
                                     );
@@ -234,4 +233,4 @@ function InfoDisponible(props) {
         </div>
     )
 }
-export default InfoDisponible 
+export default DatosApp 

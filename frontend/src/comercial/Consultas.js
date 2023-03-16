@@ -1,7 +1,7 @@
 import iafap from '../imagenes/iafap.png'
 import iafap2 from '../imagenes/iafap2.jpg'
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react';
 
@@ -16,7 +16,8 @@ const useStyles = makeStyles({
     },
     texto:{
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 15,
+        color: '#BE3A4A'
     }
 });
 
@@ -50,11 +51,15 @@ const Consultas = () => {
     function InteriorSZ(user) {
         window.location.href = `/InteriorSZ?user=${user}`;
     }
-    function datosEnLaApp(user) {
-        window.location.href = `/datosaApp?user=${user}`;
+    function consultarDatosApp(user) {
+        window.location.href = `/consultarDatosaApp?user=${user}`;
     }
     function infoDisponible(user) {
         window.location.href = `/getInfoDisponible?user=${user}`;
+    }
+
+    function datosEnLaApp(user) {
+        window.location.href = `/getDatosaApp?user=${user}`;
     }
 
     return (
@@ -74,11 +79,6 @@ const Consultas = () => {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-                <CardActions>
-                    <Button size="small" style={{ color: '#BE3A4A'}}  onClick={() => montevideoSur(user)}>
-                        ir a Montevideo Sur
-                    </Button>
-                </CardActions>
             </Card>
             <Card className={classes.card}>
                 <CardActionArea>
@@ -94,11 +94,6 @@ const Consultas = () => {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-                <CardActions>
-                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => montevideoPeriferia(user)}>
-                        Ir a Montevideo Periferia
-                    </Button>
-                </CardActions>
             </Card>
 
             <Card className={classes.card}>
@@ -115,11 +110,6 @@ const Consultas = () => {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-                <CardActions>
-                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => InteriorAC(user)}>
-                        Ir a Interior AC
-                    </Button>
-                </CardActions>
             </Card>
             <Card className={classes.card}>
                 <CardActionArea>
@@ -135,11 +125,6 @@ const Consultas = () => {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-                <CardActions>
-                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => InteriorDR(user)}>
-                        Ir a Interior DR
-                    </Button>
-                </CardActions>
             </Card>
             <Card className={classes.card}>
                 <CardActionArea>
@@ -155,31 +140,21 @@ const Consultas = () => {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-                <CardActions>
-                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => InteriorSZ(user)}>
-                        Ir a Interior SZ
-                    </Button>
-                </CardActions>
             </Card>
             <Card className={classes.card}>
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
                         image={iafap2}
-                        title="Datos cargados en la app"
-                        onClick={() => datosEnLaApp(user)}
+                        title="Consultar datos de la app"
+                        onClick={() => consultarDatosApp(user)}
                     />
                     <CardContent>
                         <Typography className={classes.texto}>
-                            Datos App
+                            Consultar datos de la App
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-                <CardActions>
-                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => datosEnLaApp(user)}>
-                        Ir a Datos App
-                    </Button>
-                </CardActions>
             </Card>
             <Card className={classes.card}>
                 <CardActionArea>
@@ -195,11 +170,21 @@ const Consultas = () => {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-                <CardActions>
-                    <Button size="small" style={{ color: '#BE3A4A'}} onClick={() => infoDisponible(user)}>
-                        Ir a Info Disponible
-                    </Button>
-                </CardActions>
+            </Card>
+            <Card className={classes.card}>
+                <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                        image={iafap2}
+                        title="Datos de la app"
+                        onClick={() => datosEnLaApp(user)}
+                    />
+                    <CardContent>
+                        <Typography className={classes.texto}>
+                            Datos App
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
             </Card>
         </div>
     )

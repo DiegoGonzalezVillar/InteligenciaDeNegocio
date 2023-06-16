@@ -1,0 +1,22 @@
+.divText{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.texto{
+    text-align: center;
+    color:#B83E42;
+    font-size: 28px !important;
+}
+
+.div-card {
+    display: flex;
+  }
+  
+  .card2 {
+    flex: 1;
+    margin: 10px;
+  }
+

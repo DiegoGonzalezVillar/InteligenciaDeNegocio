@@ -1,0 +1,9 @@
+.snap{
+    overflow-y: hidden;
+    scroll-snap-type: y mandatory;
+  }
+
+.snap-center{
+    scroll-snap-align: center;
+    min-height: calc(100vh - 150px);
+  }

@@ -1,0 +1,94 @@
+.principal{
+    height: 200vh;
+}
+.contenedor{
+    height: calc(100vh - 400px);
+    background-image: url("../imagenes/logo3.png");
+    background-attachment: fixed;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.div-card {
+    height: calc(100vh - 350px);
+    display: flex;
+    justify-content: center;
+  }
+  
+.div-card > * {
+flex: 1 0 50%;
+max-width: 50%;
+}
+
+.text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: calibri;
+    font-size: 40px;
+    color: #BE3A4A;
+    margin: 0;
+    width: 100%;
+  }
+  
+  @media (max-width: 600px) {
+    .text {
+      font-size: 25px;
+    }
+  }
+  
+  @media (min-width: 601px) and (max-width: 960px) {
+    .text {
+      font-size: 40px;
+    }
+  }
+  
+  .text2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: calibri;
+    font-size: 25px;
+    margin: 20px;
+    color: #BE3A4A;
+    text-align: justify;
+    margin-right: 40px;
+  }
+  
+  @media (max-width: 600px) {
+    .text2 {
+      font-size: 15px;
+    }
+  }
+  
+  @media (min-width: 601px) and (max-width: 960px) {
+    .text2 {
+      font-size: 25px;
+    }
+  }
+  
+  .total {
+    color: #000000;
+  }
+
+  .contenedor-principal{
+    height: calc(100vh - 150px);
+    background-image: url("../imagenes/logo3.png");
+    background-attachment: fixed;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.01);
+  }
+
+  .contenedor-principal2{
+    height: calc(100vh - 150px);
+    background-image: url("../imagenes/logo3.png");
+    background-attachment: fixed;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(233, 113, 113, 0.1);
+  }

@@ -1,0 +1,2 @@
+rsc (constante para .js)
+ush(para usar const de useState)

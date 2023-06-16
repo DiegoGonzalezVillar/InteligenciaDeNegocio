@@ -5,13 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #e7ebec;
-  height: 200vh;
-  display: flex;
-  flex-direction: column;
-  /*background-image: url("ruta_de_tu_imagen.jpg");
-  background-size: cover; /* Escala la imagen para que cubra todo el fondo */
-  /*background-repeat: no-repeat; /* Evita que la imagen se repita en el fondo */
+  background: hsl(192, 12%, 92%);
 }
 
 code {

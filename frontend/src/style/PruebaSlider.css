@@ -1,0 +1,42 @@
+.holster {
+  padding-top: 75px;
+  padding-bottom: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-flow: column nowrap;
+}
+
+.miContenedor {
+  display: flex;
+  overflow: auto;
+  flex: none;
+  height: calc(100vh - 150px);
+}
+
+.miContenedor.y {
+  width: 100%;
+  flex-flow: column nowrap;
+}
+
+.y.mandatory-scroll-snapping {
+  scroll-snap-type: y mandatory;
+}
+
+.miContenedor > div {
+  scroll-snap-align: center;
+  flex: none;
+}
+
+.y.miContenedor > div {
+  width: 100%;
+  height: 100%;
+}
+
+.div1{
+  background-color: blueviolet;
+}
+
+.div2{
+  background-color: chartreuse;
+}

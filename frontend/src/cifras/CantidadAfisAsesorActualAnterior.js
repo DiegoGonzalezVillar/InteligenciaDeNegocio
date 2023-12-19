@@ -7,6 +7,7 @@ import { URL } from "../comercial/Constantes.js";
 import "../style/AsesorActualAnterior.css";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Titulo from "../componentes/Titulo.js";
 
 ChartJS.register(Title, Tooltip, Legend);
 
@@ -53,10 +54,11 @@ function CantidadAfisAsesorActualAnterior(props) {
   }, []);
 
   const options = {
+    maintainAspectRatio: false,
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        position: "bottom",
       },
       title: {
         display: true,
@@ -171,28 +173,13 @@ function CantidadAfisAsesorActualAnterior(props) {
             </Card>
           </Grid>
         </Grid>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <h2
-            style={{
-              color: "#B83E42",
-              fontSize: "22px",
-              marginTop: "10px",
-            }}
-          >
-            Año Actual vs Anterior
-          </h2>
-        </div>
-
+        <Titulo title="Año Actual vs Anterior" />
         <Grid container>
           <Grid item xs={0} sm={0} md={2} lg={2} xl={2}></Grid>
           <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-            <Bar options={options} data={data} plugins={[ChartDataLabels]} />
+            <div style={{ height: "600px" }}>
+              <Bar options={options} data={data} plugins={[ChartDataLabels]} />
+            </div>
           </Grid>
         </Grid>
       </div>

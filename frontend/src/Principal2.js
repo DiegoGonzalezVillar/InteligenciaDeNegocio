@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./style/Principal.css";
 import iafap from "./imagenes/iafap.png";
 import ActionAreaCard from "./componentes/ActionAreaCard";
-import { useEffect } from "react";
-import { URL } from "../src/comercial/Constantes";
 
 export const Principal2 = () => {
-  const [total, setTotal] = useState("");
   const fecha = new Date();
   const añoActual = fecha.getFullYear();
-  let porcentaje = Math.round((total / 8500) * 100);
+  //let porcentaje = Math.round((total / 8500) * 100);
 
   let texto = "Inteligencia de Negocio";
   let texto2 = (
@@ -29,8 +26,8 @@ export const Principal2 = () => {
   let texto4 = (
     <p>
       En lo que va del {añoActual}, contamos con un total de{" "}
-      <strong>{total}</strong> afiliados, representando el{" "}
-      <strong>{porcentaje}%</strong> de la meta antes mencionada.
+      <strong>{5000}</strong> afiliados, representando el <strong>{40}%</strong>{" "}
+      de la meta antes mencionada.
     </p>
   );
   let texto5 = (
@@ -50,23 +47,6 @@ export const Principal2 = () => {
     </div>
   );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`${URL}totalAfiliados`, {
-          method: "GET",
-          headers: {
-            accept: "application/json",
-          },
-        });
-        const data = await res.json();
-        setTotal(data[0].Cantidad);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, []);
   return (
     <div className="principal">
       <div className="div-card">

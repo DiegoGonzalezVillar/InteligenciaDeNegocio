@@ -24,8 +24,10 @@ import Tableros from "./cifras/Tableros";
 import CantidadAfisAsesorActualAnterior from "./cifras/CantidadAfisAsesorActualAnterior";
 import Piramide from "./cifras/Piramide";
 import CantidadPorMail from "./cifras/MailPorAsesor";
-import { Principal2 } from "./Principal2";
+//import { Principal2 } from "./Principal2";
 import PruebaSlider from "./cifras/PruebaSlider";
+import CuentasVst from "./prestaciones/CuentasVst";
+import Limites from "./inversiones/Limites";
 
 export const userContext = React.createContext();
 
@@ -37,7 +39,6 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Inicio />}></Route>
-          <Route path="/principal" element={<Principal2 />}></Route>
           <Route path="/consultas" element={<Consultas />}></Route>
           <Route
             path="/montevideoPeriferia"
@@ -66,6 +67,8 @@ const App = () => {
           <Route path="/cantidadPorEdadyPorSexo" element={<Piramide />}></Route>
           <Route path="/calendarios" element={<Calendario />}></Route>
           <Route path="/pruebaSlider" element={<PruebaSlider />}></Route>
+          <Route path="/prestaciones" element={<CuentasVst />}></Route>
+          <Route path="/inversiones" element={<Limites />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

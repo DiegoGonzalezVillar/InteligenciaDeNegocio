@@ -23,6 +23,9 @@ import {
   getCantPorEdadYPorSexo,
   getCantidadPorMail,
   getCantidadPorMailPorAnio,
+  getObtenerVst,
+  getLimites,
+  getLimites30008,
 } from "../controllers/afaps.controller";
 //import { login,getDatosCurvaS,getTotalAfiliados,getUltimaConsultaMontevideoPeriferia,getUltimaConsultaInteriorSZ,getUltimaConsultaMontevideoSur,getUltimaConsultaInteriorDR,getUltimaConsultaInteriorAC,cargarDatosParaConsultar, getDatosApp,getAfisPorAsesor,getTotalAfiliadosAnterior,getInfoDisponible,getDatosAppPorCantidad, getPendientesConsultasComercial,getAfisPorDepartamento,simuladorProyeccionJubilatoria } from "../controllers/afaps.controller"
 const router = Router();
@@ -53,5 +56,8 @@ router.get("/getCantidadPorMail", getCantidadPorMail);
 router.get("/getCantidadPorMailPorAnio", getCantidadPorMailPorAnio);
 router.post("/simuladorProyeccionJubilatoria", simuladorProyeccionJubilatoria);
 router.post("/ultimaConsulta", cargarDatosParaConsultar);
+router.post("/getObtenerVst", getObtenerVst);
+router.get("/ejecutarLimites", getLimites);
+router.get("/ejecutarLimites30008", getLimites30008);
 
 export default router;

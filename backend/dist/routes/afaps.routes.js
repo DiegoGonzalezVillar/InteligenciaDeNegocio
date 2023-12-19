@@ -31,5 +31,8 @@ router.get("/getCantidadPorMail", _afaps.getCantidadPorMail);
 router.get("/getCantidadPorMailPorAnio", _afaps.getCantidadPorMailPorAnio);
 router.post("/simuladorProyeccionJubilatoria", _afaps.simuladorProyeccionJubilatoria);
 router.post("/ultimaConsulta", _afaps.cargarDatosParaConsultar);
+router.post("/getObtenerVst", _afaps.getObtenerVst);
+router.get("/ejecutarLimites", _afaps.getLimites);
+router.get("/ejecutarLimites30008", _afaps.getLimites30008);
 var _default = router;
 exports["default"] = _default;

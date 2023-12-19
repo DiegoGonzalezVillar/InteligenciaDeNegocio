@@ -1,4 +1,4 @@
-import { getConnection, getOracleConnection } from "../database/connection";
+import { getConnection } from "../database/connection";
 import { queries } from "../database/querys";
 const XLSX = require("xlsx");
 const { spawn } = require("child_process");
@@ -36,6 +36,109 @@ export const getDatosCurvaS = async (req, res) => {
   res.send(data);
 };
 
+export const getLimites = (req, res) => {
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    ["C:\\Compartida Python\\consulta30006.py"],
+    {
+      detached: true,
+      stdio: ["ignore", "pipe", "pipe"], // Pipe para stdout y stderr
+    }
+  );
+  let outputData = "";
+
+  pythonProcess.stdout.on("data", (data) => {
+    outputData += data.toString();
+    console.log(outputData);
+  });
+
+  pythonProcess.on("close", (codigo) => {
+    if (codigo === 0) {
+      res.status(200).send({
+        message: "Consulta ejecutada correctamente",
+      });
+    } else {
+      res.status(500).send({
+        message: `Error al ejecutar el script de Python. Código de salida: ${codigo}`,
+        output: outputData.trim(), // Se puede obtener incluso en caso de error
+        exitCode: codigo,
+      });
+    }
+  });
+
+  pythonProcess.on("error", (error) => {
+    console.error(`Error al ejecutar el script de Python: ${error}`);
+    res.status(500).send({
+      message: "Error al ejecutar el script de Python",
+      output: outputData.trim(), // También se puede obtener en caso de error
+      exitCode: -1, // Un valor de código de salida personalizado para errores
+    });
+  });
+};
+
+export const getLimites30008 = (req, res) => {
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    ["C:\\Compartida Python\\consulta30008.py"],
+    {
+      detached: true,
+      stdio: ["ignore", "pipe", "pipe"], // Pipe para stdout y stderr
+    }
+  );
+  let outputData = "";
+
+  pythonProcess.stdout.on("data", (data) => {
+    outputData += data.toString();
+    console.log(outputData);
+  });
+
+  pythonProcess.on("close", (codigo) => {
+    if (codigo === 0) {
+      res.status(200).send({
+        message: "Consulta ejecutada correctamente",
+      });
+    } else {
+      res.status(500).send({
+        message: `Error al ejecutar el script de Python. Código de salida: ${codigo}`,
+        output: outputData.trim(), // Se puede obtener incluso en caso de error
+        exitCode: codigo,
+      });
+    }
+  });
+
+  pythonProcess.on("error", (error) => {
+    console.error(`Error al ejecutar el script de Python: ${error}`);
+    res.status(500).send({
+      message: "Error al ejecutar el script de Python",
+      output: outputData.trim(), // También se puede obtener en caso de error
+      exitCode: -1, // Un valor de código de salida personalizado para errores
+    });
+  });
+};
+
+export const getObtenerVst = async (req, res) => {
+  const excelFile = req.files.excelFile;
+  const workbook = XLSX.read(excelFile.data);
+  const sheetName = workbook.SheetNames[0];
+  const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+  const cedulasArray = sheetData.map((item) => item.cedulas);
+  const cedulasString = cedulasArray.join("','");
+  const query = `
+    SELECT CI, Subestado
+    FROM [192.168.20.2].[IAFAPCRM].[sysdba].[CRM_Comercial]
+    WHERE CI IN ('${cedulasString}') AND Subestado IN ('VST', 'CST')
+  `;
+
+  const pool = await getConnection();
+  const result = await pool.request().query(query);
+
+  res.json({
+    message: "Archivo Excel procesado exitosamente",
+    data: result.recordset,
+  });
+};
+
 export const simuladorProyeccionJubilatoria = (req, res) => {
   const {
     sueldo,
@@ -59,31 +162,28 @@ export const simuladorProyeccionJubilatoria = (req, res) => {
     edadNumero,
     parseInt(añosActividad),
     genero,
-    cantidadHijos,
+    parseInt(cantidadHijos),
     actividadBonificada,
     bonificada,
     saldoAcumulacion,
     saldoRetiro,
   ];
+  console.log(args);
 
   let returnData = "";
   //const pythonProcess = spawn('C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', ['C:\\Compartida Python\\simuladorV1.py', ...args]);
   const pythonProcess = spawn("python", [
-    "F:\\Usuario\\Escritorio\\simuladorV1.py",
+    "F:\\Usuario\\Escritorio\\simuladorV2.py",
     ...args,
   ]);
-
   pythonProcess.stdout.on("data", (data) => {
     returnData += data;
   });
-
   pythonProcess.stderr.on("data", (data) => {
     console.error(`stderr: ${data}`);
   });
-
   pythonProcess.on("close", (code) => {
     console.log(`child process exited with code ${code}`);
-    res.json(JSON.parse(returnData));
   });
 };
 
@@ -212,7 +312,7 @@ export const login = async (req, res) => {
 };
 
 export const cargarDatosParaConsultar = async (req, res) => {
-  console.log(req);
+  //console.log(res);
   const pool = await getConnection();
   const asesores = [3118, 2071, 1400, 3153, 2030];
   let asesor = "";
@@ -226,6 +326,7 @@ export const cargarDatosParaConsultar = async (req, res) => {
       .input("numero", numero)
       .query(queries.insertSmsEntrada);
     for (let i = 0; i < req.body.length; i++) {
+      console.log("pool");
       asesor = asesores[Math.floor(Math.random() * asesores.length)];
       const { cedula, fechaN } = req.body[i];
       await pool
@@ -236,8 +337,11 @@ export const cargarDatosParaConsultar = async (req, res) => {
         .input("asesor", asesor)
         .query(queries.insertParaConsultar);
     }
+
     res.json({ message: "Datos insertados con exito!" });
   } catch (error) {
-    res.status(500).json({ message: "Error al cargar los datos" });
+    res
+      .status(500)
+      .json({ message: "Error al cargar los datos Wein Ronnnney" });
   }
 };

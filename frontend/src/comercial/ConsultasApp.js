@@ -26,6 +26,8 @@ import { Modal } from "react-bootstrap";
 import "../style/TablaModal.css";
 import { URL } from "./Constantes.js";
 import Titulo from "../componentes/Titulo";
+import { Select, MenuItem } from "@material-ui/core";
+import { useRef } from "react";
 
 const useStyles = makeStyles({
   table: {
@@ -53,12 +55,14 @@ export default function ConsulasApp() {
       navigate("/");
     }
   });
+  const selectRef = useRef(null);
   const [show, setShow] = useState(false);
   const [arrayDatosConsultas, setArrayDatosConsultas] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const classes = useStyles();
-  const [filter, setFilter] = useState("");
-  const [filterCiudad, setFilterCiudad] = useState("");
+  const [filterDepartamento, setFilterDepartamento] = useState("");
+  const [filterCiudad, setFilterCiudad] = useState([]);
+  const [ciudadesFiltradas, setCiudadesFiltradas] = useState([]);
   const [filterUltimaAccion, setFilterUltimaAccion] = useState("");
   const [filterCodigoPostal, setFilterCodigoPostal] = useState("");
   const [open, setOpen] = useState(false);
@@ -80,18 +84,27 @@ export default function ConsulasApp() {
   const cerrarModal = () => setShow(false);
 
   const filtroDepartamento = (event) => {
-    setFilter(event.target.value);
+    const selectedValue = selectRef.current.value;
+    console.log(selectedValue);
+    setFilterDepartamento(event.target.value);
     let filtered = arrayDatosConsultas;
 
-    if (filter !== "") {
+    if (filterDepartamento !== "") {
       filtered = filtered.filter((item) => {
-        return item.departamento.toLowerCase().includes(filter.toLowerCase());
+        return item.departamento
+          .toLowerCase()
+          .includes(filterDepartamento.toLowerCase());
       });
     }
 
     if (filterCiudad !== "") {
       filtered = filtered.filter((item) => {
-        return item.ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
+        const ciudadesFiltradas = filterCiudad.map((ciudad) =>
+          ciudad.toLowerCase()
+        );
+        return ciudadesFiltradas.some((ciudadFiltrada) =>
+          item.ciudad.toLowerCase().includes(ciudadFiltrada)
+        );
       });
     }
     if (filterCodigoPostal !== "") {
@@ -114,15 +127,22 @@ export default function ConsulasApp() {
     setFilterCiudad(event.target.value);
     let filtered = arrayDatosConsultas;
 
-    if (filter !== "") {
+    if (filterDepartamento !== "") {
       filtered = filtered.filter((item) => {
-        return item.departamento.toLowerCase().includes(filter.toLowerCase());
+        return item.departamento
+          .toLowerCase()
+          .includes(filterDepartamento.toLowerCase());
       });
     }
 
     if (filterCiudad !== "") {
       filtered = filtered.filter((item) => {
-        return item.ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
+        const ciudadesFiltradas = filterCiudad.map((ciudad) =>
+          ciudad.toLowerCase()
+        );
+        return ciudadesFiltradas.some((ciudadFiltrada) =>
+          item.ciudad.toLowerCase().includes(ciudadFiltrada)
+        );
       });
     }
     if (filterCodigoPostal !== "") {
@@ -146,15 +166,22 @@ export default function ConsulasApp() {
     setFilterUltimaAccion(event.target.value);
     let filtered = arrayDatosConsultas;
 
-    if (filter !== "") {
+    if (filterDepartamento !== "") {
       filtered = filtered.filter((item) => {
-        return item.departamento.toLowerCase().includes(filter.toLowerCase());
+        return item.departamento
+          .toLowerCase()
+          .includes(filterDepartamento.toLowerCase());
       });
     }
 
     if (filterCiudad !== "") {
       filtered = filtered.filter((item) => {
-        return item.ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
+        const ciudadesFiltradas = filterCiudad.map((ciudad) =>
+          ciudad.toLowerCase()
+        );
+        return ciudadesFiltradas.some((ciudadFiltrada) =>
+          item.ciudad.toLowerCase().includes(ciudadFiltrada)
+        );
       });
     }
 
@@ -171,7 +198,6 @@ export default function ConsulasApp() {
           .includes(filterUltimaAccion.toLowerCase());
       });
     }
-
     setFilteredData(filtered);
   };
 
@@ -179,15 +205,22 @@ export default function ConsulasApp() {
     setFilterCodigoPostal(event.target.value);
     let filtered = arrayDatosConsultas;
 
-    if (filter !== "") {
+    if (filterDepartamento !== "") {
       filtered = filtered.filter((item) => {
-        return item.departamento.toLowerCase().includes(filter.toLowerCase());
+        return item.departamento
+          .toLowerCase()
+          .includes(filterDepartamento.toLowerCase());
       });
     }
 
     if (filterCiudad !== "") {
       filtered = filtered.filter((item) => {
-        return item.ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
+        const ciudadesFiltradas = filterCiudad.map((ciudad) =>
+          ciudad.toLowerCase()
+        );
+        return ciudadesFiltradas.some((ciudadFiltrada) =>
+          item.ciudad.toLowerCase().includes(ciudadFiltrada)
+        );
       });
     }
 
@@ -210,15 +243,29 @@ export default function ConsulasApp() {
 
   useEffect(() => {
     let filtered = arrayDatosConsultas;
-    if (filter !== "") {
+    if (filterDepartamento !== "") {
       filtered = filtered.filter((item) => {
-        return item.departamento.toLowerCase().includes(filter.toLowerCase());
+        return item.departamento
+          .toLowerCase()
+          .includes(filterDepartamento.toLowerCase());
       });
+      const ciudades = Array.from(
+        new Set(
+          arrayDatosConsultas
+            .filter((item) => item.departamento.trim() === filterDepartamento)
+            .map((item) => item.ciudad.trim())
+        )
+      ).sort();
+      setCiudadesFiltradas(ciudades);
     }
-
     if (filterCiudad !== "") {
       filtered = filtered.filter((item) => {
-        return item.ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
+        const ciudadesFiltradas = filterCiudad.map((ciudad) =>
+          ciudad.toLowerCase()
+        );
+        return ciudadesFiltradas.some((ciudadFiltrada) =>
+          item.ciudad.toLowerCase().includes(ciudadFiltrada)
+        );
       });
     }
 
@@ -238,7 +285,7 @@ export default function ConsulasApp() {
     setFilteredData(filtered);
   }, [
     filterUltimaAccion,
-    filter,
+    filterDepartamento,
     filterCiudad,
     filterCodigoPostal,
     arrayDatosConsultas,
@@ -263,7 +310,6 @@ export default function ConsulasApp() {
   const cargarDatos = async () => {
     try {
       const datos = filteredData.map((item) => {
-        console.log(item.fechaN);
         return {
           cedula: item.cedula,
           fechaN: item.fechaN,
@@ -298,7 +344,9 @@ export default function ConsulasApp() {
     const data = await res.json();
     setArrayPendientesConsultasComercial(data);
   };
-
+  const departamentosUnicos = Array.from(
+    new Set(arrayDatosConsultas.map((item) => item.departamento.trim()))
+  ).sort();
   return (
     <div className="content">
       <Container>
@@ -311,18 +359,70 @@ export default function ConsulasApp() {
             justifyContent: "space-between",
           }}
         >
-          <TextField
-            label="Filtro por Departamento"
+          <Select
+            ref={selectRef}
+            label="Departamento"
             onChange={filtroDepartamento}
-            value={filter}
-            style={{ marginRight: "1rem" }}
-          />
-          <TextField
-            label="Filtro por Ciudad"
+            value={filterDepartamento}
+            style={{
+              marginRight: "1rem",
+              minWidth: "200px",
+              marginTop: "16px",
+            }}
+            MenuProps={{
+              anchorOrigin: {
+                vertical: "bottom", // Posición vertical del origen del menú
+                horizontal: "left", // Posición horizontal del origen del menú
+              },
+              transformOrigin: {
+                vertical: "top", // Posición vertical de la transformación del menú
+                horizontal: "left", // Posición horizontal de la transformación del menú
+              },
+              getContentAnchorEl: null, // Deshabilita la posición relativa al contenido
+              style: {
+                maxHeight: "2000px",
+                overflowY: "auto",
+              },
+            }}
+          >
+            {departamentosUnicos.map((departamento) => (
+              <MenuItem key={departamento} value={departamento}>
+                {departamento}
+              </MenuItem>
+            ))}
+          </Select>
+          <Select
+            label="Ciudad"
             onChange={filtroCiudad}
             value={filterCiudad}
-            style={{ marginRight: "1rem" }}
-          />
+            multiple={true}
+            style={{
+              marginRight: "1rem",
+              width: "200px",
+              marginTop: "16px",
+            }}
+            MenuProps={{
+              anchorOrigin: {
+                vertical: "bottom", // Posición vertical del origen del menú
+                horizontal: "left", // Posición horizontal del origen del menú
+              },
+              transformOrigin: {
+                vertical: "top", // Posición vertical de la transformación del menú
+                horizontal: "left", // Posición horizontal de la transformación del menú
+              },
+              getContentAnchorEl: null, // Deshabilita la posición relativa al contenido
+              style: {
+                maxHeight: "2000px",
+                overflowY: "auto",
+              },
+            }}
+          >
+            {ciudadesFiltradas.map((ciudad) => (
+              <MenuItem key={ciudad} value={ciudad}>
+                {ciudad}
+              </MenuItem>
+            ))}
+          </Select>
           <TextField
             label="Filtro por Ultima Accion"
             onChange={filtroUltimaAccion}

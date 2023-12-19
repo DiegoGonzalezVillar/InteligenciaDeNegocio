@@ -1,4 +1,4 @@
-import { Button, Toolbar, Typography } from "@mui/material";
+import { Toolbar, Typography, Button } from "@mui/material";
 //import {makeStyles} from '@material-ui/core';
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
@@ -77,17 +77,24 @@ const Navbar = () => {
               onClick={() => navigate("/")}
             ></img>
           </Typography>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
-            onClick={() => navigate("/simulador")}
-          >
-            Simulador
-          </Button>
+
           <Button
             style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
             onClick={handleShow}
           >
             Comercial
+          </Button>
+          <Button
+            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            onClick={() => navigate("/inversiones")}
+          >
+            Inversiones
+          </Button>
+          <Button
+            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            onClick={() => navigate("/simulador")}
+          >
+            Simulador
           </Button>
           <Button
             style={{ color: "#BE3A4A", marginRight: "20px" }}
@@ -123,16 +130,28 @@ const Navbar = () => {
             ></img>
           </Typography>
           <Button
+            style={{ color: "#BE3A4A", marginRight: "20px" }}
+            onClick={handleShow}
+          >
+            Comercial
+          </Button>
+          <Button
+            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            onClick={() => navigate("/inversiones")}
+          >
+            Inversiones
+          </Button>
+          <Button
+            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            onClick={() => navigate("/prestaciones")}
+          >
+            Prestaciones
+          </Button>
+          <Button
             style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
             onClick={() => navigate("/simulador")}
           >
             Simulador
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "100ox" }}
-            onClick={handleShow}
-          >
-            Comercial
           </Button>
           <Button
             style={{ color: "#BE3A4A", marginRight: "20px" }}

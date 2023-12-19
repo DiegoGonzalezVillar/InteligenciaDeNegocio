@@ -129,7 +129,7 @@ function MailPorAsesor(props) {
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        position: "bottom",
       },
       title: {
         display: true,
@@ -320,6 +320,7 @@ function MailPorAsesor(props) {
                       title: {
                         ...options.plugins.title,
                         text: "Porcentaje de SI",
+                        position: "bottom",
                       },
                     },
                   }}

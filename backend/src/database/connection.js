@@ -1,45 +1,26 @@
-import sql from 'mssql'
-const {db, oracleDb} = require('../config')
-const oracle = require('oracledb');
-
+import sql from "mssql";
+const { db } = require("../config");
 
 const dbSettings = {
-    user : db.user,
-    password: db.password,
-    server: db.server,
-    database: db.database,
-    database2: db.database2,
-    database3: db.database3,
-    options:{
-        trustServerCertificate: true,
-        encrypt: false
-    }
-}
-
-export async function getConnection(){
-  try {
-      const pool = await sql.connect(dbSettings)
-      return pool;
-  } catch (error) {
-      console.error(error)
-  }
-}
-
-const oracleDbSettings = {
-  user: oracleDb.user,
-  password: oracleDb.password,
-  connectString: `${oracleDb.server}:${oracleDb.port}/${oracleDb.service}`
+  user: db.user,
+  password: db.password,
+  server: db.server,
+  database: db.database,
+  database2: db.database2,
+  database3: db.database3,
+  options: {
+    trustServerCertificate: true,
+    encrypt: false,
+  },
 };
 
-export async function getOracleConnection() {
+export async function getConnection() {
   try {
-    const pool = await oracle.getConnection(oracleDbSettings);
-    console.log(pool)
+    const pool = await sql.connect(dbSettings);
     return pool;
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
   }
 }
 
-export {sql}
-
+export { sql };

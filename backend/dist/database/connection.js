@@ -25,7 +25,9 @@ var dbSettings = {
   database3: db.database3,
   options: {
     trustServerCertificate: true,
-    encrypt: false
+    encrypt: false,
+    connectTimeout: 300000,
+    requestTimeout: 300000
   }
 };
 function getConnection() {

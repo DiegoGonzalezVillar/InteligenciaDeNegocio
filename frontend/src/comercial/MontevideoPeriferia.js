@@ -44,6 +44,11 @@ const useStyles = makeStyles({
 });
 
 export default function MontevideoPeriferia() {
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
   const urlParams = new URLSearchParams(window.location.search);
   const user = urlParams.get("user");
   const navigate = useNavigate();
@@ -330,7 +335,7 @@ export default function MontevideoPeriferia() {
   return (
     <div className="content">
       <Container>
-        <Titulo title="Montevideo Periferia" />
+        <Titulo style={estilosTitulo} title="Montevideo Periferia" />
         <Box
           component="form"
           sx={{

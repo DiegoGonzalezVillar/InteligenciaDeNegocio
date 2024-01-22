@@ -21,7 +21,7 @@ export const queries = {
     "SELECT * FROM [2023_AFAP_GESTION].[dbo].[ULTIMA_CONSULTA] where departamento in ('SALTO','SAN JOSE', 'SORIANO' , 'TACUAREMBO', 'TREINTA Y TRES')",
   insertParaConsultar:
     "INSERT INTO [SOLOACTIVIDAD].[dbo].[SMSENTRADALEVEL1]([smsnumero], [smscedula], [smsfecnac], [smsresultado], [smscuando], [smstexto], [smsobs], [smseltipo], [smstiempo], [asesor]) VALUES (@numero, @cedula, @fechaN ,0,'17530101 00:00:00.000','',@asesor,5,NULL,@asesor)",
-  getDatosApp: "SELECT * FROM [2023_AFAP_GESTION].[dbo].[consultasAppWeb]",
+  getDatosApp: "SELECT * FROM [2023_AFAP_GESTION].[dbo].[CONSULTAS_APP_WEB]",
   getAfisPorAsesor:
     "SELECT RTRIM(a.asenom) asesor, count(bpsdocu)cantidad FROM [afapformularios].[dbo].[DATBPS] as d, [afapformularios].[dbo].[ASESORES] as a where d.bpsprom = a.asenum and bpsfbps > (SELECT DATEFROMPARTS(YEAR(GETDATE()), 1, 1))group by (RTRIM(a.asenom))",
   getTotalAfiliadosAnterior:

@@ -46,6 +46,11 @@ const useStyles = makeStyles({
 });
 
 export default function InteriorAC() {
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
   const urlParams = new URLSearchParams(window.location.search);
   const user = urlParams.get("user");
   const navigate = useNavigate();
@@ -263,7 +268,7 @@ export default function InteriorAC() {
   return (
     <div className="content">
       <Container>
-        <Titulo title="Interior A-C" />
+        <Titulo style={estilosTitulo} title="Interior A-C" />
         <Box
           component="form"
           sx={{

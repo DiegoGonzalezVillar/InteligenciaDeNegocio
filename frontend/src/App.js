@@ -5,18 +5,15 @@ import Navbar from "./componentes/Navbar";
 import Calendario from "./componentes/Calendarios";
 import Inicio from "./Principal";
 import Footer from "./componentes/Footer";
-
 import Consultas from "./comercial/Consultas";
 import MontevideoSur from "./comercial/MontevideoSur";
 import InteriorAC from "./comercial/InteriorAC";
 import InteriorDR from "./comercial/InteriorDR";
 import InteriorSZ from "./comercial/InteriorSZ";
 import MontevideoPeriferia from "./comercial/MontevideoPeriferia";
-import ConsulasApp from "./comercial/ConsultasApp";
 import InfoDisponible from "./comercial/InfoDisponible";
 import DatosApp from "./comercial/DatosApp";
 import Simulador from "./comercial/Simulador";
-
 import CurvaS from "./cifras/CurvaS";
 import AfisPorAsesor from "./cifras/AfisPorAsesor";
 import AfisPorDepartamento from "./cifras/AfisPorDepartamento";
@@ -24,10 +21,12 @@ import Tableros from "./cifras/Tableros";
 import CantidadAfisAsesorActualAnterior from "./cifras/CantidadAfisAsesorActualAnterior";
 import Piramide from "./cifras/Piramide";
 import CantidadPorMail from "./cifras/MailPorAsesor";
-//import { Principal2 } from "./Principal2";
 import PruebaSlider from "./cifras/PruebaSlider";
 import CuentasVst from "./prestaciones/CuentasVst";
 import Limites from "./inversiones/Limites";
+import Administracion from "./administracion/Administracion";
+import GeneracionTxt from "./administracion/GeneracionTxt";
+import LetrasRM from "./administracion/LetrasRM";
 
 export const userContext = React.createContext();
 
@@ -48,7 +47,7 @@ const App = () => {
           <Route path="/interiorAC" element={<InteriorAC />}></Route>
           <Route path="/interiorDR" element={<InteriorDR />}></Route>
           <Route path="/interiorSZ" element={<InteriorSZ />}></Route>
-          <Route path="/consultarDatosaApp" element={<ConsulasApp />}></Route>
+          {/*<Route path="/consultarDatosaApp" element={<ConsulasApp />}></Route>*/}
           <Route path="/getDatosaApp" element={<DatosApp />}></Route>
           <Route path="/afisPorAsesor" element={<AfisPorAsesor />}></Route>
           <Route path="/curvaS" element={<CurvaS />}></Route>
@@ -69,6 +68,9 @@ const App = () => {
           <Route path="/pruebaSlider" element={<PruebaSlider />}></Route>
           <Route path="/prestaciones" element={<CuentasVst />}></Route>
           <Route path="/inversiones" element={<Limites />}></Route>
+          <Route path="/administracion" element={<Administracion />}></Route>
+          <Route path="/generacionTxt" element={<GeneracionTxt />}></Route>
+          <Route path="/letrasRM" element={<LetrasRM />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

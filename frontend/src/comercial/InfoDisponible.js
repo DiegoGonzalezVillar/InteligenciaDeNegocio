@@ -31,6 +31,11 @@ const useStyles = makeStyles({
 });
 
 function InfoDisponible(props) {
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
   const classes = useStyles();
   const urlParams = new URLSearchParams(window.location.search);
   const user = urlParams.get("user");
@@ -107,7 +112,7 @@ function InfoDisponible(props) {
   return (
     <div className="content">
       <Container>
-        <Titulo title="Informacion Disponible" />
+        <Titulo style={estilosTitulo} title="Informacion Disponible" />
         <Box
           component="form"
           sx={{

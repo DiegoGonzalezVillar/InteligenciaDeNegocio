@@ -25,6 +25,11 @@ ChartJS.register(
 );
 
 function AfisPorDepartamento(props) {
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
   const [
     arrayAfiliacionesPorDepartamento,
     setarrayAfiliacionesPorDepartamento,
@@ -115,7 +120,7 @@ function AfisPorDepartamento(props) {
   return (
     <div className="content">
       <div className="contenedor-principal">
-        <Titulo title="Afiliaciones por Departamento" />
+        <Titulo style={estilosTitulo} title="Afiliaciones por Departamento" />
         <Grid container style={{ marginTop: "2%" }}>
           <Grid item xs={0} sm={0} md={2} lg={2} xl={2}></Grid>
           <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>

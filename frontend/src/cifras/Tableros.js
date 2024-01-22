@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     margin: "10px",
   },
   media: {
-    height: 450,
+    height: 240,
   },
   texto: {
     fontWeight: "bold",
@@ -28,6 +28,12 @@ const useStyles = makeStyles({
 
 const Tableros = () => {
   const classes = useStyles();
+
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
 
   function afisPorAsesor() {
     window.location.href = `/afisPorAsesor`;
@@ -53,12 +59,13 @@ const Tableros = () => {
 
   return (
     <div className="content">
-      <Titulo title="Integración en Cifras" />
+      <Titulo style={estilosTitulo} title="Integración en Cifras" />
       <div
         style={{
           display: "flex",
           allowContent: "center",
           alignItems: "center",
+          marginTop: "30px",
         }}
       >
         <Card className={classes.card}>

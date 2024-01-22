@@ -47,6 +47,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 function MailPorAsesor(props) {
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
   const añoActual = new Date().getFullYear();
   const mesActual = new Date().toLocaleString("es-ES", { month: "long" });
   const nombreMesActual =
@@ -190,7 +195,10 @@ function MailPorAsesor(props) {
   return (
     <div className="content">
       <div className="contenedor-principal">
-        <Titulo title="Afiliaciones por Asesor con Mail" />
+        <Titulo
+          style={estilosTitulo}
+          title="Afiliaciones por Asesor con Mail"
+        />
         {loading ? (
           <p>Loading...</p> // Display a loading indicator or message
         ) : (

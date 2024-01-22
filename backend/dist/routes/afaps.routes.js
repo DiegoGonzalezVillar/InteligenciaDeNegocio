@@ -6,7 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _express = require("express");
 var _afaps = require("../controllers/afaps.controller");
-//import { login,getDatosCurvaS,getTotalAfiliados,getUltimaConsultaMontevideoPeriferia,getUltimaConsultaInteriorSZ,getUltimaConsultaMontevideoSur,getUltimaConsultaInteriorDR,getUltimaConsultaInteriorAC,cargarDatosParaConsultar, getDatosApp,getAfisPorAsesor,getTotalAfiliadosAnterior,getInfoDisponible,getDatosAppPorCantidad, getPendientesConsultasComercial,getAfisPorDepartamento,simuladorProyeccionJubilatoria } from "../controllers/afaps.controller"
+var _administracion = require("../controllers/administracion.controller");
+var _inversiones = require("../controllers/inversiones.controller");
+var _prestaciones = require("../controllers/prestaciones.controller");
 var router = (0, _express.Router)();
 router.post("/login", _afaps.login);
 router.get("/montevideoPeriferia", _afaps.getUltimaConsultaMontevideoPeriferia);
@@ -31,8 +33,17 @@ router.get("/getCantidadPorMail", _afaps.getCantidadPorMail);
 router.get("/getCantidadPorMailPorAnio", _afaps.getCantidadPorMailPorAnio);
 router.post("/simuladorProyeccionJubilatoria", _afaps.simuladorProyeccionJubilatoria);
 router.post("/ultimaConsulta", _afaps.cargarDatosParaConsultar);
-router.post("/getObtenerVst", _afaps.getObtenerVst);
-router.get("/ejecutarLimites", _afaps.getLimites);
-router.get("/ejecutarLimites30008", _afaps.getLimites30008);
+router.post("/getObtenerVst", _prestaciones.getObtenerVst);
+router.post("/getAnioDeDATBPS", _prestaciones.getObtenerVst);
+
+//INVERSIONES
+router.get("/ejecutarLimites30006", _inversiones.getLimites30006);
+router.get("/ejecutarLimites30008", _inversiones.getLimites30008);
+
+//ADMINISTRACION
+router.get("/txtAcumulacion", _administracion.getTxtAcumulacion);
+router.get("/txtRetiro", _administracion.getTxtRetiro);
+router.get("/txtCrecimiento", _administracion.getTxtCrecimiento);
+router.get("/informeDirectorio", _administracion.informeDirectorio);
 var _default = router;
 exports["default"] = _default;

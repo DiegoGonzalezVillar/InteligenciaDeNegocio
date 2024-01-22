@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid, makeStyles, Card, CardMedia } from "@material-ui/core";
-import iafap from "./imagenes/iafap.png";
+import iafap from "./imagenes/IafapPrincipal.svg";
 import { useEffect } from "react";
 import { URL } from "../src/comercial/Constantes";
 
@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
     boxShadow:
       "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
     "& > *": {
-      margin: theme.spacing(2),
-      width: theme.spacing(16),
-      height: theme.spacing(16),
+      margin: theme.spacing(1),
+      width: theme.spacing(4),
+      height: theme.spacing(4),
     },
   },
   media: {
@@ -38,9 +38,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  grilla: {
-    margin: theme.spacing(0),
-  },
+
   text: {
     display: "flex",
     alignItems: "center",
@@ -71,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       fontSize: "25px",
     },
+
     color: "#BE3A4A",
     textAlign: "justify",
     marginRight: theme.spacing(5),
@@ -88,21 +87,22 @@ const Principal = () => {
   const [total, setTotal] = useState("");
   const fecha = new Date();
   const añoActual = fecha.getFullYear();
-  let porcentaje = Math.round((total / 8500) * 100);
+  const meta = 15000;
+  let porcentaje = Math.round((total / meta) * 100);
 
   let texto = "Inteligencia de Negocio";
   let texto2 = (
     <p>
-      En esta web encontraran informacion relevante a la gestión y resultados
+      En esta web encontrarán informacion relevante a la gestión y resultados
       del equipo comercial.
     </p>
   );
   let texto3 = (
     <p>
       Para este año la Gerencia Comercial estableció como{" "}
-      <strong> meta anual</strong> la cantidad de <strong>8.500</strong>{" "}
-      afiliaciones, el equipo dispone de{" "}
-      <strong>18 asesores previsionales y 1 supervisor.</strong>
+      <strong> meta anual</strong> la cantidad de{" "}
+      <strong>{meta.toLocaleString("es-ES")}</strong> afiliaciones, el equipo
+      dispone de <strong>18 asesores previsionales y 1 supervisor.</strong>
     </p>
   );
   let texto4 = (
@@ -159,7 +159,7 @@ const Principal = () => {
             />
           </Card>
         </Grid>
-        <Grid className={classes.grilla} item sm={12} md={12} lg={6}>
+        <Grid item sm={12} md={12} lg={6}>
           {combinedText}
         </Grid>
       </Grid>

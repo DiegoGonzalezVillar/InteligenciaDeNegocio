@@ -86,6 +86,12 @@ const Navbar = () => {
           </Button>
           <Button
             style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            onClick={() => navigate("/administracion")}
+          >
+            Administracion
+          </Button>
+          <Button
+            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
             onClick={() => navigate("/inversiones")}
           >
             Inversiones
@@ -134,6 +140,12 @@ const Navbar = () => {
             onClick={handleShow}
           >
             Comercial
+          </Button>
+          <Button
+            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            onClick={() => navigate("/administracion")}
+          >
+            Administracion
           </Button>
           <Button
             style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}

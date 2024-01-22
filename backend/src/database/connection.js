@@ -11,6 +11,8 @@ const dbSettings = {
   options: {
     trustServerCertificate: true,
     encrypt: false,
+    connectTimeout: 300000,
+    requestTimeout: 300000,
   },
 };
 

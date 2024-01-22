@@ -1,8 +1,4 @@
-.mySvg:hover {
-    fill: #4c2882;
-  }
-
-  .mi-navbar{
+.mi-navbar{
   position: fixed;
   z-index: 9999;
   top: 0;

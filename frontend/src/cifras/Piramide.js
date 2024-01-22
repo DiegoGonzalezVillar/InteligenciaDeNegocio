@@ -24,6 +24,11 @@ ChartJS.register(
 );
 
 const Piramide = () => {
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
   const [
     arrayAfiliacionesPorEdadYPorSexo,
     setArrayAfiliacionesPorEdadYPorSexo,
@@ -163,7 +168,10 @@ const Piramide = () => {
   return (
     <div className="content">
       <div className="contenedor-principal">
-        <Titulo title="Afiliaciones distribuidas por edad y por sexo" />
+        <Titulo
+          style={estilosTitulo}
+          title="Afiliaciones distribuidas por edad y por sexo"
+        />
         <Grid container>
           <Grid item xs={0} sm={0} md={2} lg={2} xl={2}></Grid>
           <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>

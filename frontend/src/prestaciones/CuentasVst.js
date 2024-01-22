@@ -8,6 +8,12 @@ import { saveAs } from "file-saver";
 function ExcelUploader() {
   const [file, setFile] = useState(null);
 
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
+
   const handleDrop = (acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       setFile(acceptedFiles[0]);
@@ -65,8 +71,8 @@ function ExcelUploader() {
 
   return (
     <div className="content">
-      <div className="contenedor-principal">
-        <Titulo title="Cuentas VST" />
+      <div className="contenedor-principal2">
+        <Titulo style={estilosTitulo} title="Cuentas VST" />
         <div
           style={{
             display: "flex",

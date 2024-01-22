@@ -47,6 +47,11 @@ const useStyles = makeStyles({
 });
 
 export default function ConsulasApp() {
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
   const urlParams = new URLSearchParams(window.location.search);
   const user = urlParams.get("user");
   const navigate = useNavigate();
@@ -350,7 +355,7 @@ export default function ConsulasApp() {
   return (
     <div className="content">
       <Container>
-        <Titulo title="Consultas APP" />
+        <Titulo style={estilosTitulo} title="Consultas APP" />
         <Box
           component="form"
           sx={{

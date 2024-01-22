@@ -29,6 +29,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import { URL } from "./Constantes.js";
+import Titulo from "../componentes/Titulo";
 
 dayjs.extend(isSameOrBefore);
 
@@ -45,6 +46,11 @@ const useStyles = makeStyles({
 });
 
 export default function InteriorDR() {
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
   const urlParams = new URLSearchParams(window.location.search);
   const user = urlParams.get("user");
   const navigate = useNavigate();
@@ -264,14 +270,7 @@ export default function InteriorDR() {
   return (
     <div className="content">
       <Container>
-        <nav className="navbar d-flex justify-content-center">
-          <h2
-            className="navbar-brand mx-auto text-center"
-            style={{ color: "#B83E42" }}
-          >
-            Interior D-R
-          </h2>
-        </nav>
+        <Titulo style={estilosTitulo} title="Interior D-R" />
         <Box
           component="form"
           sx={{

@@ -80,7 +80,7 @@ max-width: 50%;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: rgba(0, 0, 0, 0.01);
+    background-color: rgba(75, 72, 122, 0.01);
   }
 
   .contenedor-principal2{
@@ -90,5 +90,5 @@ max-width: 50%;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: rgba(233, 113, 113, 0.1);
+    background-color: rgba(230, 230, 230, 0.247);
   }

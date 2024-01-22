@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     margin: "10px",
   },
   media: {
-    height: 450,
+    height: 240,
   },
   texto: {
     fontWeight: "bold",
@@ -29,6 +29,11 @@ const useStyles = makeStyles({
 });
 
 const Consultas = () => {
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
   const classes = useStyles();
   const navigate = useNavigate();
   let user = localStorage.getItem("isLoggedIn");
@@ -58,9 +63,9 @@ const Consultas = () => {
   function InteriorSZ(user) {
     window.location.href = `/InteriorSZ?user=${user}`;
   }
-  function consultarDatosApp(user) {
+  /*function consultarDatosApp(user) {
     window.location.href = `/consultarDatosaApp?user=${user}`;
-  }
+  }*/
   function infoDisponible(user) {
     window.location.href = `/getInfoDisponible?user=${user}`;
   }
@@ -71,12 +76,13 @@ const Consultas = () => {
 
   return (
     <div className="content">
-      <Titulo title="Inteligencia de Negocio" />
+      <Titulo style={estilosTitulo} title="Inteligencia de Negocio" />
       <div
         style={{
           display: "flex",
           allowContent: "center",
           alignItems: "center",
+          marginTop: "30px",
         }}
       ></div>
       <div
@@ -154,7 +160,7 @@ const Consultas = () => {
             </CardContent>
           </CardActionArea>
         </Card>
-        <Card className={classes.card}>
+        {/*<Card className={classes.card}>
           <CardActionArea>
             <CardMedia
               className={classes.media}
@@ -168,7 +174,7 @@ const Consultas = () => {
               </Typography>
             </CardContent>
           </CardActionArea>
-        </Card>
+      </Card>*/}
         <Card className={classes.card}>
           <CardActionArea>
             <CardMedia

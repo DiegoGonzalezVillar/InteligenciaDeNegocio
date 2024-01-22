@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Titulo from "../componentes/Titulo";
 import { URL } from "../../src/comercial/Constantes";
 import { makeStyles } from "@material-ui/core/styles";
-import iafap from "../imagenes/isotipos2.svg";
+import iafap from "../imagenes/isotipos.svg";
 import {
   Card,
   CardActionArea,
@@ -27,12 +27,10 @@ const useStyles = makeStyles({
     textAlign: "center",
   },
 });
-
 const MyComponent = () => {
+  const classes = useStyles();
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const classes = useStyles();
 
   const estilosTitulo = {
     color: "#BE3A4A",
@@ -40,29 +38,20 @@ const MyComponent = () => {
     // Puedes agregar más propiedades de estilo según sea necesario
   };
 
-  const consulta30008 = async () => {
+  function generacionTxt() {
+    window.location.href = `/generacionTxt`;
+  }
+
+  function letraRM() {
+    window.location.href = `/letrasRM`;
+  }
+
+  const informeDirectorio = async () => {
     setMessage("");
     setLoading(true); // Establecer el estado de carga en true antes de la solicitud
 
     try {
-      const response = await fetch(`${URL}ejecutarLimites30008`);
-      const data = await response.text();
-      let mensaje = JSON.parse(data).message;
-      setMessage(mensaje); // Actualiza el estado con el mensaje de respuesta del servidor
-    } catch (error) {
-      console.error("Error al ejecutar el archivo .bat:", error);
-      setMessage("Error al ejecutar el archivo .bat");
-    } finally {
-      setLoading(false); // Establecer el estado de carga en false después de la solicitud (éxito o error)
-    }
-  };
-
-  const consulta30006 = async () => {
-    setMessage("");
-    setLoading(true); // Establecer el estado de carga en true antes de la solicitud
-
-    try {
-      const response = await fetch(`${URL}ejecutarLimites30006`); // Llama al endpoint /ejecutar-bat en el servidor
+      const response = await fetch(`${URL}informeDirectorio`);
       const data = await response.text();
       let mensaje = JSON.parse(data).message;
       setMessage(mensaje); // Actualiza el estado con el mensaje de respuesta del servidor
@@ -77,7 +66,7 @@ const MyComponent = () => {
   return (
     <div className="content">
       <div className="contenedor-principal2">
-        <Titulo style={estilosTitulo} title="Limites" />
+        <Titulo style={estilosTitulo} title="Menú Administración" />
         <div
           style={{
             display: "flex",
@@ -91,12 +80,12 @@ const MyComponent = () => {
               <CardMedia
                 className={classes.media}
                 image={iafap}
-                title="Consulta 30006"
-                onClick={() => consulta30006()}
+                title="Generacion Txt"
+                onClick={() => generacionTxt()}
               />
               <CardContent>
                 <Typography className={classes.texto}>
-                  Consulta 30006
+                  Generacion de Txt
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -107,12 +96,25 @@ const MyComponent = () => {
               <CardMedia
                 className={classes.media}
                 image={iafap}
-                title="Consulta 30008"
-                onClick={() => consulta30008()}
+                title="Generacion Txt"
+                onClick={() => letraRM()}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>Letras de RM</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={iafap}
+                title="Informe Directorio"
+                onClick={() => informeDirectorio()}
               />
               <CardContent>
                 <Typography className={classes.texto}>
-                  Consulta 30008
+                  Informe Directorio
                 </Typography>
               </CardContent>
             </CardActionArea>

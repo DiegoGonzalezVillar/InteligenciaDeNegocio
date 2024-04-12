@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { URL } from "./Constantes.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { useNavigate } from "react-router-dom";
-import { Container } from "@mui/material";
 import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
 import {
   Table,
   TableBody,
@@ -14,6 +12,9 @@ import {
   TableRow,
   Paper,
   TableSortLabel,
+  Grid,
+  Typography,
+  Card,
 } from "@material-ui/core";
 import CircularProgress from "@mui/material/CircularProgress";
 import Titulo from "../componentes/Titulo";
@@ -28,9 +29,24 @@ const useStyles = makeStyles({
     maxHeight: "100%",
     backgroundColor: "rgba(255, 255, 255, 0.5)",
   },
+  tarjeta: {
+    background: "#BE3A4A",
+    margin: "20px 20px 20px 20px",
+  },
+  texto: {
+    fontSize: 24,
+    color: "white",
+    textAlign: "center",
+  },
+  titulo: {
+    fontWeight: "bold",
+    fontSize: 25,
+    color: "white",
+    textAlign: "center",
+  },
 });
 
-function DatosApp(props) {
+const DatosApp = () => {
   const estilosTitulo = {
     color: "#BE3A4A",
     marginTop: "15px", // Por ejemplo, aquí se define el margen superior
@@ -52,6 +68,8 @@ function DatosApp(props) {
     useState(null);
   const [orderByCiudades, setOrderByCiudades] = React.useState("Cantidad");
   const [orderCiudades, setOrderCiudades] = React.useState("desc");
+  const [informacionDisponible, setinformacionDisponible] = useState([]);
+  const [totalCargadosApp, setTotalCargadosApp] = useState(0);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -60,7 +78,7 @@ function DatosApp(props) {
     infoD(orderBy, order);
   };
 
-  const handleRequestSortCiudades = (property) => {
+  const handleRequestSortCiudades = (event, property) => {
     const isAsc = orderByCiudades === property && orderCiudades === "asc";
     setOrderByCiudades(property);
     setOrderCiudades(isAsc ? "desc" : "asc");
@@ -78,9 +96,21 @@ function DatosApp(props) {
   };
   useEffect(() => {
     infoD();
-  });
+  }, []);
 
-  const [informacionDisponible, setinformacionDisponible] = useState();
+  console.log(informacionDisponible);
+
+  const resultadoTotalCargadosApp = () => {
+    const totalDatosApp = informacionDisponible.reduce(
+      (total, item) => total + item.Cantidad,
+      0
+    );
+    setTotalCargadosApp(totalDatosApp);
+  };
+
+  useEffect(() => {
+    resultadoTotalCargadosApp();
+  });
 
   // Obtenemos la lista de departamentos únicos para crear las opciones del filtro
   let departamentosUnicos = [];
@@ -111,162 +141,181 @@ function DatosApp(props) {
 
   return (
     <div className="content">
-      <Container>
-        <Titulo style={estilosTitulo} title="DATOS APP" />
-        <Box
-          component="form"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        ></Box>
-        {/* Creamos la tabla */}
-        <TableContainer
-          className={classes.container}
-          component={Paper}
-          style={{ overflowX: "auto", marginTop: "1em" }}
-        >
-          <Table className={classes.table} aria-label="data grid">
-            <TableHead>
-              <TableRow>
-                <TableCell>Departamento</TableCell>
-                <TableCell
-                  sortDirection={orderBy === "Cantidad" ? order : false}
-                >
-                  <TableSortLabel
-                    active={orderBy === "Cantidad"}
-                    direction={orderBy === "Cantidad" ? order : "asc"}
-                    onClick={(event) => handleRequestSort(event, "Cantidad")}
+      <Titulo style={estilosTitulo} title="DATOS APP" />
+      <Grid container style={{ marginTop: "20px" }}>
+        <Grid item xs={1}></Grid>
+        <Grid item xs={2}>
+          <Card className={classes.tarjeta}>
+            <Typography className={classes.texto}>
+              Total de datos cargados
+            </Typography>
+            <Typography className={classes.texto}>
+              {totalCargadosApp}
+            </Typography>
+          </Card>
+        </Grid>
+        <Grid item xs={7}>
+          <TableContainer
+            component={Paper}
+            style={{ overflowX: "auto", marginTop: "20px" }}
+          >
+            <Table className={classes.table} aria-label="data grid">
+              <TableHead style={{ backgroundColor: "#BE3A4A" }}>
+                <TableRow>
+                  <TableCell align="center" style={{ color: "white" }}>
+                    Departamento
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: "white" }}
+                    sortDirection={orderBy === "Cantidad" ? order : false}
                   >
-                    Cantidad Total
-                  </TableSortLabel>
-                </TableCell>
-                <TableCell>Ciudades</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {departamentosUnicos
-                .sort((a, b) => {
-                  const isAsc = order === "asc";
-                  const aCantidad = informacionDisponible
-                    .filter((item) => item.Departamento === a)
-                    .reduce((total, item) => total + item.Cantidad, 0);
-                  const bCantidad = informacionDisponible
-                    .filter((item) => item.Departamento === b)
-                    .reduce((total, item) => total + item.Cantidad, 0);
-                  return isAsc ? aCantidad - bCantidad : bCantidad - aCantidad;
-                })
-                .map((departamento) => {
-                  const informacionPorDepartamento =
-                    informacionDisponible.filter(
-                      (item) => item.Departamento === departamento
+                    <TableSortLabel
+                      align="center"
+                      style={{ color: "white" }}
+                      active={orderBy === "Cantidad"}
+                      direction={orderBy === "Cantidad" ? order : "asc"}
+                      onClick={(event) => handleRequestSort(event, "Cantidad")}
+                    >
+                      Cantidad Total
+                    </TableSortLabel>
+                  </TableCell>
+                  <TableCell align="center" style={{ color: "white" }}>
+                    Ciudades
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {departamentosUnicos
+                  .sort((a, b) => {
+                    const isAsc = order === "asc";
+                    const aCantidad = informacionDisponible
+                      .filter((item) => item.Departamento === a)
+                      .reduce((total, item) => total + item.Cantidad, 0);
+                    const bCantidad = informacionDisponible
+                      .filter((item) => item.Departamento === b)
+                      .reduce((total, item) => total + item.Cantidad, 0);
+                    return isAsc
+                      ? aCantidad - bCantidad
+                      : bCantidad - aCantidad;
+                  })
+                  .map((departamento) => {
+                    const informacionPorDepartamento =
+                      informacionDisponible.filter(
+                        (item) => item.Departamento === departamento
+                      );
+                    const cantidadTotal = informacionPorDepartamento.reduce(
+                      (total, item) => total + item.Cantidad,
+                      0
                     );
-                  const cantidadTotal = informacionPorDepartamento.reduce(
-                    (total, item) => total + item.Cantidad,
-                    0
-                  );
-                  return (
-                    <React.Fragment key={departamento}>
-                      <TableRow>
-                        <TableCell>{departamento}</TableCell>
-                        <TableCell>{cantidadTotal}</TableCell>
-                        <TableCell>
-                          <Button
-                            style={{ color: "#BE3A4A", marginRight: "10px" }}
-                            onClick={() => {
-                              if (departamentoSeleccionado === departamento) {
-                                setDepartamentoSeleccionado(null);
-                              } else {
-                                setDepartamentoSeleccionado(departamento);
-                              }
-                            }}
-                          >
-                            {departamentoSeleccionado === departamento
-                              ? "Cerrar Ciudades"
-                              : "Ver Ciudades"}
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                      {departamentoSeleccionado === departamento && (
+                    return (
+                      <React.Fragment key={departamento}>
                         <TableRow>
-                          <TableCell colSpan={3}>
-                            <TableContainer
-                              component={Paper}
-                              style={{ marginTop: "1em" }}
+                          <TableCell align="center">{departamento}</TableCell>
+                          <TableCell align="center">{cantidadTotal}</TableCell>
+                          <TableCell align="center">
+                            <Button
+                              style={{
+                                color: "#BE3A4A",
+                              }}
+                              onClick={() => {
+                                if (departamentoSeleccionado === departamento) {
+                                  setDepartamentoSeleccionado(null);
+                                } else {
+                                  setDepartamentoSeleccionado(departamento);
+                                }
+                              }}
                             >
-                              <Table
-                                className={classes.table}
-                                aria-label="ciudades"
-                              >
-                                <TableHead>
-                                  <TableRow>
-                                    <TableCell>Ciudad</TableCell>
-                                    <TableCell
-                                      sortDirection={
-                                        orderByCiudades === "Cantidad"
-                                          ? orderCiudades
-                                          : false
-                                      }
-                                    >
-                                      <TableSortLabel
-                                        active={orderByCiudades === "Cantidad"}
-                                        direction={
-                                          orderByCiudades === "Cantidad"
-                                            ? orderCiudades
-                                            : "asc"
-                                        }
-                                        onClick={() =>
-                                          handleRequestSortCiudades("Cantidad")
-                                        }
-                                      >
-                                        Cantidad
-                                      </TableSortLabel>
-                                    </TableCell>
-                                  </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                  {informacionPorDepartamento
-                                    .sort((a, b) => {
-                                      const isAsc = orderCiudades === "asc";
-                                      const aCantidad = a.Cantidad;
-                                      const bCantidad = b.Cantidad;
-                                      return isAsc
-                                        ? aCantidad - bCantidad
-                                        : bCantidad - aCantidad;
-                                    })
-                                    .map((item) => (
-                                      <TableRow key={item.Ciudad}>
-                                        <TableCell component="th" scope="row">
-                                          {item.Ciudad}
-                                        </TableCell>
-                                        <TableCell>{item.Cantidad}</TableCell>
-                                      </TableRow>
-                                    ))}
-                                </TableBody>
-                              </Table>
-                            </TableContainer>
+                              {departamentoSeleccionado === departamento
+                                ? "Cerrar Ciudades"
+                                : "Ver Ciudades"}
+                            </Button>
                           </TableCell>
                         </TableRow>
-                      )}
-                    </React.Fragment>
-                  );
-                })
-                .sort((a, b) => {
-                  const isAsc = order === "asc";
-                  const aCantidad = a.props.children[1]?.props?.children;
-                  const bCantidad = b.props.children[1]?.props?.children;
-                  if (isAsc) {
-                    return aCantidad - bCantidad;
-                  } else {
-                    return bCantidad - aCantidad;
-                  }
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
+                        {departamentoSeleccionado === departamento && (
+                          <TableRow>
+                            <TableCell colSpan={3}>
+                              <TableContainer
+                                component={Paper}
+                                style={{ marginTop: "1em" }}
+                              >
+                                <Table
+                                  className={classes.table}
+                                  aria-label="ciudades"
+                                >
+                                  <TableHead>
+                                    <TableRow>
+                                      <TableCell>Ciudad</TableCell>
+                                      <TableCell
+                                        sortDirection={
+                                          orderByCiudades === "Cantidad"
+                                            ? orderCiudades
+                                            : false
+                                        }
+                                      >
+                                        <TableSortLabel
+                                          active={
+                                            orderByCiudades === "Cantidad"
+                                          }
+                                          direction={
+                                            orderByCiudades === "Cantidad"
+                                              ? orderCiudades
+                                              : "asc"
+                                          }
+                                          onClick={() =>
+                                            handleRequestSortCiudades(
+                                              "Cantidad"
+                                            )
+                                          }
+                                        >
+                                          Cantidad
+                                        </TableSortLabel>
+                                      </TableCell>
+                                    </TableRow>
+                                  </TableHead>
+                                  <TableBody>
+                                    {informacionPorDepartamento
+                                      .sort((a, b) => {
+                                        const isAsc = orderCiudades === "asc";
+                                        const aCantidad = a.Cantidad;
+                                        const bCantidad = b.Cantidad;
+                                        return isAsc
+                                          ? aCantidad - bCantidad
+                                          : bCantidad - aCantidad;
+                                      })
+                                      .map((item) => (
+                                        <TableRow key={item.Ciudad}>
+                                          <TableCell component="th" scope="row">
+                                            {item.Ciudad}
+                                          </TableCell>
+                                          <TableCell>{item.Cantidad}</TableCell>
+                                        </TableRow>
+                                      ))}
+                                  </TableBody>
+                                </Table>
+                              </TableContainer>
+                            </TableCell>
+                          </TableRow>
+                        )}
+                      </React.Fragment>
+                    );
+                  })
+                  .sort((a, b) => {
+                    const isAsc = order === "asc";
+                    const aCantidad = a.props.children[1]?.props?.children;
+                    const bCantidad = b.props.children[1]?.props?.children;
+                    if (isAsc) {
+                      return aCantidad - bCantidad;
+                    } else {
+                      return bCantidad - aCantidad;
+                    }
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+      </Grid>
     </div>
   );
-}
+};
 export default DatosApp;

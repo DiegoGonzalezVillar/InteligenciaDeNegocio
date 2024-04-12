@@ -4,8 +4,8 @@ import { scaleQuantile } from "d3-scale";
 
 function LiquidGaugeComponent(props) {
   const radius = 120;
-  const fillColor = "rgba(53, 162, 235, 0.5)";
-  const waveTextColor = "#000000";
+  const fillColor = "#BE3A4A";
+  const waveTextColor = "#2E2A25";
   const { value, min, max } = props;
 
   // create a quantile scale for coloring the gauge
@@ -19,7 +19,7 @@ function LiquidGaugeComponent(props) {
     fontFamily: "Arial",
     fontSize: "30px",
     fontWeight: "bold",
-    textAnchor: "middle"
+    textAnchor: "middle",
   };
 
   return (
@@ -31,7 +31,7 @@ function LiquidGaugeComponent(props) {
       minValue={min}
       maxValue={max}
       textRenderer={(props) => {
-        const value = props.value
+        const value = props.value;
 
         return (
           <tspan>
@@ -46,13 +46,13 @@ function LiquidGaugeComponent(props) {
       gradient={{
         0: range(min),
         0.5: range((max - min) * 0.5 + min),
-        1: range(max)
+        1: range(max),
       }}
       circleStyle={{
-        fill: fillColor
+        fill: fillColor,
       }}
       waveStyle={{
-        fill: fillColor
+        fill: fillColor,
       }}
     />
   );

@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
   texto: {
     fontWeight: "bold",
-    fontSize: 15,
+    fontSize: 13,
     color: "#BE3A4A",
   },
 });
@@ -31,12 +31,15 @@ const Tableros = () => {
 
   const estilosTitulo = {
     color: "#BE3A4A",
-    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
-    // Puedes agregar más propiedades de estilo según sea necesario
+    marginTop: "15px",
   };
 
-  function afisPorAsesor() {
+  /*function afisPorAsesor() {
     window.location.href = `/afisPorAsesor`;
+  }*/
+
+  function afisPorAsesorPorAnio() {
+    window.location.href = `/afisPorAsesorPorAnio`;
   }
 
   function afisPorAsesorActualAnterior() {
@@ -57,6 +60,10 @@ const Tableros = () => {
     window.location.href = `/cantidadPorMail`;
   }
 
+  function afisPorAfap() {
+    window.location.href = `/afisPorAfap`;
+  }
+
   return (
     <div className="content">
       <Titulo style={estilosTitulo} title="Integración en Cifras" />
@@ -68,7 +75,7 @@ const Tableros = () => {
           marginTop: "30px",
         }}
       >
-        <Card className={classes.card}>
+        {/*<Card className={classes.card}>
           <CardActionArea>
             <CardMedia
               className={classes.media}
@@ -79,6 +86,21 @@ const Tableros = () => {
             <CardContent>
               <Typography className={classes.texto}>
                 Afiliaciones por Asesor
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+      </Card>*/}
+        <Card className={classes.card}>
+          <CardActionArea>
+            <CardMedia
+              className={classes.media}
+              image={iafap}
+              title="Afiliaciones por Asesor"
+              onClick={() => afisPorAsesorPorAnio()}
+            />
+            <CardContent>
+              <Typography className={classes.texto}>
+                Afiliaciones por Asesor Por Año
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -153,6 +175,21 @@ const Tableros = () => {
             />
             <CardContent>
               <Typography className={classes.texto}>Mail por Asesor</Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <Card className={classes.card}>
+          <CardActionArea>
+            <CardMedia
+              className={classes.media}
+              image={iafap}
+              title="Afiliaciones por Afap"
+              onClick={() => afisPorAfap()}
+            />
+            <CardContent>
+              <Typography className={classes.texto}>
+                Afiliaciones por Afap
+              </Typography>
             </CardContent>
           </CardActionArea>
         </Card>

@@ -23,11 +23,10 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import { Modal } from "react-bootstrap";
-import "../style/TablaModal.css";
+//import "../style/TablaModal.css";
 import { URL } from "./Constantes.js";
 import Titulo from "../componentes/Titulo";
-import { Select, MenuItem } from "@material-ui/core";
-import { useRef } from "react";
+//import { useRef } from "react";
 
 const useStyles = makeStyles({
   table: {
@@ -60,14 +59,12 @@ export default function ConsulasApp() {
       navigate("/");
     }
   });
-  const selectRef = useRef(null);
   const [show, setShow] = useState(false);
   const [arrayDatosConsultas, setArrayDatosConsultas] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const classes = useStyles();
   const [filterDepartamento, setFilterDepartamento] = useState("");
-  const [filterCiudad, setFilterCiudad] = useState([]);
-  const [ciudadesFiltradas, setCiudadesFiltradas] = useState([]);
+  const [filterCiudad, setFilterCiudad] = useState("");
   const [filterUltimaAccion, setFilterUltimaAccion] = useState("");
   const [filterCodigoPostal, setFilterCodigoPostal] = useState("");
   const [open, setOpen] = useState(false);
@@ -88,189 +85,29 @@ export default function ConsulasApp() {
 
   const cerrarModal = () => setShow(false);
 
-  const filtroDepartamento = (event) => {
-    const selectedValue = selectRef.current.value;
-    console.log(selectedValue);
-    setFilterDepartamento(event.target.value);
-    let filtered = arrayDatosConsultas;
-
-    if (filterDepartamento !== "") {
-      filtered = filtered.filter((item) => {
-        return item.departamento
-          .toLowerCase()
-          .includes(filterDepartamento.toLowerCase());
-      });
-    }
-
-    if (filterCiudad !== "") {
-      filtered = filtered.filter((item) => {
-        const ciudadesFiltradas = filterCiudad.map((ciudad) =>
-          ciudad.toLowerCase()
-        );
-        return ciudadesFiltradas.some((ciudadFiltrada) =>
-          item.ciudad.toLowerCase().includes(ciudadFiltrada)
-        );
-      });
-    }
-    if (filterCodigoPostal !== "") {
-      filtered = filtered.filter((item) => {
-        return item.codigoPostal === parseInt(filterCodigoPostal, 10);
-      });
-    }
-
-    if (filterUltimaAccion !== "") {
-      filtered = filtered.filter((item) => {
-        return item.respuesta
-          .toLowerCase()
-          .includes(filterUltimaAccion.toLowerCase());
-      });
-    }
-    setFilteredData(filtered);
-  };
-
-  const filtroCiudad = (event) => {
-    setFilterCiudad(event.target.value);
-    let filtered = arrayDatosConsultas;
-
-    if (filterDepartamento !== "") {
-      filtered = filtered.filter((item) => {
-        return item.departamento
-          .toLowerCase()
-          .includes(filterDepartamento.toLowerCase());
-      });
-    }
-
-    if (filterCiudad !== "") {
-      filtered = filtered.filter((item) => {
-        const ciudadesFiltradas = filterCiudad.map((ciudad) =>
-          ciudad.toLowerCase()
-        );
-        return ciudadesFiltradas.some((ciudadFiltrada) =>
-          item.ciudad.toLowerCase().includes(ciudadFiltrada)
-        );
-      });
-    }
-    if (filterCodigoPostal !== "") {
-      filtered = filtered.filter((item) => {
-        return item.codigoPostal === parseInt(filterCodigoPostal, 10);
-      });
-    }
-
-    if (filterUltimaAccion !== "") {
-      filtered = filtered.filter((item) => {
-        return item.respuesta
-          .toLowerCase()
-          .includes(filterUltimaAccion.toLowerCase());
-      });
-    }
-
-    setFilteredData(filtered);
-  };
-
-  const filtroUltimaAccion = (event) => {
-    setFilterUltimaAccion(event.target.value);
-    let filtered = arrayDatosConsultas;
-
-    if (filterDepartamento !== "") {
-      filtered = filtered.filter((item) => {
-        return item.departamento
-          .toLowerCase()
-          .includes(filterDepartamento.toLowerCase());
-      });
-    }
-
-    if (filterCiudad !== "") {
-      filtered = filtered.filter((item) => {
-        const ciudadesFiltradas = filterCiudad.map((ciudad) =>
-          ciudad.toLowerCase()
-        );
-        return ciudadesFiltradas.some((ciudadFiltrada) =>
-          item.ciudad.toLowerCase().includes(ciudadFiltrada)
-        );
-      });
-    }
-
-    if (filterCodigoPostal !== "") {
-      filtered = filtered.filter((item) => {
-        return item.codigoPostal === parseInt(filterCodigoPostal, 10);
-      });
-    }
-
-    if (filterUltimaAccion !== "") {
-      filtered = filtered.filter((item) => {
-        return item.respuesta
-          .toLowerCase()
-          .includes(filterUltimaAccion.toLowerCase());
-      });
-    }
-    setFilteredData(filtered);
-  };
-
-  const filtroCodigoPostal = (event) => {
-    setFilterCodigoPostal(event.target.value);
-    let filtered = arrayDatosConsultas;
-
-    if (filterDepartamento !== "") {
-      filtered = filtered.filter((item) => {
-        return item.departamento
-          .toLowerCase()
-          .includes(filterDepartamento.toLowerCase());
-      });
-    }
-
-    if (filterCiudad !== "") {
-      filtered = filtered.filter((item) => {
-        const ciudadesFiltradas = filterCiudad.map((ciudad) =>
-          ciudad.toLowerCase()
-        );
-        return ciudadesFiltradas.some((ciudadFiltrada) =>
-          item.ciudad.toLowerCase().includes(ciudadFiltrada)
-        );
-      });
-    }
-
-    if (filterUltimaAccion !== "") {
-      filtered = filtered.filter((item) => {
-        return item.respuesta
-          .toLowerCase()
-          .includes(filterUltimaAccion.toLowerCase());
-      });
-    }
-
-    if (filterCodigoPostal !== "") {
-      filtered = filtered.filter((item) => {
-        return item.codigoPostal === parseInt(filterCodigoPostal, 10);
-      });
-    }
-
-    setFilteredData(filtered);
-  };
-
   useEffect(() => {
     let filtered = arrayDatosConsultas;
+    if (
+      filterDepartamento === "" &&
+      filterCiudad === "" &&
+      filterUltimaAccion === "" &&
+      filterCodigoPostal === ""
+    ) {
+      setFilteredData(arrayDatosConsultas);
+      return;
+    }
     if (filterDepartamento !== "") {
       filtered = filtered.filter((item) => {
         return item.departamento
           .toLowerCase()
           .includes(filterDepartamento.toLowerCase());
       });
-      const ciudades = Array.from(
-        new Set(
-          arrayDatosConsultas
-            .filter((item) => item.departamento.trim() === filterDepartamento)
-            .map((item) => item.ciudad.trim())
-        )
-      ).sort();
-      setCiudadesFiltradas(ciudades);
     }
+
     if (filterCiudad !== "") {
+      console.log(filterCiudad);
       filtered = filtered.filter((item) => {
-        const ciudadesFiltradas = filterCiudad.map((ciudad) =>
-          ciudad.toLowerCase()
-        );
-        return ciudadesFiltradas.some((ciudadFiltrada) =>
-          item.ciudad.toLowerCase().includes(ciudadFiltrada)
-        );
+        return item.ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
       });
     }
 
@@ -349,9 +186,23 @@ export default function ConsulasApp() {
     const data = await res.json();
     setArrayPendientesConsultasComercial(data);
   };
-  const departamentosUnicos = Array.from(
-    new Set(arrayDatosConsultas.map((item) => item.departamento.trim()))
-  ).sort();
+
+  const arrayOrdenado = [...arrayPendientesConsultasComercial];
+
+  arrayOrdenado.sort((a, b) => {
+    // Primero ordenar por Departamento
+    if (a.Departamento < b.Departamento) return -1;
+    if (a.Departamento > b.Departamento) return 1;
+
+    // Si los Departamentos son iguales, ordenar por Cantidad
+    return b.Cantidad - a.Cantidad;
+  });
+
+  const sumaTotal = arrayPendientesConsultasComercial.reduce(
+    (total, row) => total + row.Cantidad,
+    0
+  );
+
   return (
     <div className="content">
       <Container>
@@ -364,80 +215,29 @@ export default function ConsulasApp() {
             justifyContent: "space-between",
           }}
         >
-          <Select
-            ref={selectRef}
-            label="Departamento"
-            onChange={filtroDepartamento}
+          <TextField
+            label="Filtro por Departamento"
+            onChange={(e) => setFilterDepartamento(e.target.value)}
+            // onChange={setFilterDepartamento(e.target.value);}
             value={filterDepartamento}
-            style={{
-              marginRight: "1rem",
-              minWidth: "200px",
-              marginTop: "16px",
-            }}
-            MenuProps={{
-              anchorOrigin: {
-                vertical: "bottom", // Posición vertical del origen del menú
-                horizontal: "left", // Posición horizontal del origen del menú
-              },
-              transformOrigin: {
-                vertical: "top", // Posición vertical de la transformación del menú
-                horizontal: "left", // Posición horizontal de la transformación del menú
-              },
-              getContentAnchorEl: null, // Deshabilita la posición relativa al contenido
-              style: {
-                maxHeight: "2000px",
-                overflowY: "auto",
-              },
-            }}
-          >
-            {departamentosUnicos.map((departamento) => (
-              <MenuItem key={departamento} value={departamento}>
-                {departamento}
-              </MenuItem>
-            ))}
-          </Select>
-          <Select
-            label="Ciudad"
-            onChange={filtroCiudad}
+            style={{ marginRight: "1rem" }}
+          />
+          <TextField
+            label="Filtro por Ciudad"
+            onChange={(e) => setFilterCiudad(e.target.value)}
             value={filterCiudad}
-            multiple={true}
-            style={{
-              marginRight: "1rem",
-              width: "200px",
-              marginTop: "16px",
-            }}
-            MenuProps={{
-              anchorOrigin: {
-                vertical: "bottom", // Posición vertical del origen del menú
-                horizontal: "left", // Posición horizontal del origen del menú
-              },
-              transformOrigin: {
-                vertical: "top", // Posición vertical de la transformación del menú
-                horizontal: "left", // Posición horizontal de la transformación del menú
-              },
-              getContentAnchorEl: null, // Deshabilita la posición relativa al contenido
-              style: {
-                maxHeight: "2000px",
-                overflowY: "auto",
-              },
-            }}
-          >
-            {ciudadesFiltradas.map((ciudad) => (
-              <MenuItem key={ciudad} value={ciudad}>
-                {ciudad}
-              </MenuItem>
-            ))}
-          </Select>
+            style={{ marginRight: "1rem" }}
+          />
           <TextField
             label="Filtro por Ultima Accion"
-            onChange={filtroUltimaAccion}
+            onChange={(e) => setFilterUltimaAccion(e.target.value)}
             value={filterUltimaAccion}
             style={{ marginRight: "1rem" }}
           />
 
           <TextField
             label="Filtro CP"
-            onChange={filtroCodigoPostal}
+            onChange={(e) => setFilterCodigoPostal(e.target.value)}
             value={filterCodigoPostal}
             style={{ marginRight: "1rem" }}
           />
@@ -470,7 +270,7 @@ export default function ConsulasApp() {
           onClose={() => setOpenSnackbar(false)}
           message={responseMessage}
           autoHideDuration={5000}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         />
         <TableContainer
           className={classes.container}
@@ -478,18 +278,30 @@ export default function ConsulasApp() {
           style={{ overflowX: "auto", marginTop: "1em", width: "auto" }}
         >
           <Table className={classes.table} aria-label="data grid">
-            <TableHead>
+            <TableHead style={{ backgroundColor: "#BE3A4A" }}>
               <TableRow>
-                <TableCell>Cedula</TableCell>
-                <TableCell>Fecha</TableCell>
-                <TableCell>Departamento</TableCell>
-                <TableCell>Ciudad</TableCell>
-                <TableCell>Ultima Accion</TableCell>
-                <TableCell>Codigo Postal</TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Cedula
+                </TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Fecha
+                </TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Departamento
+                </TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Ciudad
+                </TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Ultima Accion
+                </TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Codigo Postal
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredData.slice(0, 10).map((row) => (
+              {filteredData.map((row) => (
                 <TableRow key={row.cedula}>
                   <TableCell component="th" scope="row">
                     {row.cedula}
@@ -523,6 +335,7 @@ export default function ConsulasApp() {
         </div>
 
         <Modal
+          style={{ marginTop: "80px" }}
           dialogClassName="modal-dialog"
           animation={false}
           show={show}
@@ -543,13 +356,15 @@ export default function ConsulasApp() {
                 <TableHead>
                   <TableRow>
                     <TableCell>Departamento</TableCell>
+                    <TableCell>Ciudad</TableCell>
                     <TableCell>Cantidad</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {arrayPendientesConsultasComercial.map((row) => (
-                    <TableRow key={row.Departamento}>
+                  {arrayOrdenado.map((row) => (
+                    <TableRow key={row.Ciudad}>
                       <TableCell>{row.Departamento}</TableCell>
+                      <TableCell>{row.Ciudad}</TableCell>
                       <TableCell>{row.Cantidad}</TableCell>
                     </TableRow>
                   ))}
@@ -557,7 +372,12 @@ export default function ConsulasApp() {
               </Table>
             </TableContainer>
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <Typography variant="h6" style={{ color: "#BE3A4A" }}>
+              Total: {sumaTotal} pendientes
+            </Typography>
             <Button onClick={cerrarModal} style={{ color: "#BE3A4A" }}>
               Cerrar
             </Button>

@@ -96,13 +96,13 @@ const Piramide = () => {
       {
         label: "Mujeres",
         data: femeninoData,
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: "#BE3A4A",
         borderWidth: 1,
       },
       {
         label: "Hombres",
         data: masculinoData,
-        backgroundColor: "rgba(54, 162, 235, 0.5)",
+        backgroundColor: "#E28432",
         borderWidth: 1,
       },
     ],

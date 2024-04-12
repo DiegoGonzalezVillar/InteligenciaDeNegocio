@@ -404,7 +404,7 @@ const MontevideoSur = () => {
           onClose={() => setOpenSnackbar(false)}
           message={responseMessage}
           autoHideDuration={5000}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         />
 
         <TableContainer
@@ -413,14 +413,26 @@ const MontevideoSur = () => {
           style={{ overflowX: "auto", marginTop: "1em" }}
         >
           <Table className={classes.table} aria-label="data grid">
-            <TableHead>
+            <TableHead style={{ backgroundColor: "#BE3A4A" }}>
               <TableRow>
-                <TableCell>Cedula</TableCell>
-                <TableCell>Fecha</TableCell>
-                <TableCell>Departamento</TableCell>
-                <TableCell>Ciudad</TableCell>
-                <TableCell>Codigo Postal</TableCell>
-                <TableCell>Ultima Consulta</TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Cedula
+                </TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Fecha
+                </TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Departamento
+                </TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Ciudad
+                </TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Codigo Postal
+                </TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Ultima Consulta
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

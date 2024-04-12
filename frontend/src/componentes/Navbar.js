@@ -70,8 +70,8 @@ const Navbar = () => {
               className="mySvg"
               style={{ cursor: "pointer" }}
               flex={1}
-              width={"15%"}
-              height={60}
+              width={"35%"}
+              height={"60%"}
               resizemode={"contain"}
               alt="Logo Iafap"
               onClick={() => navigate("/")}
@@ -92,6 +92,12 @@ const Navbar = () => {
           </Button>
           <Button
             style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            onClick={() => navigate("/operaciones")}
+          >
+            operaciones
+          </Button>
+          <Button
+            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
             onClick={() => navigate("/inversiones")}
           >
             Inversiones
@@ -101,6 +107,12 @@ const Navbar = () => {
             onClick={() => navigate("/simulador")}
           >
             Simulador
+          </Button>
+          <Button
+            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            onClick={() => navigate("/prestaciones")}
+          >
+            Prestaciones
           </Button>
           <Button
             style={{ color: "#BE3A4A", marginRight: "20px" }}
@@ -149,6 +161,12 @@ const Navbar = () => {
           </Button>
           <Button
             style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            onClick={() => navigate("/operaciones")}
+          >
+            Operaciones
+          </Button>
+          <Button
+            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
             onClick={() => navigate("/inversiones")}
           >
             Inversiones
@@ -179,6 +197,8 @@ const Navbar = () => {
             alignItems: "center",
             justifyContent: "center",
             marginTop: "10%",
+            marginLeft: "25%",
+            width: "50%",
           }}
           show={show}
           onHide={handleClose}

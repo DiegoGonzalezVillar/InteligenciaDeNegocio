@@ -63,9 +63,9 @@ const Consultas = () => {
   function InteriorSZ(user) {
     window.location.href = `/InteriorSZ?user=${user}`;
   }
-  /*function consultarDatosApp(user) {
+  function consultarDatosApp(user) {
     window.location.href = `/consultarDatosaApp?user=${user}`;
-  }*/
+  }
   function infoDisponible(user) {
     window.location.href = `/getInfoDisponible?user=${user}`;
   }
@@ -160,21 +160,23 @@ const Consultas = () => {
             </CardContent>
           </CardActionArea>
         </Card>
-        {/*<Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap2}
-              title="Consultar datos de la app"
-              onClick={() => consultarDatosApp(user)}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>
-                Consultar datos de la App
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-      </Card>*/}
+        {
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={iafap2}
+                title="Consultar datos de la app"
+                onClick={() => consultarDatosApp(user)}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>
+                  Consultar datos de la App
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        }
         <Card className={classes.card}>
           <CardActionArea>
             <CardMedia

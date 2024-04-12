@@ -116,7 +116,6 @@ function AfisPorAsesor(props) {
         );
         setEstadisticas({ total, totalActual, totalAnterior, porcentaje });
       }
-
       afisAñoActual();
     };
 
@@ -158,7 +157,7 @@ function AfisPorAsesor(props) {
         data: arrayAfisPorAsesor
           .sort((a, b) => b.cantidad - a.cantidad) // ordenar el array por cantidad de mayor a menor
           .map((datos) => datos.cantidad),
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        backgroundColor: "#BE3A4A",
       },
     ],
   };

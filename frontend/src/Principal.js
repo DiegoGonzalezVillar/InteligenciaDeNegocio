@@ -87,7 +87,7 @@ const Principal = () => {
   const [total, setTotal] = useState("");
   const fecha = new Date();
   const añoActual = fecha.getFullYear();
-  const meta = 15000;
+  const meta = 9600;
   let porcentaje = Math.round((total / meta) * 100);
 
   let texto = "Inteligencia de Negocio";

@@ -3,6 +3,7 @@ import Titulo from "../componentes/Titulo";
 import { URL } from "../../src/comercial/Constantes";
 import { makeStyles } from "@material-ui/core/styles";
 import iafap from "../imagenes/isotipos.svg";
+import iafap2 from "../imagenes/isotipos2.svg";
 import {
   Card,
   CardActionArea,
@@ -63,6 +64,23 @@ const MyComponent = () => {
     }
   };
 
+  const valoresRentaBruta = async () => {
+    setMessage("");
+    setLoading(true); // Establecer el estado de carga en true antes de la solicitud
+
+    try {
+      const response = await fetch(`${URL}valoresRentaBruta`);
+      const data = await response.text();
+      let mensaje = JSON.parse(data).message;
+      setMessage(mensaje); // Actualiza el estado con el mensaje de respuesta del servidor
+    } catch (error) {
+      console.error("Error al ejecutar el archivo .bat:", error);
+      setMessage("Error al ejecutar el archivo .bat");
+    } finally {
+      setLoading(false); // Establecer el estado de carga en false después de la solicitud (éxito o error)
+    }
+  };
+
   return (
     <div className="content">
       <div className="contenedor-principal2">
@@ -95,8 +113,8 @@ const MyComponent = () => {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image={iafap}
-                title="Generacion Txt"
+                image={iafap2}
+                title="Lestras de Regulacion Monetaria"
                 onClick={() => letraRM()}
               />
               <CardContent>
@@ -115,6 +133,21 @@ const MyComponent = () => {
               <CardContent>
                 <Typography className={classes.texto}>
                   Informe Directorio
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={iafap2}
+                title="Valores Renta Bruta"
+                onClick={() => valoresRentaBruta()}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>
+                  Valores Renta Bruta
                 </Typography>
               </CardContent>
             </CardActionArea>

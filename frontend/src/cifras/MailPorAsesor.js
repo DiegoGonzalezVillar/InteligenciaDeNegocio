@@ -46,11 +46,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function MailPorAsesor(props) {
+const MailPorAsesor = () => {
   const estilosTitulo = {
     color: "#BE3A4A",
-    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
-    // Puedes agregar más propiedades de estilo según sea necesario
+    marginTop: "15px",
   };
   const añoActual = new Date().getFullYear();
   const mesActual = new Date().toLocaleString("es-ES", { month: "long" });
@@ -158,6 +157,7 @@ function MailPorAsesor(props) {
       },
       y: {
         beginAtZero: true,
+        max: 110,
       },
     },
   };
@@ -177,8 +177,8 @@ function MailPorAsesor(props) {
         backgroundColor: asesores.map((asesor) => {
           const item = filteredData.find((item) => item.asesor === asesor);
           return item && item.porcentaje < porcentajeReferencia
-            ? "rgba(255, 99, 132, 0.5)"
-            : "rgba(75, 192, 192, 0.5)";
+            ? "#BE3A4A"
+            : "#E28432";
         }),
       },
     ],
@@ -290,7 +290,7 @@ function MailPorAsesor(props) {
                     value={selectedMonth}
                     onChange={(e) => setSelectedMonth(e.target.value)}
                   >
-                    <option value="">Acumulado del año</option>{" "}
+                    {/*<option value="">Acumulado del año</option>{" "}*/}
                     {/* Opción para el acumulado del año */}
                     {months.map((month) => (
                       <option key={month} value={month}>
@@ -342,6 +342,6 @@ function MailPorAsesor(props) {
       </div>
     </div>
   );
-}
+};
 
 export default MailPorAsesor;

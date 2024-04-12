@@ -23,13 +23,18 @@ import {
   getCantPorEdadYPorSexo,
   getCantidadPorMail,
   getCantidadPorMailPorAnio,
+  afisPorAsesorPorAnio,
+  afisPorAfap,
+  afisUltimoDiaPorAfap,
 } from "../controllers/afaps.controller";
 
 import {
   getTxtAcumulacion,
   getTxtRetiro,
   getTxtCrecimiento,
+  letrasRm,
   informeDirectorio,
+  valoresRentaBruta,
 } from "../controllers/administracion.controller";
 
 import {
@@ -38,6 +43,8 @@ import {
 } from "../controllers/inversiones.controller";
 
 import { getObtenerVst } from "../controllers/prestaciones.controller";
+
+import { encontrarFoto } from "../controllers/operaciones.controller";
 
 const router = Router();
 
@@ -69,6 +76,9 @@ router.post("/simuladorProyeccionJubilatoria", simuladorProyeccionJubilatoria);
 router.post("/ultimaConsulta", cargarDatosParaConsultar);
 router.post("/getObtenerVst", getObtenerVst);
 router.post("/getAnioDeDATBPS", getObtenerVst);
+router.get("/afisPorAsesorPorAnio", afisPorAsesorPorAnio);
+router.get("/afisPorAfap", afisPorAfap);
+router.get("/afisUltimoDiaPorAfap", afisUltimoDiaPorAfap);
 
 //INVERSIONES
 router.get("/ejecutarLimites30006", getLimites30006);
@@ -78,6 +88,11 @@ router.get("/ejecutarLimites30008", getLimites30008);
 router.get("/txtAcumulacion", getTxtAcumulacion);
 router.get("/txtRetiro", getTxtRetiro);
 router.get("/txtCrecimiento", getTxtCrecimiento);
+router.get("/letrasRm", letrasRm);
 router.get("/informeDirectorio", informeDirectorio);
+router.get("/valoresRentaBruta", valoresRentaBruta);
+
+//OPERACIONES
+router.post("/encontrarFoto", encontrarFoto);
 
 export default router;

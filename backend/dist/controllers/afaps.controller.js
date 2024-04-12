@@ -4,7 +4,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.simuladorProyeccionJubilatoria = exports.login = exports.getUltimaConsultaMontevideoSur = exports.getUltimaConsultaMontevideoPeriferia = exports.getUltimaConsultaInteriorSZ = exports.getUltimaConsultaInteriorDR = exports.getUltimaConsultaInteriorAC = exports.getTotalAfiliadosAnterior = exports.getTotalAfiliados = exports.getPendientesConsultasComercial = exports.getInfoDisponible = exports.getDatosCurvaS = exports.getDatosAppPorCantidad = exports.getDatosApp = exports.getCantidadPorMailPorAnio = exports.getCantidadPorMail = exports.getCantidadDeAfiliados = exports.getCantPorEdadYPorSexo = exports.getCantAfiliadosPorAsesorActualAnterior = exports.getAfisPorDepartamento = exports.getAfisPorAsesor = exports.cargarDatosParaConsultar = void 0;
+exports.simuladorProyeccionJubilatoria = exports.login = exports.getUltimaConsultaMontevideoSur = exports.getUltimaConsultaMontevideoPeriferia = exports.getUltimaConsultaInteriorSZ = exports.getUltimaConsultaInteriorDR = exports.getUltimaConsultaInteriorAC = exports.getTotalAfiliadosAnterior = exports.getTotalAfiliados = exports.getPendientesConsultasComercial = exports.getInfoDisponible = exports.getDatosCurvaS = exports.getDatosAppPorCantidad = exports.getDatosApp = exports.getCantidadPorMailPorAnio = exports.getCantidadPorMail = exports.getCantidadDeAfiliados = exports.getCantPorEdadYPorSexo = exports.getCantAfiliadosPorAsesorActualAnterior = exports.getAfisPorDepartamento = exports.getAfisPorAsesor = exports.cargarDatosParaConsultar = exports.afisUltimoDiaPorAfap = exports.afisPorAsesorPorAnio = exports.afisPorAfap = void 0;
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 var _connection = require("../database/connection");
@@ -90,8 +90,8 @@ var getDatosCurvaS = /*#__PURE__*/function () {
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
-          //const workbook = XLSX.readFile('F:\\Usuario\\Escritorio\\df2023.xlsx')
-          workbook = XLSX.readFile("C:\\Compartida Python\\df2023.xlsx");
+          //const workbook = XLSX.readFile("F:\\Usuario\\Escritorio\\df2024.xlsx");
+          workbook = XLSX.readFile("C:\\Compartida Python\\df2024.xlsx");
           worksheet = workbook.Sheets[workbook.SheetNames[0]];
           data = XLSX.utils.sheet_to_json(worksheet);
           res.send(data);
@@ -345,7 +345,7 @@ var getDatosAppPorCantidad = /*#__PURE__*/function () {
   };
 }();
 exports.getDatosAppPorCantidad = getDatosAppPorCantidad;
-var getUltimaConsultaInteriorAC = /*#__PURE__*/function () {
+var afisPorAsesorPorAnio = /*#__PURE__*/function () {
   var _ref12 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee12(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee12$(_context12) {
@@ -356,7 +356,7 @@ var getUltimaConsultaInteriorAC = /*#__PURE__*/function () {
         case 2:
           pool = _context12.sent;
           _context12.next = 5;
-          return pool.request().query(_querys.queries.getUltimaConsultaInteriorAC);
+          return pool.request().query(_querys.queries.afisPorAsesorPorAnio);
         case 5:
           result = _context12.sent;
           res.json(result.recordset);
@@ -366,12 +366,12 @@ var getUltimaConsultaInteriorAC = /*#__PURE__*/function () {
       }
     }, _callee12);
   }));
-  return function getUltimaConsultaInteriorAC(_x23, _x24) {
+  return function afisPorAsesorPorAnio(_x23, _x24) {
     return _ref12.apply(this, arguments);
   };
 }();
-exports.getUltimaConsultaInteriorAC = getUltimaConsultaInteriorAC;
-var getUltimaConsultaInteriorDR = /*#__PURE__*/function () {
+exports.afisPorAsesorPorAnio = afisPorAsesorPorAnio;
+var afisPorAfap = /*#__PURE__*/function () {
   var _ref13 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee13(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee13$(_context13) {
@@ -382,7 +382,7 @@ var getUltimaConsultaInteriorDR = /*#__PURE__*/function () {
         case 2:
           pool = _context13.sent;
           _context13.next = 5;
-          return pool.request().query(_querys.queries.getUltimaConsultaInteriorDR);
+          return pool.request().query(_querys.queries.afisPorAfap);
         case 5:
           result = _context13.sent;
           res.json(result.recordset);
@@ -392,12 +392,12 @@ var getUltimaConsultaInteriorDR = /*#__PURE__*/function () {
       }
     }, _callee13);
   }));
-  return function getUltimaConsultaInteriorDR(_x25, _x26) {
+  return function afisPorAfap(_x25, _x26) {
     return _ref13.apply(this, arguments);
   };
 }();
-exports.getUltimaConsultaInteriorDR = getUltimaConsultaInteriorDR;
-var getUltimaConsultaInteriorSZ = /*#__PURE__*/function () {
+exports.afisPorAfap = afisPorAfap;
+var afisUltimoDiaPorAfap = /*#__PURE__*/function () {
   var _ref14 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee14(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee14$(_context14) {
@@ -408,7 +408,7 @@ var getUltimaConsultaInteriorSZ = /*#__PURE__*/function () {
         case 2:
           pool = _context14.sent;
           _context14.next = 5;
-          return pool.request().query(_querys.queries.getUltimaConsultaInteriorSZ);
+          return pool.request().query(_querys.queries.afisUltimoDiaPorAfap);
         case 5:
           result = _context14.sent;
           res.json(result.recordset);
@@ -418,12 +418,12 @@ var getUltimaConsultaInteriorSZ = /*#__PURE__*/function () {
       }
     }, _callee14);
   }));
-  return function getUltimaConsultaInteriorSZ(_x27, _x28) {
+  return function afisUltimoDiaPorAfap(_x27, _x28) {
     return _ref14.apply(this, arguments);
   };
 }();
-exports.getUltimaConsultaInteriorSZ = getUltimaConsultaInteriorSZ;
-var getTotalAfiliados = /*#__PURE__*/function () {
+exports.afisUltimoDiaPorAfap = afisUltimoDiaPorAfap;
+var getUltimaConsultaInteriorAC = /*#__PURE__*/function () {
   var _ref15 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee15(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee15$(_context15) {
@@ -434,7 +434,7 @@ var getTotalAfiliados = /*#__PURE__*/function () {
         case 2:
           pool = _context15.sent;
           _context15.next = 5;
-          return pool.request().query(_querys.queries.getTotalAfiliados);
+          return pool.request().query(_querys.queries.getUltimaConsultaInteriorAC);
         case 5:
           result = _context15.sent;
           res.json(result.recordset);
@@ -444,12 +444,12 @@ var getTotalAfiliados = /*#__PURE__*/function () {
       }
     }, _callee15);
   }));
-  return function getTotalAfiliados(_x29, _x30) {
+  return function getUltimaConsultaInteriorAC(_x29, _x30) {
     return _ref15.apply(this, arguments);
   };
 }();
-exports.getTotalAfiliados = getTotalAfiliados;
-var getTotalAfiliadosAnterior = /*#__PURE__*/function () {
+exports.getUltimaConsultaInteriorAC = getUltimaConsultaInteriorAC;
+var getUltimaConsultaInteriorDR = /*#__PURE__*/function () {
   var _ref16 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee16(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee16$(_context16) {
@@ -460,7 +460,7 @@ var getTotalAfiliadosAnterior = /*#__PURE__*/function () {
         case 2:
           pool = _context16.sent;
           _context16.next = 5;
-          return pool.request().query(_querys.queries.getTotalAfiliadosAnterior);
+          return pool.request().query(_querys.queries.getUltimaConsultaInteriorDR);
         case 5:
           result = _context16.sent;
           res.json(result.recordset);
@@ -470,12 +470,12 @@ var getTotalAfiliadosAnterior = /*#__PURE__*/function () {
       }
     }, _callee16);
   }));
-  return function getTotalAfiliadosAnterior(_x31, _x32) {
+  return function getUltimaConsultaInteriorDR(_x31, _x32) {
     return _ref16.apply(this, arguments);
   };
 }();
-exports.getTotalAfiliadosAnterior = getTotalAfiliadosAnterior;
-var getDatosApp = /*#__PURE__*/function () {
+exports.getUltimaConsultaInteriorDR = getUltimaConsultaInteriorDR;
+var getUltimaConsultaInteriorSZ = /*#__PURE__*/function () {
   var _ref17 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee17(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee17$(_context17) {
@@ -486,7 +486,7 @@ var getDatosApp = /*#__PURE__*/function () {
         case 2:
           pool = _context17.sent;
           _context17.next = 5;
-          return pool.request().query(_querys.queries.getDatosApp);
+          return pool.request().query(_querys.queries.getUltimaConsultaInteriorSZ);
         case 5:
           result = _context17.sent;
           res.json(result.recordset);
@@ -496,12 +496,12 @@ var getDatosApp = /*#__PURE__*/function () {
       }
     }, _callee17);
   }));
-  return function getDatosApp(_x33, _x34) {
+  return function getUltimaConsultaInteriorSZ(_x33, _x34) {
     return _ref17.apply(this, arguments);
   };
 }();
-exports.getDatosApp = getDatosApp;
-var getPendientesConsultasComercial = /*#__PURE__*/function () {
+exports.getUltimaConsultaInteriorSZ = getUltimaConsultaInteriorSZ;
+var getTotalAfiliados = /*#__PURE__*/function () {
   var _ref18 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee18(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee18$(_context18) {
@@ -512,7 +512,7 @@ var getPendientesConsultasComercial = /*#__PURE__*/function () {
         case 2:
           pool = _context18.sent;
           _context18.next = 5;
-          return pool.request().query(_querys.queries.getPendientesConsultasComercial);
+          return pool.request().query(_querys.queries.getTotalAfiliados);
         case 5:
           result = _context18.sent;
           res.json(result.recordset);
@@ -522,12 +522,12 @@ var getPendientesConsultasComercial = /*#__PURE__*/function () {
       }
     }, _callee18);
   }));
-  return function getPendientesConsultasComercial(_x35, _x36) {
+  return function getTotalAfiliados(_x35, _x36) {
     return _ref18.apply(this, arguments);
   };
 }();
-exports.getPendientesConsultasComercial = getPendientesConsultasComercial;
-var getAfisPorAsesor = /*#__PURE__*/function () {
+exports.getTotalAfiliados = getTotalAfiliados;
+var getTotalAfiliadosAnterior = /*#__PURE__*/function () {
   var _ref19 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee19(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee19$(_context19) {
@@ -538,7 +538,7 @@ var getAfisPorAsesor = /*#__PURE__*/function () {
         case 2:
           pool = _context19.sent;
           _context19.next = 5;
-          return pool.request().query(_querys.queries.getAfisPorAsesor);
+          return pool.request().query(_querys.queries.getTotalAfiliadosAnterior);
         case 5:
           result = _context19.sent;
           res.json(result.recordset);
@@ -548,14 +548,14 @@ var getAfisPorAsesor = /*#__PURE__*/function () {
       }
     }, _callee19);
   }));
-  return function getAfisPorAsesor(_x37, _x38) {
+  return function getTotalAfiliadosAnterior(_x37, _x38) {
     return _ref19.apply(this, arguments);
   };
 }();
-exports.getAfisPorAsesor = getAfisPorAsesor;
-var login = /*#__PURE__*/function () {
+exports.getTotalAfiliadosAnterior = getTotalAfiliadosAnterior;
+var getDatosApp = /*#__PURE__*/function () {
   var _ref20 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee20(req, res) {
-    var pool, usuario, password, _login;
+    var pool, result;
     return _regenerator["default"].wrap(function _callee20$(_context20) {
       while (1) switch (_context20.prev = _context20.next) {
         case 0:
@@ -563,38 +563,25 @@ var login = /*#__PURE__*/function () {
           return (0, _connection.getConnection)();
         case 2:
           pool = _context20.sent;
-          usuario = req.body.username;
-          password = req.body.password;
-          _context20.prev = 5;
-          _context20.next = 8;
-          return pool.request().input("usuario", usuario).input("password", password).query(_querys.queries.verificarUsuario);
-        case 8:
-          _login = _context20.sent;
-          if (_login.recordset.length == 0) res.json({
-            message: "Usuario Incorrecto!!"
-          });else res.json({
-            message: "Login Exitoso!"
-          });
-          _context20.next = 15;
-          break;
-        case 12:
-          _context20.prev = 12;
-          _context20.t0 = _context20["catch"](5);
-          console.log(_context20.t0);
-        case 15:
+          _context20.next = 5;
+          return pool.request().query(_querys.queries.getDatosApp);
+        case 5:
+          result = _context20.sent;
+          res.json(result.recordset);
+        case 7:
         case "end":
           return _context20.stop();
       }
-    }, _callee20, null, [[5, 12]]);
+    }, _callee20);
   }));
-  return function login(_x39, _x40) {
+  return function getDatosApp(_x39, _x40) {
     return _ref20.apply(this, arguments);
   };
 }();
-exports.login = login;
-var cargarDatosParaConsultar = /*#__PURE__*/function () {
+exports.getDatosApp = getDatosApp;
+var getPendientesConsultasComercial = /*#__PURE__*/function () {
   var _ref21 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee21(req, res) {
-    var pool, asesores, asesor, smsNumero, numero, i, _req$body$i, cedula, fechaN;
+    var pool, result;
     return _regenerator["default"].wrap(function _callee21$(_context21) {
       while (1) switch (_context21.prev = _context21.next) {
         case 0:
@@ -602,54 +589,145 @@ var cargarDatosParaConsultar = /*#__PURE__*/function () {
           return (0, _connection.getConnection)();
         case 2:
           pool = _context21.sent;
-          asesores = [3118, 2071, 1400, 3153, 2030];
+          _context21.next = 5;
+          return pool.request().query(_querys.queries.getPendientesConsultasComercial);
+        case 5:
+          result = _context21.sent;
+          res.json(result.recordset);
+        case 7:
+        case "end":
+          return _context21.stop();
+      }
+    }, _callee21);
+  }));
+  return function getPendientesConsultasComercial(_x41, _x42) {
+    return _ref21.apply(this, arguments);
+  };
+}();
+exports.getPendientesConsultasComercial = getPendientesConsultasComercial;
+var getAfisPorAsesor = /*#__PURE__*/function () {
+  var _ref22 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee22(req, res) {
+    var pool, result;
+    return _regenerator["default"].wrap(function _callee22$(_context22) {
+      while (1) switch (_context22.prev = _context22.next) {
+        case 0:
+          _context22.next = 2;
+          return (0, _connection.getConnection)();
+        case 2:
+          pool = _context22.sent;
+          _context22.next = 5;
+          return pool.request().query(_querys.queries.getAfisPorAsesor);
+        case 5:
+          result = _context22.sent;
+          res.json(result.recordset);
+        case 7:
+        case "end":
+          return _context22.stop();
+      }
+    }, _callee22);
+  }));
+  return function getAfisPorAsesor(_x43, _x44) {
+    return _ref22.apply(this, arguments);
+  };
+}();
+exports.getAfisPorAsesor = getAfisPorAsesor;
+var login = /*#__PURE__*/function () {
+  var _ref23 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee23(req, res) {
+    var pool, usuario, password, _login;
+    return _regenerator["default"].wrap(function _callee23$(_context23) {
+      while (1) switch (_context23.prev = _context23.next) {
+        case 0:
+          _context23.next = 2;
+          return (0, _connection.getConnection)();
+        case 2:
+          pool = _context23.sent;
+          usuario = req.body.username;
+          password = req.body.password;
+          _context23.prev = 5;
+          _context23.next = 8;
+          return pool.request().input("usuario", usuario).input("password", password).query(_querys.queries.verificarUsuario);
+        case 8:
+          _login = _context23.sent;
+          if (_login.recordset.length == 0) res.json({
+            message: "Usuario Incorrecto!!"
+          });else res.json({
+            message: "Login Exitoso!"
+          });
+          _context23.next = 15;
+          break;
+        case 12:
+          _context23.prev = 12;
+          _context23.t0 = _context23["catch"](5);
+          console.log(_context23.t0);
+        case 15:
+        case "end":
+          return _context23.stop();
+      }
+    }, _callee23, null, [[5, 12]]);
+  }));
+  return function login(_x45, _x46) {
+    return _ref23.apply(this, arguments);
+  };
+}();
+exports.login = login;
+var cargarDatosParaConsultar = /*#__PURE__*/function () {
+  var _ref24 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee24(req, res) {
+    var pool, asesores, asesor, smsNumero, numero, i, _req$body$i, cedula, fechaN;
+    return _regenerator["default"].wrap(function _callee24$(_context24) {
+      while (1) switch (_context24.prev = _context24.next) {
+        case 0:
+          _context24.next = 2;
+          return (0, _connection.getConnection)();
+        case 2:
+          pool = _context24.sent;
+          asesores = [3118, 2071, 1400, 3153, 2030, 3007, 3076];
           asesor = "";
-          _context21.prev = 5;
-          _context21.next = 8;
+          _context24.prev = 5;
+          _context24.next = 8;
           return pool.request().query(_querys.queries.getSmsNumero);
         case 8:
-          smsNumero = _context21.sent;
+          smsNumero = _context24.sent;
           numero = smsNumero.recordset[0].smsnumero;
           numero = numero + 1;
           console.log(numero);
-          _context21.next = 14;
+          _context24.next = 14;
           return pool.request().input("numero", numero).query(_querys.queries.insertSmsEntrada);
         case 14:
           i = 0;
         case 15:
           if (!(i < req.body.length)) {
-            _context21.next = 24;
+            _context24.next = 24;
             break;
           }
           console.log("pool");
           asesor = asesores[Math.floor(Math.random() * asesores.length)];
           _req$body$i = req.body[i], cedula = _req$body$i.cedula, fechaN = _req$body$i.fechaN;
-          _context21.next = 21;
+          _context24.next = 21;
           return pool.request().input("numero", numero).input("cedula", cedula).input("fechaN", fechaN).input("asesor", asesor).query(_querys.queries.insertParaConsultar);
         case 21:
           i++;
-          _context21.next = 15;
+          _context24.next = 15;
           break;
         case 24:
           res.json({
             message: "Datos insertados con exito!"
           });
-          _context21.next = 30;
+          _context24.next = 30;
           break;
         case 27:
-          _context21.prev = 27;
-          _context21.t0 = _context21["catch"](5);
+          _context24.prev = 27;
+          _context24.t0 = _context24["catch"](5);
           res.status(500).json({
             message: "Error al cargar los datos Wein Ronnnney"
           });
         case 30:
         case "end":
-          return _context21.stop();
+          return _context24.stop();
       }
-    }, _callee21, null, [[5, 27]]);
+    }, _callee24, null, [[5, 27]]);
   }));
-  return function cargarDatosParaConsultar(_x41, _x42) {
-    return _ref21.apply(this, arguments);
+  return function cargarDatosParaConsultar(_x47, _x48) {
+    return _ref24.apply(this, arguments);
   };
 }();
 exports.cargarDatosParaConsultar = cargarDatosParaConsultar;

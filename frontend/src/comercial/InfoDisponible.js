@@ -33,8 +33,7 @@ const useStyles = makeStyles({
 function InfoDisponible(props) {
   const estilosTitulo = {
     color: "#BE3A4A",
-    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
-    // Puedes agregar más propiedades de estilo según sea necesario
+    marginTop: "15px",
   };
   const classes = useStyles();
   const urlParams = new URLSearchParams(window.location.search);
@@ -50,8 +49,8 @@ function InfoDisponible(props) {
   const [order, setOrder] = useState("desc");
   const [departamentoSeleccionado, setDepartamentoSeleccionado] =
     useState(null);
-  const [orderByCiudades, setOrderByCiudades] = React.useState("Cantidad");
-  const [orderCiudades, setOrderCiudades] = React.useState("desc");
+  const [orderByCiudades, setOrderByCiudades] = useState("Cantidad");
+  const [orderCiudades, setOrderCiudades] = useState("desc");
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -128,13 +127,19 @@ function InfoDisponible(props) {
           style={{ overflowX: "auto", marginTop: "1em" }}
         >
           <Table className={classes.table} aria-label="data grid">
-            <TableHead>
+            <TableHead style={{ backgroundColor: "#BE3A4A" }}>
               <TableRow>
-                <TableCell>Departamento</TableCell>
+                <TableCell align="center" style={{ color: "white" }}>
+                  Departamento
+                </TableCell>
                 <TableCell
+                  align="center"
+                  style={{ color: "white" }}
                   sortDirection={orderBy === "Cantidad" ? order : false}
                 >
                   <TableSortLabel
+                    align="center"
+                    style={{ color: "white" }}
                     active={orderBy === "Cantidad"}
                     direction={orderBy === "Cantidad" ? order : "asc"}
                     onClick={(event) => handleRequestSort(event, "Cantidad")}
@@ -142,7 +147,9 @@ function InfoDisponible(props) {
                     Cantidad Total
                   </TableSortLabel>
                 </TableCell>
-                <TableCell>Ciudades</TableCell>
+                <TableCell align="center" style={{ color: "white" }}>
+                  Ciudades
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -170,9 +177,9 @@ function InfoDisponible(props) {
                   return (
                     <React.Fragment key={departamento}>
                       <TableRow>
-                        <TableCell>{departamento}</TableCell>
-                        <TableCell>{cantidadTotal}</TableCell>
-                        <TableCell>
+                        <TableCell align="center">{departamento}</TableCell>
+                        <TableCell align="center">{cantidadTotal}</TableCell>
+                        <TableCell align="center">
                           <Button
                             style={{ color: "#BE3A4A", marginRight: "10px" }}
                             onClick={() => {
@@ -200,10 +207,19 @@ function InfoDisponible(props) {
                                 className={classes.table}
                                 aria-label="ciudades"
                               >
-                                <TableHead>
+                                <TableHead
+                                  style={{ backgroundColor: "#BE3A4A" }}
+                                >
                                   <TableRow>
-                                    <TableCell>Ciudad</TableCell>
                                     <TableCell
+                                      align="center"
+                                      style={{ color: "white" }}
+                                    >
+                                      Ciudad
+                                    </TableCell>
+                                    <TableCell
+                                      align="center"
+                                      style={{ color: "white" }}
                                       sortDirection={
                                         orderByCiudades === "Cantidad"
                                           ? orderCiudades
@@ -211,6 +227,8 @@ function InfoDisponible(props) {
                                       }
                                     >
                                       <TableSortLabel
+                                        align="center"
+                                        style={{ color: "white" }}
                                         active={orderByCiudades === "Cantidad"}
                                         direction={
                                           orderByCiudades === "Cantidad"
@@ -238,10 +256,16 @@ function InfoDisponible(props) {
                                     })
                                     .map((item) => (
                                       <TableRow key={item.Ciudad}>
-                                        <TableCell component="th" scope="row">
+                                        <TableCell
+                                          component="th"
+                                          scope="row"
+                                          align="center"
+                                        >
                                           {item.Ciudad}
                                         </TableCell>
-                                        <TableCell>{item.Cantidad}</TableCell>
+                                        <TableCell align="center">
+                                          {item.Cantidad}
+                                        </TableCell>
                                       </TableRow>
                                     ))}
                                 </TableBody>

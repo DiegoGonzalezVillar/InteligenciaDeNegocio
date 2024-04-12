@@ -13,6 +13,7 @@ import InteriorSZ from "./comercial/InteriorSZ";
 import MontevideoPeriferia from "./comercial/MontevideoPeriferia";
 import InfoDisponible from "./comercial/InfoDisponible";
 import DatosApp from "./comercial/DatosApp";
+import ConsultasApp from "./comercial/ConsultasApp";
 import Simulador from "./comercial/Simulador";
 import CurvaS from "./cifras/CurvaS";
 import AfisPorAsesor from "./cifras/AfisPorAsesor";
@@ -27,6 +28,9 @@ import Limites from "./inversiones/Limites";
 import Administracion from "./administracion/Administracion";
 import GeneracionTxt from "./administracion/GeneracionTxt";
 import LetrasRM from "./administracion/LetrasRM";
+import EncontrarFoto from "./operaciones/EncontrarFoto";
+import AfisPorAsesorPorAño from "./cifras/AfisPorAsesorPorAño";
+import AfisPorAfapBps from "./cifras/AfisPorAfapBps";
 
 export const userContext = React.createContext();
 
@@ -47,9 +51,13 @@ const App = () => {
           <Route path="/interiorAC" element={<InteriorAC />}></Route>
           <Route path="/interiorDR" element={<InteriorDR />}></Route>
           <Route path="/interiorSZ" element={<InteriorSZ />}></Route>
-          {/*<Route path="/consultarDatosaApp" element={<ConsulasApp />}></Route>*/}
+          <Route path="/consultarDatosaApp" element={<ConsultasApp />}></Route>
           <Route path="/getDatosaApp" element={<DatosApp />}></Route>
           <Route path="/afisPorAsesor" element={<AfisPorAsesor />}></Route>
+          <Route
+            path="/afisPorAsesorPorAnio"
+            element={<AfisPorAsesorPorAño />}
+          ></Route>
           <Route path="/curvaS" element={<CurvaS />}></Route>
           <Route path="/getInfoDisponible" element={<InfoDisponible />}></Route>
           <Route
@@ -69,8 +77,10 @@ const App = () => {
           <Route path="/prestaciones" element={<CuentasVst />}></Route>
           <Route path="/inversiones" element={<Limites />}></Route>
           <Route path="/administracion" element={<Administracion />}></Route>
+          <Route path="/operaciones" element={<EncontrarFoto />}></Route>
           <Route path="/generacionTxt" element={<GeneracionTxt />}></Route>
           <Route path="/letrasRM" element={<LetrasRM />}></Route>
+          <Route path="/afisPorAfap" element={<AfisPorAfapBps />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -103,17 +103,23 @@ function AfisPorDepartamento(props) {
   });
 
   const data = {
-    labels: dataByDepartamento.map((datos) => datos.departamento),
+    labels: dataByDepartamento
+      .sort((a, b) => b.cantidadActual - a.cantidadActual)
+      .map((datos) => datos.departamento),
     datasets: [
       {
         label: `${new Date().getFullYear() - 1}`,
-        data: dataByDepartamento.map((datos) => datos.cantidadAnterior),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        data: dataByDepartamento
+          //.sort((a, b) => b.cantidadActual - a.cantidadActual)
+          .map((datos) => datos.cantidadAnterior),
+        backgroundColor: "#BE3A4A",
       },
       {
         label: `${new Date().getFullYear()}`,
-        data: dataByDepartamento.map((datos) => datos.cantidadActual),
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        data: dataByDepartamento
+          .sort((a, b) => b.cantidadActual - a.cantidadActual)
+          .map((datos) => datos.cantidadActual),
+        backgroundColor: "#E28432",
       },
     ],
   };

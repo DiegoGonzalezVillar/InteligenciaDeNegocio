@@ -9,6 +9,7 @@ var _afaps = require("../controllers/afaps.controller");
 var _administracion = require("../controllers/administracion.controller");
 var _inversiones = require("../controllers/inversiones.controller");
 var _prestaciones = require("../controllers/prestaciones.controller");
+var _operaciones = require("../controllers/operaciones.controller");
 var router = (0, _express.Router)();
 router.post("/login", _afaps.login);
 router.get("/montevideoPeriferia", _afaps.getUltimaConsultaMontevideoPeriferia);
@@ -35,6 +36,9 @@ router.post("/simuladorProyeccionJubilatoria", _afaps.simuladorProyeccionJubilat
 router.post("/ultimaConsulta", _afaps.cargarDatosParaConsultar);
 router.post("/getObtenerVst", _prestaciones.getObtenerVst);
 router.post("/getAnioDeDATBPS", _prestaciones.getObtenerVst);
+router.get("/afisPorAsesorPorAnio", _afaps.afisPorAsesorPorAnio);
+router.get("/afisPorAfap", _afaps.afisPorAfap);
+router.get("/afisUltimoDiaPorAfap", _afaps.afisUltimoDiaPorAfap);
 
 //INVERSIONES
 router.get("/ejecutarLimites30006", _inversiones.getLimites30006);
@@ -44,6 +48,11 @@ router.get("/ejecutarLimites30008", _inversiones.getLimites30008);
 router.get("/txtAcumulacion", _administracion.getTxtAcumulacion);
 router.get("/txtRetiro", _administracion.getTxtRetiro);
 router.get("/txtCrecimiento", _administracion.getTxtCrecimiento);
+router.get("/letrasRm", _administracion.letrasRm);
 router.get("/informeDirectorio", _administracion.informeDirectorio);
+router.get("/valoresRentaBruta", _administracion.valoresRentaBruta);
+
+//OPERACIONES
+router.post("/encontrarFoto", _operaciones.encontrarFoto);
 var _default = router;
 exports["default"] = _default;

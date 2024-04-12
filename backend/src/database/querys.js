@@ -1,3 +1,5 @@
+import { afisPorAfap } from "../controllers/afaps.controller";
+
 export const queries = {
   getSmsNumero:
     "SELECT MAX(smsnumero) as smsnumero FROM [SOLOACTIVIDAD].[dbo].SMSENTRADA where smsnumero < 999999",
@@ -46,4 +48,10 @@ export const queries = {
     "SET LANGUAGE Spanish; SELECT YEAR([bpsfbps]) AS anio,DATENAME(MONTH, [bpsfbps]) AS mes, [bpsprom] AS asesor,COUNT(CASE WHEN [bpsemail] LIKE '%@%' THEN 1 END) AS si,COUNT(CASE WHEN [bpsemail] NOT LIKE '%@%' THEN 1 END) AS no,ROUND((COUNT(CASE WHEN [bpsemail] LIKE '%@%' THEN 1 END) * 1.0 / (COUNT(CASE WHEN [bpsemail] LIKE '%@%' THEN 1 END) + COUNT(CASE WHEN [bpsemail] NOT LIKE '%@%' THEN 1 END))) * 100, 0) AS porcentaje FROM [afapformularios].[dbo].[DATBPS] WHERE [bpsfbps] > '2017-01-01' AND [bpsprom] IN (1332, 1512, 1618, 2005, 3005, 3007, 3064, 3065, 3069, 3075, 3076, 3093, 3117, 3148, 3152, 3154, 3164, 3165) GROUP BY YEAR([bpsfbps]),DATENAME(MONTH, [bpsfbps]), [bpsprom]",
   getCantidadPorMailPorAnio:
     "SELECT YEAR([bpsfbps]) AS anio,bpsprom as asesor,COUNT(CASE WHEN [bpsemail] LIKE '%@%' THEN 1 END) AS si,COUNT(CASE WHEN [bpsemail] NOT LIKE '%@%' THEN 1 END) AS no,ROUND((COUNT(CASE WHEN [bpsemail] LIKE '%@%' THEN 1 END) * 1.0 / (COUNT(CASE WHEN [bpsemail] LIKE '%@%' THEN 1 END) + COUNT(CASE WHEN [bpsemail] NOT LIKE '%@%' THEN 1 END))) * 100, 0) AS porcentaje FROM [afapformularios].[dbo].[DATBPS] WHERE [bpsfbps] > '2017-01-01' AND [bpsprom] IN (1332, 1512, 1618, 2005, 3005, 3007, 3064, 3065, 3069, 3075, 3076, 3093, 3117, 3148, 3152, 3154, 3164, 3165) GROUP BY YEAR([bpsfbps]), [bpsprom]",
+  afisPorAsesorPorAnio:
+    "Select * from [2023_AFAP_Gestion].[dbo].[AFIS_ASESOR_AÑO]",
+  afisPorAfap:
+    "select nombre, FORMAT(fechaDeIngreso,'dd-MM-yyyy')fecha, totalAfilaciones from [2023_AFAP_Gestion].[dbo].[INGRESOS_DIARIOS_AFAP] as i with (nolock), [2023_AFAP_Gestion].[dbo].AFAP as a with (nolock) where a.id = i.id and fechaDeIngreso > '01-01-2018'",
+  afisUltimoDiaPorAfap:
+    "  select nombre, FORMAT(fechaDeIngreso,'dd-MM-yyyy')fecha, totalAfilaciones, a.cantidadAsesores from [2023_AFAP_Gestion].[dbo].[INGRESOS_DIARIOS_AFAP] as i with (nolock), [2023_AFAP_Gestion].[dbo].AFAP as a with (nolock) where a.id = i.id and fechaDeIngreso = (Select max(fechaDeIngreso) from [2023_AFAP_Gestion].[dbo].[INGRESOS_DIARIOS_AFAP] with (nolock ))",
 };

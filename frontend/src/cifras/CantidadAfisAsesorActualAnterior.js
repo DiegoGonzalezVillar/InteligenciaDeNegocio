@@ -38,6 +38,12 @@ function CantidadAfisAsesorActualAnterior(props) {
     []
   );
 
+  const estilosTitulo = {
+    color: "#BE3A4A",
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
+
   const afiliacionesPorAsesor = async () => {
     const res = await fetch(`${URL}getCantAfiliadosPorAsesorActualAnterior`, {
       method: "GET",
@@ -120,17 +126,23 @@ function CantidadAfisAsesorActualAnterior(props) {
   );
 
   const data = {
-    labels: dataByAsesor.map((datos) => datos.asesor),
+    labels: dataByAsesor
+      .sort((a, b) => b.cantidadActual - a.cantidadActual)
+      .map((datos) => datos.asesor),
     datasets: [
       {
         label: `${new Date().getFullYear() - 1}`,
-        data: dataByAsesor.map((datos) => datos.cantidadAnterior),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        data: dataByAsesor
+          .sort((a, b) => b.cantidadAnterior - a.cantidadAnterior)
+          .map((datos) => datos.cantidadAnterior),
+        backgroundColor: "#BE3A4A",
       },
       {
         label: `${new Date().getFullYear()}`,
-        data: dataByAsesor.map((datos) => datos.cantidadActual),
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        data: dataByAsesor
+          .sort((a, b) => b.cantidadActual - a.cantidadActual)
+          .map((datos) => datos.cantidadActual),
+        backgroundColor: "#E28432",
       },
     ],
   };
@@ -173,7 +185,7 @@ function CantidadAfisAsesorActualAnterior(props) {
             </Card>
           </Grid>
         </Grid>
-        <Titulo title="Año Actual vs Anterior" />
+        <Titulo style={estilosTitulo} title="Año Actual vs Anterior" />
         <Grid container>
           <Grid item xs={0} sm={0} md={2} lg={2} xl={2}></Grid>
           <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>

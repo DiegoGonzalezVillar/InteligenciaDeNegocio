@@ -1,0 +1,14 @@
+/* Modal.css */
+.modal-content {
+  width: 100% !important;
+  /* Otros estilos personalizados */
+}
+
+.modal-dialog {
+  max-width: 100% !important;
+  width: 45% !important;
+}
+
+
+
+

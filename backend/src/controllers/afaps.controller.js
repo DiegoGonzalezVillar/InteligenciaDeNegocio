@@ -29,8 +29,8 @@ export const getCantidadDeAfiliados = async (req, res) => {
 };
 
 export const getDatosCurvaS = async (req, res) => {
-  //const workbook = XLSX.readFile('F:\\Usuario\\Escritorio\\df2023.xlsx')
-  const workbook = XLSX.readFile("C:\\Compartida Python\\df2023.xlsx");
+  //const workbook = XLSX.readFile("F:\\Usuario\\Escritorio\\df2024.xlsx");
+  const workbook = XLSX.readFile("C:\\Compartida Python\\df2024.xlsx");
   const worksheet = workbook.Sheets[workbook.SheetNames[0]];
   const data = XLSX.utils.sheet_to_json(worksheet);
   res.send(data);
@@ -135,6 +135,24 @@ export const getDatosAppPorCantidad = async (req, res) => {
   res.json(result.recordset);
 };
 
+export const afisPorAsesorPorAnio = async (req, res) => {
+  const pool = await getConnection();
+  const result = await pool.request().query(queries.afisPorAsesorPorAnio);
+  res.json(result.recordset);
+};
+
+export const afisPorAfap = async (req, res) => {
+  const pool = await getConnection();
+  const result = await pool.request().query(queries.afisPorAfap);
+  res.json(result.recordset);
+};
+
+export const afisUltimoDiaPorAfap = async (req, res) => {
+  const pool = await getConnection();
+  const result = await pool.request().query(queries.afisUltimoDiaPorAfap);
+  res.json(result.recordset);
+};
+
 export const getUltimaConsultaInteriorAC = async (req, res) => {
   const pool = await getConnection();
   const result = await pool
@@ -210,7 +228,7 @@ export const login = async (req, res) => {
 
 export const cargarDatosParaConsultar = async (req, res) => {
   const pool = await getConnection();
-  const asesores = [3118, 2071, 1400, 3153, 2030];
+  const asesores = [3118, 2071, 1400, 3153, 2030, 3007, 3076];
   let asesor = "";
   try {
     const smsNumero = await pool.request().query(queries.getSmsNumero);

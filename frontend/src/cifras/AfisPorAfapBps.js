@@ -150,7 +150,7 @@ const AfisPorAfapBps = () => {
       if (!fechaInicial || !fechaFinal) {
         return true; // No hay fechas seleccionadas, no se aplica filtro
       }
-      const fecha = dayjs(elemento.fecha, "DD-MM-YYYY");
+      const fecha = dayjs(elemento.fecha, "DD/MM/YYYY");
       return fecha >= fechaInicial && fecha <= fechaFinal;
     })
     .reduce((acumulador, elemento) => {

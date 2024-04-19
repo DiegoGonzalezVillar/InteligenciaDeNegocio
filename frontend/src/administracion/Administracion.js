@@ -64,22 +64,9 @@ const MyComponent = () => {
     }
   };
 
-  const valoresRentaBruta = async () => {
-    setMessage("");
-    setLoading(true); // Establecer el estado de carga en true antes de la solicitud
-
-    try {
-      const response = await fetch(`${URL}valoresRentaBruta`);
-      const data = await response.text();
-      let mensaje = JSON.parse(data).message;
-      setMessage(mensaje); // Actualiza el estado con el mensaje de respuesta del servidor
-    } catch (error) {
-      console.error("Error al ejecutar el archivo .bat:", error);
-      setMessage("Error al ejecutar el archivo .bat");
-    } finally {
-      setLoading(false); // Establecer el estado de carga en false después de la solicitud (éxito o error)
-    }
-  };
+  function valoresRentaBruta() {
+    window.location.href = `/valoresRentaBruta`;
+  }
 
   return (
     <div className="content">

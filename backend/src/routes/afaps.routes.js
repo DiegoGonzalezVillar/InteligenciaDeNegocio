@@ -90,7 +90,7 @@ router.get("/txtRetiro", getTxtRetiro);
 router.get("/txtCrecimiento", getTxtCrecimiento);
 router.get("/letrasRm", letrasRm);
 router.get("/informeDirectorio", informeDirectorio);
-router.get("/valoresRentaBruta", valoresRentaBruta);
+router.post("/valoresRentaBruta", valoresRentaBruta);
 
 //OPERACIONES
 router.post("/encontrarFoto", encontrarFoto);

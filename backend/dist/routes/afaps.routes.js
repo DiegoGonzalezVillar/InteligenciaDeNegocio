@@ -50,7 +50,7 @@ router.get("/txtRetiro", _administracion.getTxtRetiro);
 router.get("/txtCrecimiento", _administracion.getTxtCrecimiento);
 router.get("/letrasRm", _administracion.letrasRm);
 router.get("/informeDirectorio", _administracion.informeDirectorio);
-router.get("/valoresRentaBruta", _administracion.valoresRentaBruta);
+router.post("/valoresRentaBruta", _administracion.valoresRentaBruta);
 
 //OPERACIONES
 router.post("/encontrarFoto", _operaciones.encontrarFoto);

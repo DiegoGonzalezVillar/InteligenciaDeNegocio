@@ -31,6 +31,7 @@ import LetrasRM from "./administracion/LetrasRM";
 import EncontrarFoto from "./operaciones/EncontrarFoto";
 import AfisPorAsesorPorAño from "./cifras/AfisPorAsesorPorAño";
 import AfisPorAfapBps from "./cifras/AfisPorAfapBps";
+import ValoresRentaBruta from "./administracion/ValoresRentaBruta";
 
 export const userContext = React.createContext();
 
@@ -81,6 +82,10 @@ const App = () => {
           <Route path="/generacionTxt" element={<GeneracionTxt />}></Route>
           <Route path="/letrasRM" element={<LetrasRM />}></Route>
           <Route path="/afisPorAfap" element={<AfisPorAfapBps />}></Route>
+          <Route
+            path="/valoresRentaBruta"
+            element={<ValoresRentaBruta />}
+          ></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

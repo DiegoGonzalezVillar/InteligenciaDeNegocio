@@ -205,41 +205,37 @@ export const informeDirectorio = (req, res) => {
 };
 
 export const valoresRentaBruta = (req, res) => {
+  const { fechaInicial, fechaFinal } = req.body;
+  const args = [fechaInicial, fechaFinal];
+  /*const pythonProcess = spawn("python", [
+    "F:\\Usuario\\Escritorio\\Archivos Python\\archivos py\\valoresRentaBruta.py",
+    ...args,
+  ]);*/
   const pythonProcess = spawn(
     "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
-    ["C:\\Compartida Python\\Administracion\\valoresRentaBruta.py"],
-    {
-      detached: true,
-      stdio: ["ignore", "pipe", "pipe"], // Pipe para stdout y stderr
-    }
+    ["C:\\Compartida Python\\Administracion\\valoresRentaBruta.py", ...args]
   );
-  let outputData = "";
+
+  let fecha = "";
 
   pythonProcess.stdout.on("data", (data) => {
-    outputData += data.toString();
-    console.log(outputData);
+    fecha = data;
   });
 
-  pythonProcess.on("close", (codigo) => {
-    if (codigo === 0) {
-      res.status(200).send({
-        message: "Consulta ejecutada correctamente",
+  pythonProcess.on("close", (code) => {
+    if (code === 0) {
+      res.json({
+        message: "Se ejecutó correctamente",
+        fecha: fecha.toString(),
       });
     } else {
-      res.status(500).send({
-        message: `Error al ejecutar el script.`,
-        output: outputData.trim(), // Se puede obtener incluso en caso de error
-        exitCode: codigo,
+      res.status(500).json({
+        message: `El script de Python falló con el código de salida ${code}.`,
+        fecha: fecha.toString(),
       });
     }
   });
-
   pythonProcess.on("error", (error) => {
-    console.error(`Error al ejecutar el script de Python: ${error}`);
-    res.status(500).send({
-      message: "Error al ejecutar el script de Python",
-      output: outputData.trim(), // También se puede obtener en caso de error
-      exitCode: -1, // Un valor de código de salida personalizado para errores
-    });
+    res.status(500).json({ message: "Error al ejecutar el script de Python" });
   });
 };

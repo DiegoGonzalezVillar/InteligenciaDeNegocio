@@ -4,14 +4,16 @@ import Button from "@material-ui/core/Button";
 import { URL } from "../comercial/Constantes";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import { Snackbar } from "@material-ui/core";
 
 function ExcelUploader() {
   const [file, setFile] = useState(null);
+  const [responseMessage, setResponseMessage] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const estilosTitulo = {
     color: "#BE3A4A",
-    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
-    // Puedes agregar más propiedades de estilo según sea necesario
+    marginTop: "15px",
   };
 
   const handleDrop = (acceptedFiles) => {
@@ -31,7 +33,6 @@ function ExcelUploader() {
 
     const formData = new FormData();
     formData.append("excelFile", file);
-    console.log(formData);
 
     try {
       const response = await fetch(`${URL}getObtenerVst`, {
@@ -41,7 +42,6 @@ function ExcelUploader() {
 
       if (response.ok) {
         const respuesta = await response.json();
-        console.log("Respuesta del servidor:", respuesta);
         // Crear un archivo Excel y guardar los datos en él
         if (respuesta.data.length > 0) {
           let workbook = "";
@@ -60,12 +60,13 @@ function ExcelUploader() {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
           });
           saveAs(blob, "data.xlsx");
+          setResponseMessage("Archivo generado correctamente!");
         }
       } else {
-        console.error("Error al cargar el archivo:", response.statusText);
+        setResponseMessage(response.statusText);
       }
     } catch (error) {
-      console.error("Error en la solicitud:", error);
+      setResponseMessage(error);
     }
   };
 
@@ -159,6 +160,13 @@ function ExcelUploader() {
             ) : null}
           </div>
         </div>
+        <Snackbar
+          open={openSnackbar}
+          onClose={() => setOpenSnackbar(false)}
+          message={responseMessage}
+          autoHideDuration={3000}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        />
       </div>
     </div>
   );

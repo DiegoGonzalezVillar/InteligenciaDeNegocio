@@ -82,7 +82,6 @@ export const getTxtAcumulacion = (req, res) => {
 };
 
 export const getTxtRetiro = (req, res) => {
-  console.log("back");
   const pythonProcess = spawn(
     "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
     ["C:\\Compartida Python\\Administracion\\txtRetiro.py"],
@@ -173,13 +172,6 @@ export const informeDirectorio = (req, res) => {
       stdio: ["ignore", "pipe", "pipe"], // Pipe para stdout y stderr
     }
   );
-  let outputData = "";
-
-  pythonProcess.stdout.on("data", (data) => {
-    outputData += data.toString();
-    console.log(outputData);
-  });
-
   pythonProcess.on("close", (codigo) => {
     if (codigo === 0) {
       res.status(200).send({
@@ -187,20 +179,33 @@ export const informeDirectorio = (req, res) => {
       });
     } else {
       res.status(500).send({
-        message: `Error al ejecutar el script.`,
-        output: outputData.trim(), // Se puede obtener incluso en caso de error
-        exitCode: codigo,
+        message: `Error al ejecutar el script. Codigo de salida ${codigo}`,
       });
     }
   });
+};
 
-  pythonProcess.on("error", (error) => {
-    console.error(`Error al ejecutar el script de Python: ${error}`);
-    res.status(500).send({
-      message: "Error al ejecutar el script de Python",
-      output: outputData.trim(), // También se puede obtener en caso de error
-      exitCode: -1, // Un valor de código de salida personalizado para errores
-    });
+export const creacionTableroDeControl = (req, res) => {
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    [
+      "C:\\Compartida Python\\Administracion\\Insumos Tablero de Control\\Modificacion Tablero de Control Ejecutivo Inclusion de Fondo Nuevo 20-02-2024.py",
+    ],
+    {
+      detached: true,
+      stdio: ["ignore", "pipe", "pipe"], // Pipe para stdout y stderr
+    }
+  );
+  pythonProcess.on("close", (codigo) => {
+    if (codigo === 0) {
+      res.status(200).send({
+        message: "Consulta ejecutada correctamente",
+      });
+    } else {
+      res.status(500).send({
+        message: `Error al ejecutar el script. Codigo de salida ${codigo}`,
+      });
+    }
   });
 };
 

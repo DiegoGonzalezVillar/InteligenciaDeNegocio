@@ -163,81 +163,79 @@ function AfisPorAsesor(props) {
   };
 
   return (
-    <div className="content">
-      <div className="contenedor-principal">
-        <Grid container>
-          <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-            <Card className={classes.tarjeta}>
-              <CardContent>
-                <Typography className={classes.titulo}>
-                  Total Afiliaciones año {añoActual}:
-                </Typography>
-                <Typography className={classes.texto}>
-                  {estadisticas.totalActual}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-            <Card className={classes.tarjeta}>
-              <CardContent>
-                <Typography className={classes.titulo}>
-                  Total Afiliaciones año {añoAnterior}:
-                </Typography>
-                <Typography className={classes.texto}>
-                  {estadisticas.totalAnterior}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-            <Card className={classes.tarjeta}>
-              <CardContent>
-                <Typography className={classes.titulo}>
-                  Diferencia en % Actual vs Anterior:
-                </Typography>
-                <Typography className={classes.texto}>
-                  {estadisticas.porcentaje}%
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+    <div className="contenedor-principal2">
+      <Grid container>
+        <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
+          <Card className={classes.tarjeta}>
+            <CardContent>
+              <Typography className={classes.titulo}>
+                Total Afiliaciones año {añoActual}:
+              </Typography>
+              <Typography className={classes.texto}>
+                {estadisticas.totalActual}
+              </Typography>
+            </CardContent>
+          </Card>
         </Grid>
+        <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
+          <Card className={classes.tarjeta}>
+            <CardContent>
+              <Typography className={classes.titulo}>
+                Total Afiliaciones año {añoAnterior}:
+              </Typography>
+              <Typography className={classes.texto}>
+                {estadisticas.totalAnterior}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
+          <Card className={classes.tarjeta}>
+            <CardContent>
+              <Typography className={classes.titulo}>
+                Diferencia en % Actual vs Anterior:
+              </Typography>
+              <Typography className={classes.texto}>
+                {estadisticas.porcentaje}%
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
 
-        <Grid container style={{ marginTop: 20 }}>
-          <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-            <Bar options={options} data={data} plugins={[ChartDataLabels]} />
-          </Grid>
-          <Grid item xs={1} sm={1} md={1} lg={1} xl={1}></Grid>
-          <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-            <TableContainer style={{ height: "100%", width: "80%" }}>
-              <Table size="small">
-                <TableHead>
-                  <TableRow>
-                    <TableCell style={{ fontSize: "15px" }}>Asesor</TableCell>
-                    <TableCell style={{ fontSize: "15px" }}>Cantidad</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {arrayAfisPorAsesor
-                    .sort((a, b) => a.asesor.localeCompare(b.asesor))
-                    .sort((a, b) => b.cantidad - a.cantidad)
-                    .map((row) => (
-                      <TableRow key={row.asesor}>
-                        <TableCell style={{ fontSize: "13px" }}>
-                          {row.asesor}
-                        </TableCell>
-                        <TableCell style={{ fontSize: "13px" }}>
-                          {row.cantidad}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
+      <Grid container style={{ marginTop: 20 }}>
+        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+          <Bar options={options} data={data} plugins={[ChartDataLabels]} />
         </Grid>
-      </div>
+        <Grid item xs={1} sm={1} md={1} lg={1} xl={1}></Grid>
+        <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+          <TableContainer style={{ height: "100%", width: "80%" }}>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell style={{ fontSize: "15px" }}>Asesor</TableCell>
+                  <TableCell style={{ fontSize: "15px" }}>Cantidad</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {arrayAfisPorAsesor
+                  .sort((a, b) => a.asesor.localeCompare(b.asesor))
+                  .sort((a, b) => b.cantidad - a.cantidad)
+                  .map((row) => (
+                    <TableRow key={row.asesor}>
+                      <TableCell style={{ fontSize: "13px" }}>
+                        {row.asesor}
+                      </TableCell>
+                      <TableCell style={{ fontSize: "13px" }}>
+                        {row.cantidad}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+      </Grid>
     </div>
   );
 }

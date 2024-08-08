@@ -266,7 +266,7 @@ export default function InteriorAC() {
   };
 
   return (
-    <div className="content">
+    <div className="contenedor-principal2">
       <Container>
         <Titulo style={estilosTitulo} title="Interior A-C" />
         <Box

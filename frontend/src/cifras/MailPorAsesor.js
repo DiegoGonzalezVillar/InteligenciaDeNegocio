@@ -193,153 +193,148 @@ const MailPorAsesor = () => {
   ).length;
 
   return (
-    <div className="content">
-      <div className="contenedor-principal">
-        <Titulo
-          style={estilosTitulo}
-          title="Afiliaciones por Asesor con Mail"
-        />
-        {loading ? (
-          <p>Loading...</p> // Display a loading indicator or message
-        ) : (
-          <Grid container>
-            <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-              <Card className={classes.tarjeta}>
-                <CardContent>
-                  <Typography className={classes.titulo}>
-                    Valor de porcentaje de referencia:
-                  </Typography>
-                  <Typography className={classes.texto}>
-                    {porcentajeReferencia}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-              <Card className={classes.tarjeta}>
-                <CardContent>
-                  <Typography className={classes.titulo}>
-                    Total que Cumplen con los mails:
-                  </Typography>
-                  <Typography className={classes.texto}>
-                    {cantidadQueCumplen}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-              <Card className={classes.tarjeta}>
-                <CardContent>
-                  <Typography className={classes.titulo}>
-                    Total que NO cumplen con los mails:
-                  </Typography>
-                  <Typography className={classes.texto}>
-                    {cantidadNoCumplen}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+    <div className="contenedor-principal2">
+      <Titulo style={estilosTitulo} title="Afiliaciones por Asesor con Mail" />
+      {loading ? (
+        <p>Loading...</p> // Display a loading indicator or message
+      ) : (
+        <Grid container>
+          <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
+            <Card className={classes.tarjeta}>
+              <CardContent>
+                <Typography className={classes.titulo}>
+                  Valor de porcentaje de referencia:
+                </Typography>
+                <Typography className={classes.texto}>
+                  {porcentajeReferencia}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
+            <Card className={classes.tarjeta}>
+              <CardContent>
+                <Typography className={classes.titulo}>
+                  Total que Cumplen con los mails:
+                </Typography>
+                <Typography className={classes.texto}>
+                  {cantidadQueCumplen}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
+            <Card className={classes.tarjeta}>
+              <CardContent>
+                <Typography className={classes.titulo}>
+                  Total que NO cumplen con los mails:
+                </Typography>
+                <Typography className={classes.texto}>
+                  {cantidadNoCumplen}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
 
-            <Grid container style={{ marginTop: 10 }}>
-              <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <h4 style={{ color: "#B83E42" }}>Filtros</h4>
-                </div>
-                <FormControl
-                  style={{
-                    marginLeft: "150px",
-                    width: "200px",
-                    marginTop: "50px",
-                  }}
-                >
-                  <InputLabel id="year-select-label">
-                    Selecciona un año
-                  </InputLabel>
-                  {
-                    <Select
-                      value={selectedYear}
-                      onChange={(e) =>
-                        setSelectedYear(parseInt(e.target.value, 10))
-                      }
-                    >
-                      {years.map((year) => (
-                        <option key={year} value={year}>
-                          {year}
-                        </option>
-                      ))}
-                    </Select>
-                  }
-                </FormControl>
-                <FormControl
-                  style={{
-                    marginLeft: "150px",
-                    width: "200px",
-                    marginTop: "50px",
-                  }}
-                >
-                  <InputLabel id="month-select-label">
-                    Selecciona un mes
-                  </InputLabel>
+          <Grid container style={{ marginTop: 10 }}>
+            <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <h4 style={{ color: "#B83E42" }}>Filtros</h4>
+              </div>
+              <FormControl
+                style={{
+                  marginLeft: "150px",
+                  width: "200px",
+                  marginTop: "50px",
+                }}
+              >
+                <InputLabel id="year-select-label">
+                  Selecciona un año
+                </InputLabel>
+                {
                   <Select
-                    value={selectedMonth}
-                    onChange={(e) => setSelectedMonth(e.target.value)}
+                    value={selectedYear}
+                    onChange={(e) =>
+                      setSelectedYear(parseInt(e.target.value, 10))
+                    }
                   >
-                    {/*<option value="">Acumulado del año</option>{" "}*/}
-                    {/* Opción para el acumulado del año */}
-                    {months.map((month) => (
-                      <option key={month} value={month}>
-                        {month}
+                    {years.map((year) => (
+                      <option key={year} value={year}>
+                        {year}
                       </option>
                     ))}
                   </Select>
-                </FormControl>
-
-                <TextField
-                  label="Valor de referencia"
-                  value={porcentajeReferencia}
-                  onChange={cambiarValorDePorcentaje}
-                  style={{
-                    marginLeft: "150px",
-                    width: "200px",
-                    marginTop: "50px",
-                  }}
-                />
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={7}
-                lg={7}
-                xl={7}
-                style={{ marginLeft: "150px" }}
+                }
+              </FormControl>
+              <FormControl
+                style={{
+                  marginLeft: "150px",
+                  width: "200px",
+                  marginTop: "50px",
+                }}
               >
-                <Bar
-                  options={{
-                    ...options,
-                    plugins: {
-                      ...options.plugins,
-                      title: {
-                        ...options.plugins.title,
-                        text: "Porcentaje de SI",
-                        position: "bottom",
-                      },
+                <InputLabel id="month-select-label">
+                  Selecciona un mes
+                </InputLabel>
+                <Select
+                  value={selectedMonth}
+                  onChange={(e) => setSelectedMonth(e.target.value)}
+                >
+                  {/*<option value="">Acumulado del año</option>{" "}*/}
+                  {/* Opción para el acumulado del año */}
+                  {months.map((month) => (
+                    <option key={month} value={month}>
+                      {month}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <TextField
+                label="Valor de referencia"
+                value={porcentajeReferencia}
+                onChange={cambiarValorDePorcentaje}
+                style={{
+                  marginLeft: "150px",
+                  width: "200px",
+                  marginTop: "50px",
+                }}
+              />
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={7}
+              lg={7}
+              xl={7}
+              style={{ marginLeft: "150px" }}
+            >
+              <Bar
+                options={{
+                  ...options,
+                  plugins: {
+                    ...options.plugins,
+                    title: {
+                      ...options.plugins.title,
+                      text: "Porcentaje de SI",
+                      position: "bottom",
                     },
-                  }}
-                  data={data2}
-                  plugins={[ChartDataLabels]}
-                />
-              </Grid>
+                  },
+                }}
+                data={data2}
+                plugins={[ChartDataLabels]}
+              />
             </Grid>
           </Grid>
-        )}
-      </div>
+        </Grid>
+      )}
     </div>
   );
 };

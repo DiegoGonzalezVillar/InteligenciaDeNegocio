@@ -6,12 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.getLimites30008 = exports.getLimites30006 = void 0;
 var _require = require("child_process"),
   spawn = _require.spawn;
-var getLimites30006 = function getLimites30006(req, res) {
+var getLimites30006 = exports.getLimites30006 = function getLimites30006(req, res) {
   var pythonProcess = spawn("C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe", ["C:\\Compartida Python\\consulta30006.py"], {
     detached: true,
     stdio: ["ignore", "pipe", "pipe"] // Pipe para stdout y stderr
   });
-
   var outputData = "";
   pythonProcess.stdout.on("data", function (data) {
     outputData += data.toString();
@@ -41,13 +40,11 @@ var getLimites30006 = function getLimites30006(req, res) {
     });
   });
 };
-exports.getLimites30006 = getLimites30006;
-var getLimites30008 = function getLimites30008(req, res) {
+var getLimites30008 = exports.getLimites30008 = function getLimites30008(req, res) {
   var pythonProcess = spawn("C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe", ["C:\\Compartida Python\\consulta30008.py"], {
     detached: true,
     stdio: ["ignore", "pipe", "pipe"] // Pipe para stdout y stderr
   });
-
   var outputData = "";
   pythonProcess.stdout.on("data", function (data) {
     outputData += data.toString();
@@ -77,4 +74,3 @@ var getLimites30008 = function getLimites30008(req, res) {
     });
   });
 };
-exports.getLimites30008 = getLimites30008;

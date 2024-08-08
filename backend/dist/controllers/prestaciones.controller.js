@@ -4,11 +4,14 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getObtenerVst = void 0;
+exports.getObtenerVst = exports.generarArchivoBpc = void 0;
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 var _connection = require("../database/connection");
-var getObtenerVst = /*#__PURE__*/function () {
+var XLSX = require("xlsx");
+var _require = require("child_process"),
+  spawn = _require.spawn;
+var getObtenerVst = exports.getObtenerVst = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
     var excelFile, workbook, sheetName, sheetData, cedulasArray, cedulasString, query, pool, result;
     return _regenerator["default"].wrap(function _callee$(_context) {
@@ -22,7 +25,7 @@ var getObtenerVst = /*#__PURE__*/function () {
             return item.cedulas;
           });
           cedulasString = cedulasArray.join("','");
-          query = "\n      SELECT CI, Subestado\n      FROM [192.168.20.2].[IAFAPCRM].[sysdba].[CRM_Comercial]\n      WHERE CI IN ('".concat(cedulasString, "') AND Subestado IN ('VST', 'CST')\n    ");
+          query = "\n      SELECT distinct CI, Subestado\n      FROM [192.168.20.2].[IAFAPCRM].[sysdba].[CRM_Comercial]\n      WHERE CI IN ('".concat(cedulasString, "') AND Subestado IN ('VST', 'CST')\n    ");
           _context.next = 9;
           return (0, _connection.getConnection)();
         case 9:
@@ -45,4 +48,25 @@ var getObtenerVst = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-exports.getObtenerVst = getObtenerVst;
+var generarArchivoBpc = exports.generarArchivoBpc = function generarArchivoBpc(req, res) {
+  var _req$body = req.body,
+    cedula = _req$body.cedula,
+    porcentaje = _req$body.porcentaje;
+  var args = [cedula, porcentaje];
+  var returnData = "";
+  var pythonProcess = spawn("C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe", ["C:\\Compartida Python\\Prestaciones\\Creacion archivo bpc crm.py"].concat(args));
+  /*const pythonProcess = spawn("python", [
+    "F:\\Usuario\\Escritorio\\Archivos Python\\archivos py\\Creacion archivo bpc crm.py",
+    ...args,
+  ]);*/
+  pythonProcess.stdout.on("data", function (data) {
+    returnData += data;
+  });
+  pythonProcess.stderr.on("data", function (data) {
+    console.error("stderr: ".concat(data));
+  });
+  pythonProcess.on("close", function (code) {
+    console.log("child process exited with code ".concat(code));
+    res.json(returnData);
+  });
+};

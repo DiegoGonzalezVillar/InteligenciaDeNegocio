@@ -30,8 +30,6 @@ const ValoresRentaBruta = () => {
     }
   };
 
-  console.log(fechaInicial);
-
   const ejecutarValoresRentaBruta = async () => {
     const formData = {
       fechaInicial: fechaInicial,

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
 import {
   TableBody,
   TableRow,
@@ -18,7 +17,6 @@ import Titulo from "../componentes/Titulo.js";
 function Simulador() {
   const estilosTitulo = {
     color: "#BE3A4A",
-    marginTop: "15px",
   };
   const [respuestaProyeccion, setRespuestaProyeccion] = useState([]);
   const [sueldo, setSueldo] = useState("");
@@ -54,11 +52,7 @@ function Simulador() {
     if (sueldo === "" || edad === "" || añosActividad === "" || genero === "") {
       setResponseMessage("Debe completar todos los campos");
       setOpenSnackbar(true);
-    } /*
-        if (sueldo === '' || actividad === '' || art8 === '' || edad === '' || añosActividad === '' || genero === '' || saldoAcumulacion === '' || saldoRetiro === '') {
-            setResponseMessage('Debe completar todos los campos');
-            setOpenSnackbar(true);
-        }*/ else {
+    } else {
       fetch(`${URL}simuladorProyeccionJubilatoria`, {
         method: "POST",
         headers: {
@@ -85,11 +79,10 @@ function Simulador() {
   };
 
   return (
-    <div className="content">
-      <div className="contenedor-principal2">
-        <Grid container>
-          <Grid item xs={1} sm={1} md={2} lg={2} xl={2}></Grid>
-          <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+    <div className="contenedor-principal2">
+      <div className="h-[calc(100vh-75px)] ">
+        <div className="grid grid-cols-2 h-full py-8 px-80 gap-32">
+          <div className="h-full">
             <Titulo style={estilosTitulo} title="Simulador Jubilatorio" />
             <Form onKeyDown={handleKeyDown} style={{ marginTop: "20px" }}>
               <Form.Group
@@ -383,9 +376,9 @@ function Simulador() {
                 Consultar
               </Button>
             </Form>
-          </Grid>
-          <Grid item xs={1} sm={1} md={1} lg={1} xl={1}></Grid>
-          <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+          </div>
+
+          <div className="h-full">
             <Titulo style={estilosTitulo} title="Resultado" />
             {respuestaProyeccion.length > 0 ? (
               <TableContainer style={{ marginTop: "20px" }} component={Paper}>
@@ -440,14 +433,14 @@ function Simulador() {
                 </Table>
               </TableContainer>
             )}
-          </Grid>
+          </div>
           <Snackbar
             open={openSnackbar}
             onClose={() => setOpenSnackbar(false)}
             message={responseMessage}
             autoHideDuration={3000}
           />
-        </Grid>
+        </div>
       </div>
     </div>
   );

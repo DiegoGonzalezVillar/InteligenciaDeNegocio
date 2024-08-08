@@ -147,54 +147,52 @@ function CantidadAfisAsesorActualAnterior(props) {
     ],
   };
   return (
-    <div className="content">
-      <div className="contenedor-principal2">
-        <Grid container>
-          <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-            <Card className={classes.tarjeta}>
-              <CardContent>
-                <Typography className={classes.titulo}>
-                  Total Afiliaciones año {añoActual}:
-                </Typography>
-                <Typography className={classes.texto}>
-                  {totalCantidadActual}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-            <Card className={classes.tarjeta}>
-              <CardContent>
-                <Typography className={classes.titulo}>
-                  Total Afiliaciones año {añoAnterior}:
-                </Typography>
-                <Typography className={classes.texto}>
-                  {totalCantidadAnterior}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-            <Card className={classes.tarjeta}>
-              <CardContent>
-                <Typography className={classes.titulo}>
-                  Diferencia en % Actual vs Anterior:
-                </Typography>
-                <Typography className={classes.texto}>{porcentaje}%</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+    <div className="contenedor-principal2">
+      <Grid container>
+        <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
+          <Card className={classes.tarjeta}>
+            <CardContent>
+              <Typography className={classes.titulo}>
+                Total Afiliaciones año {añoActual}:
+              </Typography>
+              <Typography className={classes.texto}>
+                {totalCantidadActual}
+              </Typography>
+            </CardContent>
+          </Card>
         </Grid>
-        <Titulo style={estilosTitulo} title="Año Actual vs Anterior" />
-        <Grid container>
-          <Grid item xs={0} sm={0} md={2} lg={2} xl={2}></Grid>
-          <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-            <div style={{ height: "600px" }}>
-              <Bar options={options} data={data} plugins={[ChartDataLabels]} />
-            </div>
-          </Grid>
+        <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
+          <Card className={classes.tarjeta}>
+            <CardContent>
+              <Typography className={classes.titulo}>
+                Total Afiliaciones año {añoAnterior}:
+              </Typography>
+              <Typography className={classes.texto}>
+                {totalCantidadAnterior}
+              </Typography>
+            </CardContent>
+          </Card>
         </Grid>
-      </div>
+        <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
+          <Card className={classes.tarjeta}>
+            <CardContent>
+              <Typography className={classes.titulo}>
+                Diferencia en % Actual vs Anterior:
+              </Typography>
+              <Typography className={classes.texto}>{porcentaje}%</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+      <Titulo style={estilosTitulo} title="Año Actual vs Anterior" />
+      <Grid container>
+        <Grid item xs={0} sm={0} md={2} lg={2} xl={2}></Grid>
+        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+          <div style={{ height: "600px" }}>
+            <Bar options={options} data={data} plugins={[ChartDataLabels]} />
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 }

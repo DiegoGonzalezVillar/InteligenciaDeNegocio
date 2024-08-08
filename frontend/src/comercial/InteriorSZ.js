@@ -269,7 +269,7 @@ export default function InteriorSZ() {
   };
 
   return (
-    <div className="content">
+    <div className="contenedor-principal2">
       <Container>
         <Titulo style={estilosTitulo} title="Interior S-Z" />
         <Box

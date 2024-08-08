@@ -51,8 +51,9 @@ router.get("/txtCrecimiento", _administracion.getTxtCrecimiento);
 router.get("/letrasRm", _administracion.letrasRm);
 router.get("/informeDirectorio", _administracion.informeDirectorio);
 router.post("/valoresRentaBruta", _administracion.valoresRentaBruta);
+router.get("/creacionTableroDeControl", _administracion.creacionTableroDeControl);
 
 //OPERACIONES
 router.post("/encontrarFoto", _operaciones.encontrarFoto);
-var _default = router;
-exports["default"] = _default;
+router.post("/generarArchivoBpc", _prestaciones.generarArchivoBpc);
+var _default = exports["default"] = router;

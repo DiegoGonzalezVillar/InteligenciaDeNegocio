@@ -70,58 +70,57 @@ const Navbar = () => {
               className="mySvg"
               style={{ cursor: "pointer" }}
               flex={1}
-              width={"35%"}
+              width={"25%"}
               height={"60%"}
               resizemode={"contain"}
               alt="Logo Iafap"
               onClick={() => navigate("/")}
             ></img>
           </Typography>
-
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={handleShow}
           >
             Comercial
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={() => navigate("/administracion")}
           >
             Administracion
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={() => navigate("/operaciones")}
           >
             operaciones
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={() => navigate("/inversiones")}
           >
             Inversiones
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={() => navigate("/simulador")}
           >
             Simulador
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={() => navigate("/prestaciones")}
           >
             Prestaciones
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={() => navigate("/tableros")}
           >
             Informacion
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "50px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "20px" }}
             onClick={cerrarSesion}
           >
             Cerrar sesion
@@ -132,53 +131,53 @@ const Navbar = () => {
   };
   const Login = () => {
     return (
-      <>
+      <div>
         <Toolbar>
           <Typography sx={{ flexGrow: 1 }}>
             <img
               src={logo2}
-              style={{ cursor: "pointer" }}
               className="mySvg"
+              style={{ cursor: "pointer" }}
               flex={1}
-              width={200}
-              height={60}
+              width={"25%"}
+              height={"50%"}
               resizemode={"contain"}
               alt="Logo Iafap"
               onClick={() => navigate("/")}
             ></img>
           </Typography>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={handleShow}
           >
             Comercial
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={() => navigate("/administracion")}
           >
             Administracion
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={() => navigate("/operaciones")}
           >
             Operaciones
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={() => navigate("/inversiones")}
           >
             Inversiones
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={() => navigate("/prestaciones")}
           >
             Prestaciones
           </Button>
           <Button
-            style={{ color: "#BE3A4A", marginRight: "20px", fontSize: "90%" }}
+            style={{ color: "#BE3A4A", marginRight: "10px" }}
             onClick={() => navigate("/simulador")}
           >
             Simulador
@@ -254,7 +253,7 @@ const Navbar = () => {
           message={responseMessage}
           autoHideDuration={4000}
         />
-      </>
+      </div>
     );
   };
   return <div className="mi-navbar"> {!isLoggedIn ? Login() : Logout()}</div>;

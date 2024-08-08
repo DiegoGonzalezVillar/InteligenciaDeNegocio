@@ -35,6 +35,7 @@ import {
   letrasRm,
   informeDirectorio,
   valoresRentaBruta,
+  creacionTableroDeControl,
 } from "../controllers/administracion.controller";
 
 import {
@@ -42,7 +43,10 @@ import {
   getLimites30008,
 } from "../controllers/inversiones.controller";
 
-import { getObtenerVst } from "../controllers/prestaciones.controller";
+import {
+  getObtenerVst,
+  generarArchivoBpc,
+} from "../controllers/prestaciones.controller";
 
 import { encontrarFoto } from "../controllers/operaciones.controller";
 
@@ -91,8 +95,10 @@ router.get("/txtCrecimiento", getTxtCrecimiento);
 router.get("/letrasRm", letrasRm);
 router.get("/informeDirectorio", informeDirectorio);
 router.post("/valoresRentaBruta", valoresRentaBruta);
+router.get("/creacionTableroDeControl", creacionTableroDeControl);
 
 //OPERACIONES
 router.post("/encontrarFoto", encontrarFoto);
+router.post("/generarArchivoBpc", generarArchivoBpc);
 
 export default router;

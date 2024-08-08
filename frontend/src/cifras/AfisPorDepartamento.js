@@ -124,16 +124,14 @@ function AfisPorDepartamento(props) {
     ],
   };
   return (
-    <div className="content">
-      <div className="contenedor-principal">
-        <Titulo style={estilosTitulo} title="Afiliaciones por Departamento" />
-        <Grid container style={{ marginTop: "2%" }}>
-          <Grid item xs={0} sm={0} md={2} lg={2} xl={2}></Grid>
-          <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-            <Bar options={options} data={data} plugins={[ChartDataLabels]} />
-          </Grid>
+    <div className="contenedor-principal2">
+      <Titulo style={estilosTitulo} title="Afiliaciones por Departamento" />
+      <Grid container style={{ marginTop: "2%" }}>
+        <Grid item xs={0} sm={0} md={2} lg={2} xl={2}></Grid>
+        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+          <Bar options={options} data={data} plugins={[ChartDataLabels]} />
         </Grid>
-      </div>
+      </Grid>
     </div>
   );
 }

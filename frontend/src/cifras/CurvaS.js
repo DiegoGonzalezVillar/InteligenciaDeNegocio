@@ -240,8 +240,8 @@ function CurvaS() {
   };
 
   return (
-    <div className="content">
-      <div className="contenedor-principal">
+    <>
+      <div className="contenedor-principal2">
         <Grid container spacing={3}>
           <Grid
             className={classes.gridItem}
@@ -334,7 +334,7 @@ function CurvaS() {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

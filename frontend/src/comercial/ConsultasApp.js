@@ -204,7 +204,7 @@ export default function ConsulasApp() {
   );
 
   return (
-    <div className="content">
+    <div className="contenedor-principal2">
       <Container>
         <Titulo style={estilosTitulo} title="Consultas APP" />
         <Box

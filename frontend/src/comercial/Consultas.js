@@ -75,7 +75,7 @@ const Consultas = () => {
   }
 
   return (
-    <div className="content">
+    <div className="contenedor-principal2">
       <Titulo style={estilosTitulo} title="Inteligencia de Negocio" />
       <div
         style={{

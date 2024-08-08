@@ -328,7 +328,7 @@ const MontevideoSur = () => {
   };
 
   return (
-    <div className="content">
+    <div className="contenedor-principal2">
       <Container>
         <Titulo style={estilosTitulo} title="Montevideo Sur" />
         <Box

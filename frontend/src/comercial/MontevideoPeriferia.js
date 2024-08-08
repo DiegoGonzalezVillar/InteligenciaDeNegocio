@@ -333,7 +333,7 @@ export default function MontevideoPeriferia() {
   };
 
   return (
-    <div className="content">
+    <div className="contenedor-principal2">
       <Container>
         <Titulo style={estilosTitulo} title="Montevideo Periferia" />
         <Box

@@ -130,87 +130,85 @@ const AfisPorAsesorPorAño = () => {
   };
 
   return (
-    <div className="content">
-      <div className="contenedor-principal">
-        <Titulo style={estilosTitulo} title="Afiliaciones por Asesor por Año" />
-        <Grid container style={{ marginTop: "5px" }}>
-          <Grid item xs={8} style={{ marginTop: "80px", marginLeft: "50px" }}>
-            <Bar options={options} data={data} plugins={[ChartDataLabels]} />
-          </Grid>
-          <Grid item xs={3} style={{ marginLeft: "50px" }}>
-            <InputLabel style={{ color: "#BE3A4A" }}>
-              Selecciona un año
-            </InputLabel>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <FormControl
-                style={{
-                  width: "150px",
-                  marginRight: "10px",
-                }}
-              >
-                <Select
-                  style={{ color: "#BE3A4A" }}
-                  value={selectedYear}
-                  onChange={handleChange}
-                >
-                  {years.map((year) => (
-                    <MenuItem
-                      style={{ color: "#BE3A4A" }}
-                      key={year}
-                      value={year}
-                    >
-                      {year}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <Card className={classes.tarjeta} style={{ marginLeft: "50px" }}>
-                <CardContent>
-                  <Typography className={classes.texto}>
-                    Total Afis {totalAfiliaciones}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </div>
-
-            <TableContainer
+    <div className="contenedor-principal2">
+      <Titulo style={estilosTitulo} title="Afiliaciones por Asesor por Año" />
+      <Grid container style={{ marginTop: "5px" }}>
+        <Grid item xs={8} style={{ marginTop: "80px", marginLeft: "50px" }}>
+          <Bar options={options} data={data} plugins={[ChartDataLabels]} />
+        </Grid>
+        <Grid item xs={3} style={{ marginLeft: "50px" }}>
+          <InputLabel style={{ color: "#BE3A4A" }}>
+            Selecciona un año
+          </InputLabel>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <FormControl
               style={{
-                marginTop: "10px",
-                height: "100%",
-                width: "80%",
-                maxHeight: "700px",
+                width: "150px",
+                marginRight: "10px",
               }}
             >
-              <Table size="small">
-                <TableHead>
-                  <TableRow>
-                    <TableCell style={{ fontSize: "15px", color: "#BE3A4A" }}>
-                      Asesor
-                    </TableCell>
-                    <TableCell style={{ fontSize: "15px", color: "#BE3A4A" }}>
-                      Cantidad
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {filteredData
-                    .sort((a, b) => b.Cantidad - a.Cantidad)
-                    .map((row) => (
-                      <TableRow key={row.Asesor}>
-                        <TableCell style={{ fontSize: "14px" }}>
-                          {row.Nombre}
-                        </TableCell>
-                        <TableCell style={{ fontSize: "14px" }}>
-                          {row.Cantidad}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
+              <Select
+                style={{ color: "#BE3A4A" }}
+                value={selectedYear}
+                onChange={handleChange}
+              >
+                {years.map((year) => (
+                  <MenuItem
+                    style={{ color: "#BE3A4A" }}
+                    key={year}
+                    value={year}
+                  >
+                    {year}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Card className={classes.tarjeta} style={{ marginLeft: "50px" }}>
+              <CardContent>
+                <Typography className={classes.texto}>
+                  Total Afis {totalAfiliaciones}
+                </Typography>
+              </CardContent>
+            </Card>
+          </div>
+
+          <TableContainer
+            style={{
+              marginTop: "10px",
+              height: "100%",
+              width: "80%",
+              maxHeight: "700px",
+            }}
+          >
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell style={{ fontSize: "15px", color: "#BE3A4A" }}>
+                    Asesor
+                  </TableCell>
+                  <TableCell style={{ fontSize: "15px", color: "#BE3A4A" }}>
+                    Cantidad
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filteredData
+                  .sort((a, b) => b.Cantidad - a.Cantidad)
+                  .map((row) => (
+                    <TableRow key={row.Asesor}>
+                      <TableCell style={{ fontSize: "14px" }}>
+                        {row.Nombre}
+                      </TableCell>
+                      <TableCell style={{ fontSize: "14px" }}>
+                        {row.Cantidad}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Grid>
-      </div>
+      </Grid>
     </div>
   );
 };

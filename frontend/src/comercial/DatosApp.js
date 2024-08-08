@@ -140,7 +140,7 @@ const DatosApp = () => {
   }
 
   return (
-    <div className="content">
+    <div className="contenedor-principal2">
       <Titulo style={estilosTitulo} title="DATOS APP" />
       <Grid container style={{ marginTop: "20px" }}>
         <Grid item xs={1}></Grid>

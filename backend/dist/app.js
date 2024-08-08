@@ -22,5 +22,4 @@ app.use(fileUpload());
 app.use(cors());
 app.use(_afaps["default"]);
 app.use(_express["default"].json());
-var _default = app;
-exports["default"] = _default;
+var _default = exports["default"] = app;

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.encontrarFoto = void 0;
 var _require = require("child_process"),
   spawn = _require.spawn;
-var encontrarFoto = function encontrarFoto(req, res) {
+var encontrarFoto = exports.encontrarFoto = function encontrarFoto(req, res) {
   var _req$body = req.body,
     foto = _req$body.foto,
     cedula = _req$body.cedula,
@@ -31,4 +31,3 @@ var encontrarFoto = function encontrarFoto(req, res) {
     res.json(returnData);
   });
 };
-exports.encontrarFoto = encontrarFoto;

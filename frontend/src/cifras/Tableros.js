@@ -65,7 +65,7 @@ const Tableros = () => {
   }
 
   return (
-    <div className="content">
+    <div className="contenedor-principal2">
       <Titulo style={estilosTitulo} title="Integración en Cifras" />
       <div
         style={{
@@ -75,21 +75,6 @@ const Tableros = () => {
           marginTop: "30px",
         }}
       >
-        {/*<Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap}
-              title="Afiliaciones por Asesor"
-              onClick={() => afisPorAsesor()}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>
-                Afiliaciones por Asesor
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-      </Card>*/}
         <Card className={classes.card}>
           <CardActionArea>
             <CardMedia

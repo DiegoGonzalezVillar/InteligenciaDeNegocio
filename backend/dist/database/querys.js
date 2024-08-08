@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.queries = void 0;
 var _afaps = require("../controllers/afaps.controller");
-var queries = {
+var queries = exports.queries = {
   getSmsNumero: "SELECT MAX(smsnumero) as smsnumero FROM [SOLOACTIVIDAD].[dbo].SMSENTRADA where smsnumero < 999999",
   verificarUsuario: "select * from [2023_AFAP_GESTION].[dbo].[INTRACOMERCIAL] where usuario = @usuario and password = @password",
   insertSmsEntrada: "INSERT INTO [SOLOACTIVIDAD].[dbo].[SMSENTRADA]([smsnumero], [smsrecfec], [smsrecrem], [smsrectxt], [smsestado], [smsenviado], [smstxtenvio], [smstipo], [smsarchivo]) SELECT @numero, '20210726 10:40:17.287', '', '', 'PEN', NULL, '', 5,'' ",
@@ -34,4 +34,3 @@ var queries = {
   afisPorAfap: "select nombre, FORMAT(fechaDeIngreso,'dd-MM-yyyy')fecha, totalAfilaciones from [2023_AFAP_Gestion].[dbo].[INGRESOS_DIARIOS_AFAP] as i with (nolock), [2023_AFAP_Gestion].[dbo].AFAP as a with (nolock) where a.id = i.id and fechaDeIngreso > '01-01-2018'",
   afisUltimoDiaPorAfap: "  select nombre, FORMAT(fechaDeIngreso,'dd-MM-yyyy')fecha, totalAfilaciones, a.cantidadAsesores from [2023_AFAP_Gestion].[dbo].[INGRESOS_DIARIOS_AFAP] as i with (nolock), [2023_AFAP_Gestion].[dbo].AFAP as a with (nolock) where a.id = i.id and fechaDeIngreso = (Select max(fechaDeIngreso) from [2023_AFAP_Gestion].[dbo].[INGRESOS_DIARIOS_AFAP] with (nolock ))"
 };
-exports.queries = queries;

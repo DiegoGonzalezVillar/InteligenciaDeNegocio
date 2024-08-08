@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, makeStyles, Card, CardMedia } from "@material-ui/core";
+import { makeStyles, Card, CardMedia } from "@material-ui/core";
 import iafap from "./imagenes/IafapPrincipal.svg";
 import { useEffect } from "react";
 import { URL } from "../src/comercial/Constantes";
@@ -40,45 +40,31 @@ const useStyles = makeStyles((theme) => ({
   },
 
   text: {
+    //centrar
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    //
     fontFamily: "calibri",
-    fontSize: "50px",
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "30px",
-    },
-    [theme.breakpoints.down("md")]: {
-      fontSize: "40px",
-    },
+    fontSize: "300%",
     color: "#BE3A4A",
-    margin: theme.spacing(0),
-    width: "100%",
-    minHeight: "auto",
   },
   text2: {
+    //centrar
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    //
     fontFamily: "calibri",
-    fontSize: "35px",
-    margin: theme.spacing(1),
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "15px",
-    },
-    [theme.breakpoints.down("md")]: {
-      fontSize: "25px",
-    },
-
+    fontSize: "200%",
     color: "#BE3A4A",
     textAlign: "justify",
-    marginRight: theme.spacing(5),
-  },
-  total: {
-    color: "#000000",
+    marginTop: theme.spacing(1),
+    marginRight: theme.spacing(4),
+    marginLeft: theme.spacing(3),
   },
   container: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(3),
   },
 }));
 
@@ -148,9 +134,9 @@ const Principal = () => {
   }, []);
 
   return (
-    <div className="content">
-      <Grid container className={classes.container}>
-        <Grid item sm={12} md={12} lg={6}>
+    <div className="h-[calc(100vh-150px)] mt-[75px] bg-[rgba(230,230,230,0.247)]">
+      <div className="grid grid-cols-2 h-[calc(100vh-150px)]">
+        <div className="h-[calc(100vh-150px)] mt-[30px]">
           <Card className={classes.root}>
             <CardMedia
               className={classes.media}
@@ -158,11 +144,9 @@ const Principal = () => {
               title="Imagen 1"
             />
           </Card>
-        </Grid>
-        <Grid item sm={12} md={12} lg={6}>
-          {combinedText}
-        </Grid>
-      </Grid>
+        </div>
+        <div className="h-full">{combinedText}</div>
+      </div>
     </div>
   );
 };

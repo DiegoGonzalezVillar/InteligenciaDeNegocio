@@ -4,6 +4,7 @@ import "./App.css";
 import Navbar from "./componentes/Navbar";
 import Calendario from "./componentes/Calendarios";
 import Inicio from "./Principal";
+import Principal2 from "./Principal2";
 import Footer from "./componentes/Footer";
 import Consultas from "./comercial/Consultas";
 import MontevideoSur from "./comercial/MontevideoSur";
@@ -23,7 +24,9 @@ import CantidadAfisAsesorActualAnterior from "./cifras/CantidadAfisAsesorActualA
 import Piramide from "./cifras/Piramide";
 import CantidadPorMail from "./cifras/MailPorAsesor";
 import PruebaSlider from "./cifras/PruebaSlider";
-import CuentasVst from "./prestaciones/CuentasVst";
+import MenuPrestaciones from "./prestaciones/MenuPrestaciones";
+import GenerarArchivoBpc from "./prestaciones/GenerarArchivoBpc";
+import CuentasVST from "./prestaciones/CuentasVst";
 import Limites from "./inversiones/Limites";
 import Administracion from "./administracion/Administracion";
 import GeneracionTxt from "./administracion/GeneracionTxt";
@@ -43,6 +46,7 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Inicio />}></Route>
+          <Route path="/principal" element={<Principal2 />}></Route>
           <Route path="/consultas" element={<Consultas />}></Route>
           <Route
             path="/montevideoPeriferia"
@@ -75,7 +79,12 @@ const App = () => {
           <Route path="/cantidadPorEdadyPorSexo" element={<Piramide />}></Route>
           <Route path="/calendarios" element={<Calendario />}></Route>
           <Route path="/pruebaSlider" element={<PruebaSlider />}></Route>
-          <Route path="/prestaciones" element={<CuentasVst />}></Route>
+          <Route path="/prestaciones" element={<MenuPrestaciones />}></Route>
+          <Route
+            path="/generarArchivoBpc"
+            element={<GenerarArchivoBpc />}
+          ></Route>
+          <Route path="/cuentasVst" element={<CuentasVST />}></Route>
           <Route path="/inversiones" element={<Limites />}></Route>
           <Route path="/administracion" element={<Administracion />}></Route>
           <Route path="/operaciones" element={<EncontrarFoto />}></Route>

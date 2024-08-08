@@ -130,7 +130,7 @@ const AfisPorAfapBps = () => {
     nombre: "Total",
     totalAfilaciones: total.totalAfilaciones,
     cantidadAsesores: total.totalCantidadAsesores,
-    Porcentaje_Afiliaciones: totalPorcentajeTotalAfilaciones,
+    Porcentaje_Afiliaciones: totalPorcentajeTotalAfilaciones.toFixed(0),
     Porcentaje_Total_Asesores: totalPorcentajeTotalAsesores,
     Promedio_Afiliaciones_Asesor: totalPromedioAfiliacionesAsesor.toFixed(1),
   };
@@ -180,7 +180,7 @@ const AfisPorAfapBps = () => {
   const filaTotal = {
     nombre: "Total",
     totalAfilaciones: cantidadTotal,
-    porcentaje: "100.00", // El porcentaje total siempre será 100%
+    porcentaje: "100", // El porcentaje total siempre será 100%
   };
   nuevoArray.push(filaTotal);
 
@@ -233,211 +233,203 @@ const AfisPorAfapBps = () => {
   ///////////////////////
 
   return (
-    <div className="content">
-      <div className="contenedor-principal">
-        <Titulo style={estilosTitulo} title="Ingresos por Afap" />
-        <Grid container style={{ marginTop: "1%" }}>
-          <Grid item xs={3}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <h4 style={{ color: "#B83E42", marginTop: "20%" }}>
-                Ingresos al cierre del día
-              </h4>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography className={classes.texto}>
-                {datosConTotal[0].fecha}
-              </Typography>
-            </div>
-          </Grid>
-          <Grid item xs={8}>
-            <TableContainer
-              className={classes.container}
-              component={Paper}
-              style={{ overflowX: "auto", marginTop: "1em", width: "auto" }}
-            >
-              <Table className={classes.table} aria-label="data grid">
-                <TableHead style={{ backgroundColor: "#BE3A4A" }}>
-                  <TableRow>
-                    <TableCell
-                      align="center"
-                      style={{ color: "white", width: 140 }}
-                    >
-                      AFAP
-                    </TableCell>
-                    <TableCell
-                      align="center"
-                      style={{ color: "white", width: 140 }}
-                    >
-                      Afiliaciones
-                    </TableCell>
-                    <TableCell
-                      align="center"
-                      style={{ color: "white", width: 140 }}
-                    >
-                      %
-                    </TableCell>
-                    <TableCell
-                      align="center"
-                      style={{ color: "white", width: 140 }}
-                    >
-                      Cantidad Asesores
-                    </TableCell>
-                    <TableCell
-                      align="center"
-                      style={{ color: "white", width: 140 }}
-                    >
-                      % Asesores
-                    </TableCell>
-                    <TableCell
-                      align="center"
-                      style={{ color: "white", width: 140 }}
-                    >
-                      Promedio Afi/Asesor
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {datosConTotal.map((row) => (
-                    <TableRow key={row.nombre}>
-                      <TableCell align="center" component="th" scope="row">
-                        {row.nombre}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.totalAfilaciones}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.Porcentaje_Afiliaciones}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.cantidadAsesores}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.Porcentaje_Total_Asesores}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.Promedio_Afiliaciones_Asesor}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
-
-          <Grid item xs={3} style={{ marginTop: "1.5%" }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "10px",
-              }}
-            >
-              <h4 style={{ color: "#E28432" }}>Período</h4>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "10px",
-              }}
-            >
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  label="Fecha Inicial"
-                  inputFormat="DD/MM/YYYY"
-                  value={fechaInicial}
-                  onChange={(date) => filtroFecha(date, "inicio")}
-                  renderInput={(params) => (
-                    <TextField2 {...params} style={{ marginTop: "25px" }} />
-                  )}
-                />
-              </LocalizationProvider>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "50px",
-              }}
-            >
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  label="Fecha Final"
-                  inputFormat="DD/MM/YYYY"
-                  value={fechaFinal}
-                  onChange={(date) => filtroFecha(date, "fin")}
-                  renderInput={(params) => (
-                    <TextField2 {...params} style={{ marginTop: "10px" }} />
-                  )}
-                />
-              </LocalizationProvider>
-            </div>
-          </Grid>
-          <Grid item xs={4} style={{ marginTop: "1%" }}>
-            <TableContainer
-              className={classes.container}
-              component={Paper}
-              style={{ marginTop: "1em", overflowX: "hidden" }}
-            >
-              <Table className={classes.table} aria-label="data grid">
-                <TableHead style={{ backgroundColor: "#E28432" }}>
-                  <TableRow>
-                    <TableCell
-                      align="center"
-                      style={{ color: "white", width: 140 }}
-                    >
-                      AFAP
-                    </TableCell>
-                    <TableCell
-                      align="center"
-                      style={{ color: "white", width: 140 }}
-                    >
-                      Afiliaciones
-                    </TableCell>
-                    <TableCell
-                      align="center"
-                      style={{ color: "white", width: 140 }}
-                    >
-                      %
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {nuevoArray.map((row) => (
-                    <TableRow key={row.nombre}>
-                      <TableCell align="center" component="th" scope="row">
-                        {row.nombre}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.totalAfilaciones}
-                      </TableCell>
-                      <TableCell align="center">{row.porcentaje}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
-          <Grid item xs={4} style={{ marginTop: "70px", marginLeft: "20px" }}>
-            <Bar options={options} data={data} plugins={[ChartDataLabels]} />
-          </Grid>
+    <div className="contenedor-principal2">
+      <Titulo style={estilosTitulo} title="Ingresos por Afap" />
+      <Grid container style={{ marginTop: "1%" }}>
+        <Grid item xs={3}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <h4 style={{ color: "#B83E42", marginTop: "20%" }}>
+              Ingresos al cierre del día
+            </h4>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography className={classes.texto}>
+              {datosConTotal[0].fecha}
+            </Typography>
+          </div>
         </Grid>
-      </div>
+        <Grid item xs={8}>
+          <TableContainer
+            className={classes.container}
+            component={Paper}
+            style={{ overflowX: "auto", marginTop: "1em", width: "auto" }}
+          >
+            <Table className={classes.table} aria-label="data grid">
+              <TableHead style={{ backgroundColor: "#BE3A4A" }}>
+                <TableRow>
+                  <TableCell
+                    align="center"
+                    style={{ color: "white", width: 140 }}
+                  >
+                    AFAP
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: "white", width: 140 }}
+                  >
+                    Afiliaciones
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: "white", width: 140 }}
+                  >
+                    %
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: "white", width: 140 }}
+                  >
+                    Cantidad Asesores
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: "white", width: 140 }}
+                  >
+                    % Asesores
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: "white", width: 140 }}
+                  >
+                    Promedio Afi/Asesor
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {datosConTotal.map((row) => (
+                  <TableRow key={row.nombre}>
+                    <TableCell align="center" component="th" scope="row">
+                      {row.nombre}
+                    </TableCell>
+                    <TableCell align="center">{row.totalAfilaciones}</TableCell>
+                    <TableCell align="center">
+                      {row.Porcentaje_Afiliaciones}
+                    </TableCell>
+                    <TableCell align="center">{row.cantidadAsesores}</TableCell>
+                    <TableCell align="center">
+                      {row.Porcentaje_Total_Asesores}
+                    </TableCell>
+                    <TableCell align="center">
+                      {row.Promedio_Afiliaciones_Asesor}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+
+        <Grid item xs={3} style={{ marginTop: "1.5%" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "10px",
+            }}
+          >
+            <h4 style={{ color: "#E28432" }}>Período</h4>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "10px",
+            }}
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DesktopDatePicker
+                label="Fecha Inicial"
+                inputFormat="DD/MM/YYYY"
+                value={fechaInicial}
+                onChange={(date) => filtroFecha(date, "inicio")}
+                renderInput={(params) => (
+                  <TextField2 {...params} style={{ marginTop: "25px" }} />
+                )}
+              />
+            </LocalizationProvider>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "50px",
+            }}
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DesktopDatePicker
+                label="Fecha Final"
+                inputFormat="DD/MM/YYYY"
+                value={fechaFinal}
+                onChange={(date) => filtroFecha(date, "fin")}
+                renderInput={(params) => (
+                  <TextField2 {...params} style={{ marginTop: "10px" }} />
+                )}
+              />
+            </LocalizationProvider>
+          </div>
+        </Grid>
+        <Grid item xs={4} style={{ marginTop: "1%" }}>
+          <TableContainer
+            className={classes.container}
+            component={Paper}
+            style={{ marginTop: "1em", overflowX: "hidden" }}
+          >
+            <Table className={classes.table} aria-label="data grid">
+              <TableHead style={{ backgroundColor: "#E28432" }}>
+                <TableRow>
+                  <TableCell
+                    align="center"
+                    style={{ color: "white", width: 140 }}
+                  >
+                    AFAP
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: "white", width: 140 }}
+                  >
+                    Afiliaciones
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{ color: "white", width: 140 }}
+                  >
+                    %
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {nuevoArray.map((row) => (
+                  <TableRow key={row.nombre}>
+                    <TableCell align="center" component="th" scope="row">
+                      {row.nombre}
+                    </TableCell>
+                    <TableCell align="center">{row.totalAfilaciones}</TableCell>
+                    <TableCell align="center">{row.porcentaje}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+        <Grid item xs={4} style={{ marginTop: "70px", marginLeft: "20px" }}>
+          <Bar options={options} data={data} plugins={[ChartDataLabels]} />
+        </Grid>
+      </Grid>
     </div>
   );
 };

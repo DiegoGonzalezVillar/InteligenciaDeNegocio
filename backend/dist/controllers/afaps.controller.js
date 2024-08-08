@@ -15,7 +15,7 @@ var _require = require("child_process"),
 
 //export const principal = (req, res) => res.send("");
 
-var getUltimaConsultaMontevideoPeriferia = /*#__PURE__*/function () {
+var getUltimaConsultaMontevideoPeriferia = exports.getUltimaConsultaMontevideoPeriferia = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee$(_context) {
@@ -40,8 +40,7 @@ var getUltimaConsultaMontevideoPeriferia = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-exports.getUltimaConsultaMontevideoPeriferia = getUltimaConsultaMontevideoPeriferia;
-var getCantidadDeAfiliados = /*#__PURE__*/function () {
+var getCantidadDeAfiliados = exports.getCantidadDeAfiliados = /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
     var conn, result;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
@@ -83,8 +82,7 @@ var getCantidadDeAfiliados = /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }();
-exports.getCantidadDeAfiliados = getCantidadDeAfiliados;
-var getDatosCurvaS = /*#__PURE__*/function () {
+var getDatosCurvaS = exports.getDatosCurvaS = /*#__PURE__*/function () {
   var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
     var workbook, worksheet, data;
     return _regenerator["default"].wrap(function _callee3$(_context3) {
@@ -105,8 +103,7 @@ var getDatosCurvaS = /*#__PURE__*/function () {
     return _ref3.apply(this, arguments);
   };
 }();
-exports.getDatosCurvaS = getDatosCurvaS;
-var simuladorProyeccionJubilatoria = function simuladorProyeccionJubilatoria(req, res) {
+var simuladorProyeccionJubilatoria = exports.simuladorProyeccionJubilatoria = function simuladorProyeccionJubilatoria(req, res) {
   var _req$body = req.body,
     sueldo = _req$body.sueldo,
     actividad = _req$body.actividad,
@@ -136,8 +133,7 @@ var simuladorProyeccionJubilatoria = function simuladorProyeccionJubilatoria(req
     res.json(returnData);
   });
 };
-exports.simuladorProyeccionJubilatoria = simuladorProyeccionJubilatoria;
-var getUltimaConsultaMontevideoSur = /*#__PURE__*/function () {
+var getUltimaConsultaMontevideoSur = exports.getUltimaConsultaMontevideoSur = /*#__PURE__*/function () {
   var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee4$(_context4) {
@@ -162,8 +158,7 @@ var getUltimaConsultaMontevideoSur = /*#__PURE__*/function () {
     return _ref4.apply(this, arguments);
   };
 }();
-exports.getUltimaConsultaMontevideoSur = getUltimaConsultaMontevideoSur;
-var getCantidadPorMail = /*#__PURE__*/function () {
+var getCantidadPorMail = exports.getCantidadPorMail = /*#__PURE__*/function () {
   var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee5$(_context5) {
@@ -188,8 +183,7 @@ var getCantidadPorMail = /*#__PURE__*/function () {
     return _ref5.apply(this, arguments);
   };
 }();
-exports.getCantidadPorMail = getCantidadPorMail;
-var getCantidadPorMailPorAnio = /*#__PURE__*/function () {
+var getCantidadPorMailPorAnio = exports.getCantidadPorMailPorAnio = /*#__PURE__*/function () {
   var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee6$(_context6) {
@@ -214,8 +208,7 @@ var getCantidadPorMailPorAnio = /*#__PURE__*/function () {
     return _ref6.apply(this, arguments);
   };
 }();
-exports.getCantidadPorMailPorAnio = getCantidadPorMailPorAnio;
-var getAfisPorDepartamento = /*#__PURE__*/function () {
+var getAfisPorDepartamento = exports.getAfisPorDepartamento = /*#__PURE__*/function () {
   var _ref7 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee7$(_context7) {
@@ -240,8 +233,7 @@ var getAfisPorDepartamento = /*#__PURE__*/function () {
     return _ref7.apply(this, arguments);
   };
 }();
-exports.getAfisPorDepartamento = getAfisPorDepartamento;
-var getCantAfiliadosPorAsesorActualAnterior = /*#__PURE__*/function () {
+var getCantAfiliadosPorAsesorActualAnterior = exports.getCantAfiliadosPorAsesorActualAnterior = /*#__PURE__*/function () {
   var _ref8 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee8(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee8$(_context8) {
@@ -266,8 +258,7 @@ var getCantAfiliadosPorAsesorActualAnterior = /*#__PURE__*/function () {
     return _ref8.apply(this, arguments);
   };
 }();
-exports.getCantAfiliadosPorAsesorActualAnterior = getCantAfiliadosPorAsesorActualAnterior;
-var getCantPorEdadYPorSexo = /*#__PURE__*/function () {
+var getCantPorEdadYPorSexo = exports.getCantPorEdadYPorSexo = /*#__PURE__*/function () {
   var _ref9 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee9(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee9$(_context9) {
@@ -292,8 +283,7 @@ var getCantPorEdadYPorSexo = /*#__PURE__*/function () {
     return _ref9.apply(this, arguments);
   };
 }();
-exports.getCantPorEdadYPorSexo = getCantPorEdadYPorSexo;
-var getInfoDisponible = /*#__PURE__*/function () {
+var getInfoDisponible = exports.getInfoDisponible = /*#__PURE__*/function () {
   var _ref10 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee10(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee10$(_context10) {
@@ -318,8 +308,7 @@ var getInfoDisponible = /*#__PURE__*/function () {
     return _ref10.apply(this, arguments);
   };
 }();
-exports.getInfoDisponible = getInfoDisponible;
-var getDatosAppPorCantidad = /*#__PURE__*/function () {
+var getDatosAppPorCantidad = exports.getDatosAppPorCantidad = /*#__PURE__*/function () {
   var _ref11 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee11(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee11$(_context11) {
@@ -344,8 +333,7 @@ var getDatosAppPorCantidad = /*#__PURE__*/function () {
     return _ref11.apply(this, arguments);
   };
 }();
-exports.getDatosAppPorCantidad = getDatosAppPorCantidad;
-var afisPorAsesorPorAnio = /*#__PURE__*/function () {
+var afisPorAsesorPorAnio = exports.afisPorAsesorPorAnio = /*#__PURE__*/function () {
   var _ref12 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee12(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee12$(_context12) {
@@ -370,8 +358,7 @@ var afisPorAsesorPorAnio = /*#__PURE__*/function () {
     return _ref12.apply(this, arguments);
   };
 }();
-exports.afisPorAsesorPorAnio = afisPorAsesorPorAnio;
-var afisPorAfap = /*#__PURE__*/function () {
+var afisPorAfap = exports.afisPorAfap = /*#__PURE__*/function () {
   var _ref13 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee13(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee13$(_context13) {
@@ -396,8 +383,7 @@ var afisPorAfap = /*#__PURE__*/function () {
     return _ref13.apply(this, arguments);
   };
 }();
-exports.afisPorAfap = afisPorAfap;
-var afisUltimoDiaPorAfap = /*#__PURE__*/function () {
+var afisUltimoDiaPorAfap = exports.afisUltimoDiaPorAfap = /*#__PURE__*/function () {
   var _ref14 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee14(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee14$(_context14) {
@@ -422,8 +408,7 @@ var afisUltimoDiaPorAfap = /*#__PURE__*/function () {
     return _ref14.apply(this, arguments);
   };
 }();
-exports.afisUltimoDiaPorAfap = afisUltimoDiaPorAfap;
-var getUltimaConsultaInteriorAC = /*#__PURE__*/function () {
+var getUltimaConsultaInteriorAC = exports.getUltimaConsultaInteriorAC = /*#__PURE__*/function () {
   var _ref15 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee15(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee15$(_context15) {
@@ -448,8 +433,7 @@ var getUltimaConsultaInteriorAC = /*#__PURE__*/function () {
     return _ref15.apply(this, arguments);
   };
 }();
-exports.getUltimaConsultaInteriorAC = getUltimaConsultaInteriorAC;
-var getUltimaConsultaInteriorDR = /*#__PURE__*/function () {
+var getUltimaConsultaInteriorDR = exports.getUltimaConsultaInteriorDR = /*#__PURE__*/function () {
   var _ref16 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee16(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee16$(_context16) {
@@ -474,8 +458,7 @@ var getUltimaConsultaInteriorDR = /*#__PURE__*/function () {
     return _ref16.apply(this, arguments);
   };
 }();
-exports.getUltimaConsultaInteriorDR = getUltimaConsultaInteriorDR;
-var getUltimaConsultaInteriorSZ = /*#__PURE__*/function () {
+var getUltimaConsultaInteriorSZ = exports.getUltimaConsultaInteriorSZ = /*#__PURE__*/function () {
   var _ref17 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee17(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee17$(_context17) {
@@ -500,8 +483,7 @@ var getUltimaConsultaInteriorSZ = /*#__PURE__*/function () {
     return _ref17.apply(this, arguments);
   };
 }();
-exports.getUltimaConsultaInteriorSZ = getUltimaConsultaInteriorSZ;
-var getTotalAfiliados = /*#__PURE__*/function () {
+var getTotalAfiliados = exports.getTotalAfiliados = /*#__PURE__*/function () {
   var _ref18 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee18(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee18$(_context18) {
@@ -526,8 +508,7 @@ var getTotalAfiliados = /*#__PURE__*/function () {
     return _ref18.apply(this, arguments);
   };
 }();
-exports.getTotalAfiliados = getTotalAfiliados;
-var getTotalAfiliadosAnterior = /*#__PURE__*/function () {
+var getTotalAfiliadosAnterior = exports.getTotalAfiliadosAnterior = /*#__PURE__*/function () {
   var _ref19 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee19(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee19$(_context19) {
@@ -552,8 +533,7 @@ var getTotalAfiliadosAnterior = /*#__PURE__*/function () {
     return _ref19.apply(this, arguments);
   };
 }();
-exports.getTotalAfiliadosAnterior = getTotalAfiliadosAnterior;
-var getDatosApp = /*#__PURE__*/function () {
+var getDatosApp = exports.getDatosApp = /*#__PURE__*/function () {
   var _ref20 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee20(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee20$(_context20) {
@@ -578,8 +558,7 @@ var getDatosApp = /*#__PURE__*/function () {
     return _ref20.apply(this, arguments);
   };
 }();
-exports.getDatosApp = getDatosApp;
-var getPendientesConsultasComercial = /*#__PURE__*/function () {
+var getPendientesConsultasComercial = exports.getPendientesConsultasComercial = /*#__PURE__*/function () {
   var _ref21 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee21(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee21$(_context21) {
@@ -604,8 +583,7 @@ var getPendientesConsultasComercial = /*#__PURE__*/function () {
     return _ref21.apply(this, arguments);
   };
 }();
-exports.getPendientesConsultasComercial = getPendientesConsultasComercial;
-var getAfisPorAsesor = /*#__PURE__*/function () {
+var getAfisPorAsesor = exports.getAfisPorAsesor = /*#__PURE__*/function () {
   var _ref22 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee22(req, res) {
     var pool, result;
     return _regenerator["default"].wrap(function _callee22$(_context22) {
@@ -630,8 +608,7 @@ var getAfisPorAsesor = /*#__PURE__*/function () {
     return _ref22.apply(this, arguments);
   };
 }();
-exports.getAfisPorAsesor = getAfisPorAsesor;
-var login = /*#__PURE__*/function () {
+var login = exports.login = /*#__PURE__*/function () {
   var _ref23 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee23(req, res) {
     var pool, usuario, password, _login;
     return _regenerator["default"].wrap(function _callee23$(_context23) {
@@ -669,8 +646,7 @@ var login = /*#__PURE__*/function () {
     return _ref23.apply(this, arguments);
   };
 }();
-exports.login = login;
-var cargarDatosParaConsultar = /*#__PURE__*/function () {
+var cargarDatosParaConsultar = exports.cargarDatosParaConsultar = /*#__PURE__*/function () {
   var _ref24 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee24(req, res) {
     var pool, asesores, asesor, smsNumero, numero, i, _req$body$i, cedula, fechaN;
     return _regenerator["default"].wrap(function _callee24$(_context24) {
@@ -730,4 +706,3 @@ var cargarDatosParaConsultar = /*#__PURE__*/function () {
     return _ref24.apply(this, arguments);
   };
 }();
-exports.cargarDatosParaConsultar = cargarDatosParaConsultar;

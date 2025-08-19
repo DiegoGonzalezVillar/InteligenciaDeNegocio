@@ -1,7 +1,18 @@
-import { Toolbar, Typography, Button } from "@mui/material";
-//import {makeStyles} from '@material-ui/core';
+import {
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  useMediaQuery,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import logo2 from "../imagenes/logo.svg";
 import { Form, Modal } from "react-bootstrap";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -15,6 +26,26 @@ const Navbar = () => {
   const [password, setPassword] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(window.scrollY);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
+  const handleScroll = useCallback(() => {
+    if (window.scrollY > lastScrollY) {
+      setShowNavbar(false);
+    } else {
+      setShowNavbar(true);
+    }
+    setLastScrollY(window.scrollY);
+  }, [lastScrollY]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
 
   const handleClose = () => setShow(false);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -26,6 +57,7 @@ const Navbar = () => {
       setShow(true);
     }
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const options = {
@@ -34,9 +66,7 @@ const Navbar = () => {
       headers: { "Content-Type": "application/json" },
     };
     const response = await fetch(`${URL}login`, options);
-    if (!response.ok) {
-      throw new Error("Error logging in");
-    }
+    if (!response.ok) throw new Error("Error logging in");
     const json = await response.json();
     if (json.message === "Login Exitoso!") {
       setResponseMessage(json.message);
@@ -44,8 +74,10 @@ const Navbar = () => {
       localStorage.setItem("isLoggedIn", true);
       handleClose();
       navigate("/consultas");
-    } else setResponseMessage(json.message);
-    setOpenSnackbar(true);
+    } else {
+      setResponseMessage(json.message);
+      setOpenSnackbar(true);
+    }
   };
 
   const handleKeyDown = (event) => {
@@ -54,209 +86,187 @@ const Navbar = () => {
     }
   };
 
-  const Logout = () => {
-    const cerrarSesion = () => {
-      localStorage.removeItem("isLoggedIn");
-      setResponseMessage("Sesion Finalizada");
-      setOpenSnackbar(true);
-      navigate("/");
-    };
-    return (
-      <div>
-        <Toolbar>
-          <Typography sx={{ flexGrow: 1 }}>
-            <img
-              src={logo2}
-              className="mySvg"
-              style={{ cursor: "pointer" }}
-              flex={1}
-              width={"25%"}
-              height={"60%"}
-              resizemode={"contain"}
-              alt="Logo Iafap"
-              onClick={() => navigate("/")}
-            ></img>
-          </Typography>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={handleShow}
-          >
-            Comercial
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={() => navigate("/administracion")}
-          >
-            Administracion
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={() => navigate("/operaciones")}
-          >
-            operaciones
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={() => navigate("/inversiones")}
-          >
-            Inversiones
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={() => navigate("/simulador")}
-          >
-            Simulador
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={() => navigate("/prestaciones")}
-          >
-            Prestaciones
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={() => navigate("/tableros")}
-          >
-            Informacion
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "20px" }}
-            onClick={cerrarSesion}
-          >
-            Cerrar sesion
-          </Button>
-        </Toolbar>
-      </div>
-    );
+  const cerrarSesion = () => {
+    localStorage.removeItem("isLoggedIn");
+    setResponseMessage("Sesion Finalizada");
+    setOpenSnackbar(true);
+    navigate("/");
   };
-  const Login = () => {
-    return (
-      <div>
-        <Toolbar>
-          <Typography sx={{ flexGrow: 1 }}>
-            <img
-              src={logo2}
-              className="mySvg"
-              style={{ cursor: "pointer" }}
-              flex={1}
-              width={"25%"}
-              height={"50%"}
-              resizemode={"contain"}
-              alt="Logo Iafap"
-              onClick={() => navigate("/")}
-            ></img>
-          </Typography>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={handleShow}
-          >
-            Comercial
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={() => navigate("/administracion")}
-          >
-            Administracion
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={() => navigate("/operaciones")}
-          >
-            Operaciones
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={() => navigate("/inversiones")}
-          >
-            Inversiones
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={() => navigate("/prestaciones")}
-          >
-            Prestaciones
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "10px" }}
-            onClick={() => navigate("/simulador")}
-          >
-            Simulador
-          </Button>
-          <Button
-            style={{ color: "#BE3A4A", marginRight: "20px" }}
-            onClick={() => navigate("/tableros")}
-          >
-            Informacion
-          </Button>
-        </Toolbar>
-        <Modal
-          animation={false}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: "10%",
-            marginLeft: "25%",
-            width: "50%",
-          }}
-          show={show}
-          onHide={handleClose}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title style={{ color: "#BE3A4A" }}>
-              Inicio de sesión
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form onKeyDown={handleKeyDown}>
-              <Form.Group controlId="formBasicEmail">
-                <Form.Label style={{ color: "#BE3A4A" }}>Usuario</Form.Label>
-                <Form.Control
-                  type=" text"
-                  placeholder="Ingresar Usuario"
-                  onChange={(event) => setUsername(event.target.value)}
-                />
-              </Form.Group>
-              <Form.Group
-                controlId="formBasicPassword"
-                style={{ marginTop: "10px" }}
-              >
-                <Form.Label style={{ color: "#BE3A4A" }}>Contraseña</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder=" Ingresar Contraseña"
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secundario"
-              onClick={handleClose}
-              style={{ color: "#BE3A4A" }}
-            >
-              Cerrar
-            </Button>
-            <Button
-              variant="primary"
-              style={{ color: "#BE3A4A" }}
-              onClick={handleSubmit}
-            >
-              Iniciar Sesión
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        <Snackbar
-          open={openSnackbar}
-          onClose={() => setOpenSnackbar(false)}
-          message={responseMessage}
-          autoHideDuration={4000}
+
+  const toggleDrawer = (open) => () => {
+    setDrawerOpen(open);
+  };
+
+  const menuItems = [
+    { label: "Comercial", path: "/consultas", onClick: handleShow },
+    { label: "Administracion", path: "/administracion" },
+    { label: "Operaciones", path: "/operaciones" },
+    { label: "Inversiones", path: "/inversiones" },
+    { label: "Simulador", path: "/simulador" },
+    { label: "Prestaciones", path: "/prestaciones" },
+    { label: "At. al Cliente", path: "/menuAtencionAlcliente" },
+    { label: "Informacion", path: "/tableros" },
+  ];
+
+  const renderToolbar = () => (
+    <Toolbar>
+      <Typography sx={{ flexGrow: 1 }}>
+        <img
+          src={logo2}
+          className="mySvg"
+          style={{ cursor: "pointer" }}
+          width={"20%"}
+          height={"44%"}
+          alt="Logo Iafap"
+          onClick={() => navigate("/")}
         />
-      </div>
-    );
-  };
-  return <div className="mi-navbar"> {!isLoggedIn ? Login() : Logout()}</div>;
+      </Typography>
+
+      {isMobile ? (
+        <>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={toggleDrawer(true)}
+          >
+            <MenuIcon style={{ color: "#BE3A4A" }} />
+          </IconButton>
+          <Drawer
+            anchor="right"
+            open={drawerOpen}
+            onClose={toggleDrawer(false)}
+          >
+            <List style={{ width: 250 }}>
+              {menuItems.map(({ label, path, onClick }) => (
+                <ListItem
+                  button
+                  key={label}
+                  onClick={() => {
+                    toggleDrawer(false)();
+                    onClick ? onClick() : navigate(path);
+                  }}
+                >
+                  <ListItemText sx={{ color: "#BE3A4A" }} primary={label} />
+                </ListItem>
+              ))}
+              {isLoggedIn && (
+                <ListItem
+                  button
+                  onClick={() => {
+                    toggleDrawer(false)();
+                    cerrarSesion();
+                  }}
+                >
+                  <ListItemText primary="Cerrar sesión" />
+                </ListItem>
+              )}
+            </List>
+          </Drawer>
+        </>
+      ) : (
+        <>
+          {menuItems.map(({ label, path, onClick }) => (
+            <Button
+              key={label}
+              style={{
+                color: "#BE3A4A",
+                marginRight: "10px",
+                fontSize: "13px",
+              }}
+              onClick={onClick ? onClick : () => navigate(path)}
+            >
+              {label}
+            </Button>
+          ))}
+          {isLoggedIn && (
+            <Button
+              style={{
+                color: "#BE3A4A",
+                marginRight: "20px",
+                fontSize: "13px",
+              }}
+              onClick={cerrarSesion}
+            >
+              Cerrar sesión
+            </Button>
+          )}
+        </>
+      )}
+    </Toolbar>
+  );
+
+  const renderModal = () => (
+    <Modal
+      animation={false}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: "10%",
+        marginLeft: "25%",
+        width: "50%",
+      }}
+      show={show}
+      onHide={handleClose}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title style={{ color: "#BE3A4A" }}>Inicio de sesión</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onKeyDown={handleKeyDown}>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label style={{ color: "#BE3A4A" }}>Usuario</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Ingresar Usuario"
+              onChange={(event) => setUsername(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group
+            controlId="formBasicPassword"
+            style={{ marginTop: "10px" }}
+          >
+            <Form.Label style={{ color: "#BE3A4A" }}>Contraseña</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Ingresar Contraseña"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          variant="secundario"
+          onClick={handleClose}
+          style={{ color: "#BE3A4A" }}
+        >
+          Cerrar
+        </Button>
+        <Button
+          variant="primary"
+          style={{ color: "#BE3A4A" }}
+          onClick={handleSubmit}
+        >
+          Iniciar Sesión
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+
+  return (
+    <div className={`mi-navbar ${showNavbar ? "show-navbar" : "hide-navbar"}`}>
+      {renderToolbar()}
+      {renderModal()}
+      <Snackbar
+        open={openSnackbar}
+        onClose={() => setOpenSnackbar(false)}
+        message={responseMessage}
+        autoHideDuration={4000}
+      />
+    </div>
+  );
 };
 
 export default Navbar;

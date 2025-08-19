@@ -4,8 +4,6 @@ svg:hover {
   }
 
 .footer-container{
-    position:fixed;
-    bottom: 0;
     width: 100%;
     background-color: rgba(230, 230, 230, 0.247);
     height: 75px;

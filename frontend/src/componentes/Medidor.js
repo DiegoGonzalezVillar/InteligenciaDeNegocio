@@ -3,7 +3,7 @@ import LiquidGauge from "react-liquid-gauge";
 import { scaleQuantile } from "d3-scale";
 
 function LiquidGaugeComponent(props) {
-  const radius = 120;
+  const radius = 110;
   const fillColor = "#BE3A4A";
   const waveTextColor = "#2E2A25";
   const { value, min, max } = props;
@@ -25,8 +25,8 @@ function LiquidGaugeComponent(props) {
   return (
     <LiquidGauge
       style={{ margin: "0 auto" }}
-      width={radius * 1.5}
-      height={radius * 1.5}
+      width={radius * 1.2}
+      height={radius * 1.2}
       value={value}
       minValue={min}
       maxValue={max}
@@ -41,7 +41,7 @@ function LiquidGaugeComponent(props) {
           </tspan>
         );
       }}
-      waveAnimationDuration={2000}
+      waveAnimationDuration={3000}
       waveFrequency={2}
       gradient={{
         0: range(min),

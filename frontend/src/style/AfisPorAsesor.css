@@ -1,9 +1,0 @@
-.contenedor-principal{
-    height: calc(100vh - 150px);
-    background-image: url("../imagenes/logo3.png");
-    background-attachment: fixed;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: rgba(0, 0, 0, 0.027);
-  }

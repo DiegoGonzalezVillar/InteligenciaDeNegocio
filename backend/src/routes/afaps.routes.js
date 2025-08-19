@@ -26,6 +26,11 @@ import {
   afisPorAsesorPorAnio,
   afisPorAfap,
   afisUltimoDiaPorAfap,
+  ratificacionesPorAsesorPorAnio,
+  asignacionesDeOficio,
+  todasLasAfisPorAsesor,
+  curvaSPorFecha,
+  curvaS16713,
 } from "../controllers/afaps.controller";
 
 import {
@@ -36,6 +41,8 @@ import {
   informeDirectorio,
   valoresRentaBruta,
   creacionTableroDeControl,
+  txtBpcAcumulacion,
+  txtBpcRetiro,
 } from "../controllers/administracion.controller";
 
 import {
@@ -46,9 +53,17 @@ import {
 import {
   getObtenerVst,
   generarArchivoBpc,
+  generarArchivoAnr,
 } from "../controllers/prestaciones.controller";
 
-import { encontrarFoto } from "../controllers/operaciones.controller";
+import {
+  encontrarFoto,
+  detallePagosBpc,
+  realizarPagosBpc,
+  detallePagosAnr,
+} from "../controllers/operaciones.controller";
+
+import { generarArchivoDeSubCuentas } from "../controllers/atencionAlCliente.controller";
 
 const router = Router();
 
@@ -72,17 +87,20 @@ router.get(
   "/getCantAfiliadosPorAsesorActualAnterior",
   getCantAfiliadosPorAsesorActualAnterior
 );
-//router.get('/getCantPorEdadYPorSexoAsesor',getCantPorEdadYPorSexoAsesor)
 router.get("/getCantPorEdadYPorSexo", getCantPorEdadYPorSexo);
 router.get("/getCantidadPorMail", getCantidadPorMail);
 router.get("/getCantidadPorMailPorAnio", getCantidadPorMailPorAnio);
 router.post("/simuladorProyeccionJubilatoria", simuladorProyeccionJubilatoria);
 router.post("/ultimaConsulta", cargarDatosParaConsultar);
-router.post("/getObtenerVst", getObtenerVst);
-router.post("/getAnioDeDATBPS", getObtenerVst);
+
 router.get("/afisPorAsesorPorAnio", afisPorAsesorPorAnio);
+router.get("/ratificacionesPorAsesorPorAnio", ratificacionesPorAsesorPorAnio);
 router.get("/afisPorAfap", afisPorAfap);
 router.get("/afisUltimoDiaPorAfap", afisUltimoDiaPorAfap);
+router.get("/asignacionesDeOficio", asignacionesDeOficio);
+router.get("/todasLasAfisPorAsesor", todasLasAfisPorAsesor);
+router.post("/curvaSPorFecha", curvaSPorFecha);
+router.post("/curvaS16713", curvaS16713);
 
 //INVERSIONES
 router.get("/ejecutarLimites30006", getLimites30006);
@@ -96,9 +114,21 @@ router.get("/letrasRm", letrasRm);
 router.get("/informeDirectorio", informeDirectorio);
 router.post("/valoresRentaBruta", valoresRentaBruta);
 router.get("/creacionTableroDeControl", creacionTableroDeControl);
+router.get("/txtBpcAcumulacion", txtBpcAcumulacion);
+router.get("/txtBpcRetiro", txtBpcRetiro);
 
 //OPERACIONES
 router.post("/encontrarFoto", encontrarFoto);
+router.get("/detallePagosBpc", detallePagosBpc);
+router.get("/realizarPagosBpc", realizarPagosBpc);
+router.get("/detallePagosAnr", detallePagosAnr);
+
+//PRESTACIONES
+router.get("/getObtenerVst", getObtenerVst);
 router.post("/generarArchivoBpc", generarArchivoBpc);
+router.post("/generarArchivoAnr", generarArchivoAnr);
+
+//ATENCION AL CLIENTE
+router.get("/generarArchivoDeSubCuentas", generarArchivoDeSubCuentas);
 
 export default router;

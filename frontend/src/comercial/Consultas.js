@@ -6,6 +6,7 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  Grid,
   Typography,
 } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
@@ -14,9 +15,9 @@ import Titulo from "../componentes/Titulo";
 
 const useStyles = makeStyles({
   card: {
-    width: "50%",
-    height: "300%",
-    margin: "10px",
+    width: "90%",
+    height: "90%",
+    margin: "20px",
   },
   media: {
     height: 240,
@@ -31,8 +32,7 @@ const useStyles = makeStyles({
 const Consultas = () => {
   const estilosTitulo = {
     color: "#BE3A4A",
-    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
-    // Puedes agregar más propiedades de estilo según sea necesario
+    marginTop: "15px",
   };
   const classes = useStyles();
   const navigate = useNavigate();
@@ -77,135 +77,137 @@ const Consultas = () => {
   return (
     <div className="contenedor-principal2">
       <Titulo style={estilosTitulo} title="Inteligencia de Negocio" />
-      <div
-        style={{
-          display: "flex",
-          allowContent: "center",
-          alignItems: "center",
-          marginTop: "30px",
-        }}
-      ></div>
-      <div
-        style={{
-          display: "flex",
-          allowContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap}
-              title="Montevideo Sur"
-              onClick={() => montevideoSur(user)}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>Montevideo Sur</Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap2}
-              title="Montevideo Periferia"
-              onClick={() => montevideoPeriferia(user)}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>
-                Montevideo Periferia
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap}
-              title="Interior AC"
-              onClick={() => InteriorAC(user)}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>Interior AC</Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap2}
-              title="Interior DR"
-              onClick={() => InteriorDR(user)}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>Interior DR</Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap}
-              title="Interior SZ"
-              onClick={() => InteriorSZ(user)}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>Interior SZ</Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        {
+      <Grid container>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={iafap}
+                title="Montevideo Sur"
+                onClick={() => montevideoSur(user)}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>
+                  Montevideo Sur
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <Card className={classes.card}>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
                 image={iafap2}
-                title="Consultar datos de la app"
-                onClick={() => consultarDatosApp(user)}
+                title="Montevideo Periferia"
+                onClick={() => montevideoPeriferia(user)}
               />
               <CardContent>
                 <Typography className={classes.texto}>
-                  Consultar datos de la App
+                  Montevideo Periferia
                 </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
-        }
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap}
-              title="Informacion Disponible"
-              onClick={() => infoDisponible(user)}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>
-                Información Disponible
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap2}
-              title="Datos de la app"
-              onClick={() => datosEnLaApp(user)}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>Datos App</Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </div>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={iafap}
+                title="Interior AC"
+                onClick={() => InteriorAC(user)}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>Interior AC</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={iafap2}
+                title="Interior DR"
+                onClick={() => InteriorDR(user)}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>Interior DR</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={iafap}
+                title="Interior SZ"
+                onClick={() => InteriorSZ(user)}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>Interior SZ</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={iafap2}
+                title="Consultas app"
+                onClick={() => consultarDatosApp(user)}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>Consultas app</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={iafap}
+                title="Informacion Disponible"
+                onClick={() => infoDisponible(user)}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>
+                  Información Disponible
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={iafap2}
+                title="Datos de la app"
+                onClick={() => datosEnLaApp(user)}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>Datos App</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
+      </Grid>
     </div>
   );
 };

@@ -70,10 +70,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Principal = () => {
   const classes = useStyles();
-  const [total, setTotal] = useState("");
+  const [total, setTotal] = useState(0);
   const fecha = new Date();
   const añoActual = fecha.getFullYear();
-  const meta = 9600;
+  const meta = 7680;
+  const cantidadAsesores = 16;
   let porcentaje = Math.round((total / meta) * 100);
 
   let texto = "Inteligencia de Negocio";
@@ -88,7 +89,8 @@ const Principal = () => {
       Para este año la Gerencia Comercial estableció como{" "}
       <strong> meta anual</strong> la cantidad de{" "}
       <strong>{meta.toLocaleString("es-ES")}</strong> afiliaciones, el equipo
-      dispone de <strong>18 asesores previsionales y 1 supervisor.</strong>
+      dispone de{" "}
+      <strong>{cantidadAsesores} asesores previsionales y 1 supervisor.</strong>
     </p>
   );
   let texto4 = (
@@ -136,6 +138,7 @@ const Principal = () => {
   return (
     <div className="h-[calc(100vh-150px)] mt-[75px] bg-[rgba(230,230,230,0.247)]">
       <div className="grid grid-cols-2 h-[calc(100vh-150px)]">
+        <div className="h-full p-4">{combinedText}</div>
         <div className="h-[calc(100vh-150px)] mt-[30px]">
           <Card className={classes.root}>
             <CardMedia
@@ -145,7 +148,6 @@ const Principal = () => {
             />
           </Card>
         </div>
-        <div className="h-full">{combinedText}</div>
       </div>
     </div>
   );

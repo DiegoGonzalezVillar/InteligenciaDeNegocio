@@ -1,5 +1,3 @@
-import { afisPorAfap } from "../controllers/afaps.controller";
-
 export const queries = {
   getSmsNumero:
     "SELECT MAX(smsnumero) as smsnumero FROM [SOLOACTIVIDAD].[dbo].SMSENTRADA where smsnumero < 999999",
@@ -10,7 +8,7 @@ export const queries = {
   insertSmsEntradaLevel1:
     "INSERT INTO [SOLOACTIVIDAD].[dbo].[SMSENTRADALEVEL1]([smsnumero], [smscedula], [smsfecnac], [smsresultado], [smscuando], [smstexto], [smsobs], [smseltipo], [smstiempo], [asesor]) VALUES (@numero, @cedula, @fecha,0,'17530101 00:00:00.000','',@asesor,5,NULL,@asesor)",
   getTotalAfiliados:
-    "select count(*)Cantidad from [afapformularios].[dbo].[DATBPS] where bpsfbps > (SELECT DATEFROMPARTS(YEAR(GETDATE()), 1, 1))",
+    "SELECT (SELECT COUNT(*) FROM [2023_AFAP_Gestion].[dbo].[RATIFICACIONES] WHERE fecha_ratificado > (SELECT DATEFROMPARTS(YEAR(GETDATE()), 1, 1))) + (SELECT COUNT(*) FROM [afapformularios].[dbo].[DATBPS] WHERE bpsfbps > (SELECT DATEFROMPARTS(YEAR(GETDATE()), 1, 1))) AS Cantidad",
   getUltimaConsultaMontevideoPeriferia:
     "SELECT * FROM [2023_AFAP_GESTION].[dbo].[ULTIMA_CONSULTA] where departamento = 'MONTEVIDEO' and ciudad not in ('PARQUE BATLLE' , 'MONTEVIDEO', 'POCITOS', 'CORDON' , 'BUCEO','LAS CANTERAS','TRES CRUCES', 'CIUDAD VIEJA','CENTRO', 'PUNTA CARRETAS', 'BARRIO SUR', 'PALERMO' ,'PUNTA GORDA', 'CARRASCO' , 'PARQUE RODO' ,'MALVIN','AGUADA', 'VILLA MUÑOZ')",
   getUltimaConsultaMontevideoSur:
@@ -50,8 +48,12 @@ export const queries = {
     "SELECT YEAR([bpsfbps]) AS anio,bpsprom as asesor,COUNT(CASE WHEN [bpsemail] LIKE '%@%' THEN 1 END) AS si,COUNT(CASE WHEN [bpsemail] NOT LIKE '%@%' THEN 1 END) AS no,ROUND((COUNT(CASE WHEN [bpsemail] LIKE '%@%' THEN 1 END) * 1.0 / (COUNT(CASE WHEN [bpsemail] LIKE '%@%' THEN 1 END) + COUNT(CASE WHEN [bpsemail] NOT LIKE '%@%' THEN 1 END))) * 100, 0) AS porcentaje FROM [afapformularios].[dbo].[DATBPS] WHERE [bpsfbps] > '2017-01-01' AND [bpsprom] IN (1332, 1512, 1618, 2005, 3005, 3007, 3064, 3065, 3069, 3075, 3076, 3093, 3117, 3148, 3152, 3154, 3164, 3165) GROUP BY YEAR([bpsfbps]), [bpsprom]",
   afisPorAsesorPorAnio:
     "Select * from [2023_AFAP_Gestion].[dbo].[AFIS_ASESOR_AÑO]",
+  ratificacionesPorAsesorPorAnio:
+    "Select * from [2023_AFAP_Gestion].[dbo].[RATIFICACIONES_MES_AÑO]",
   afisPorAfap:
     "select nombre, FORMAT(fechaDeIngreso,'dd-MM-yyyy')fecha, totalAfilaciones from [2023_AFAP_Gestion].[dbo].[INGRESOS_DIARIOS_AFAP] as i with (nolock), [2023_AFAP_Gestion].[dbo].AFAP as a with (nolock) where a.id = i.id and fechaDeIngreso > '01-01-2018'",
   afisUltimoDiaPorAfap:
     "  select nombre, FORMAT(fechaDeIngreso,'dd-MM-yyyy')fecha, totalAfilaciones, a.cantidadAsesores from [2023_AFAP_Gestion].[dbo].[INGRESOS_DIARIOS_AFAP] as i with (nolock), [2023_AFAP_Gestion].[dbo].AFAP as a with (nolock) where a.id = i.id and fechaDeIngreso = (Select max(fechaDeIngreso) from [2023_AFAP_Gestion].[dbo].[INGRESOS_DIARIOS_AFAP] with (nolock ))",
+  todasLasAfisPorAsesor:
+    "WITH DatosCombinados AS (SELECT FORMAT(r.fecha_ratificado, 'MMMM', 'es-ES') AS mes, YEAR(r.fecha_ratificado) AS anio, a.regimen,r.asesor,CONCAT(ISNULL(act.nombre, 'Desconocido'), ' ', ISNULL(act.apellido, '')) AS asesor_nombre,r.documento FROM [2023_AFAP_Gestion].[dbo].[RATIFICACIONES] r LEFT JOIN [2023_AFAP_Gestion].[dbo].[ASIGNACIONES_OFICIOS] a ON r.documento = a.documento LEFT JOIN [2023_AFAP_Gestion].[dbo].[ASESORES_ACTUALES] act ON r.asesor = act.numeroAsesor WHERE r.fecha_ratificado > '2024-01-01'  UNION ALL SELECT FORMAT(b.bpsfbps, 'MMMM', 'es-ES') AS mes,YEAR(b.bpsfbps) AS anio,'Voluntarias' AS regimen, b.bpsprom AS asesor, CONCAT(ISNULL(act.nombre, 'Desconocido'), ' ', ISNULL(act.apellido, '')) AS asesor_nombre, cast(b.bpsdocu as varchar) AS documento FROM [afapformularios].[dbo].[DATBPS] b LEFT JOIN [2023_AFAP_Gestion].[dbo].[ASESORES_ACTUALES] act ON b.bpsprom = act.numeroAsesor WHERE b.bpsfbps > '2024-01-01' )SELECT mes, anio,ISNULL(asesor_nombre, '-') AS asesor_nombre,regimen, COUNT(DISTINCT documento) AS cantidad_documentos FROM DatosCombinados WHERE regimen IN ('16713', '20130', 'Voluntarias') AND documento IS NOT NULL GROUP BY mes, anio,asesor_nombre, regimen ORDER BY anio,mes,regimen,asesor_nombre",
 };

@@ -172,34 +172,44 @@ const Piramide = () => {
         title="Afiliaciones distribuidas por edad y por sexo"
       />
       <Grid container>
-        <Grid item xs={0} sm={0} md={2} lg={2} xl={2}></Grid>
+        <Grid item xs={2} sm={2} md={2} lg={2} xl={2}></Grid>
         <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-          <div className="centrados">
-            <InputLabel style={{ width: "15%" }} id="year-select-label">
-              Selecciona un año
-            </InputLabel>
-            <Select
-              labelId="year-select-label"
-              defaultValue={currentYear}
-              value={selectedYear}
-              onChange={handleYearChange}
-              style={{ paddingLeft: "2px", width: "100px" }}
-            >
-              {Object.keys(arrayAfiliacionesPorAno).map((ano) => (
-                <option key={ano} value={ano}>
-                  {ano}
-                </option>
-              ))}
-            </Select>
-          </div>
-
           <Bar
-            style={{ height: "100%", width: "100%", marginTop: "5%" }}
+            style={{ height: "75%", width: "75%", marginTop: "1%" }}
             data={chartData}
             options={options}
             y="años"
             x="afiliaciones"
           />
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={2}
+          lg={2}
+          xl={2}
+          style={{ marginTop: "10%" }}
+        >
+          <InputLabel
+            style={{ width: "100%", marginLeft: "30%" }}
+            id="year-select-label"
+          >
+            Selecciona un año
+          </InputLabel>
+          <Select
+            labelId="year-select-label"
+            defaultValue={currentYear}
+            value={selectedYear}
+            onChange={handleYearChange}
+            style={{ marginLeft: "30%", width: "100px" }}
+          >
+            {Object.keys(arrayAfiliacionesPorAno).map((ano) => (
+              <option key={ano} value={ano}>
+                {ano}
+              </option>
+            ))}
+          </Select>
         </Grid>
       </Grid>
     </div>

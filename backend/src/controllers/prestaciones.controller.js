@@ -1,34 +1,32 @@
-import { getConnection } from "../database/connection";
-const XLSX = require("xlsx");
 const { spawn } = require("child_process");
 
 export const getObtenerVst = async (req, res) => {
-  const excelFile = req.files.excelFile;
-  const workbook = XLSX.read(excelFile.data);
-  const sheetName = workbook.SheetNames[0];
-  const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-
-  const cedulasArray = sheetData.map((item) => item.cedulas);
-  const cedulasString = cedulasArray.join("','");
-  const query = `
-      SELECT distinct CI, Subestado
-      FROM [192.168.20.2].[IAFAPCRM].[sysdba].[CRM_Comercial]
-      WHERE CI IN ('${cedulasString}') AND Subestado IN ('VST', 'CST')
-    `;
-
-  const pool = await getConnection();
-  const result = await pool.request().query(query);
-
-  res.json({
-    message: "Archivo Excel procesado exitosamente",
-    data: result.recordset,
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    [
+      "C:\\Compartida Python\\Prestaciones\\fallecidos\\generarTxtFallecidos.py",
+    ],
+    {
+      detached: true,
+      stdio: ["ignore", "pipe", "pipe"], // Pipe para stdout y stderr
+    }
+  );
+  pythonProcess.on("close", (codigo) => {
+    if (codigo === 0) {
+      res.status(200).send({
+        message: "Consulta ejecutada correctamente",
+      });
+    } else {
+      res.status(500).send({
+        message: `Error al ejecutar el script. Codigo de salida ${codigo}`,
+      });
+    }
   });
 };
 
 export const generarArchivoBpc = (req, res) => {
-  const { cedula, porcentaje } = req.body;
-
-  const args = [cedula, porcentaje];
+  const { cedula, porcentaje, favChecked } = req.body;
+  const args = [cedula, porcentaje, favChecked];
 
   let returnData = "";
   const pythonProcess = spawn(
@@ -38,7 +36,8 @@ export const generarArchivoBpc = (req, res) => {
       ...args,
     ]
   );
-  /*const pythonProcess = spawn("python", [
+  /*
+  const pythonProcess = spawn("python", [
     "F:\\Usuario\\Escritorio\\Archivos Python\\archivos py\\Creacion archivo bpc crm.py",
     ...args,
   ]);*/
@@ -51,5 +50,51 @@ export const generarArchivoBpc = (req, res) => {
   pythonProcess.on("close", (code) => {
     console.log(`child process exited with code ${code}`);
     res.json(returnData);
+  });
+};
+
+export const generarArchivoAnr = (req, res) => {
+  const { fecha } = req.body;
+  const args = [fecha];
+
+  let returnData = "";
+  let errorData = "";
+
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    ["C:\\Compartida Python\\Prestaciones\\creacion archivo anr.py", ...args]
+  );
+
+  /*
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\anaconda3\\envs\\spyder\\python.exe",
+    [
+      "F:\\Usuario\\Escritorio\\Archivos Python\\archivos py\\creacion archivo anr.py",
+      ...args,
+    ]
+  );
+*/
+  // Captura la salida estándar
+  pythonProcess.stdout.on("data", (data) => {
+    returnData += data.toString();
+  });
+
+  // Captura errores del proceso
+  pythonProcess.stderr.on("data", (data) => {
+    errorData += data.toString();
+  });
+
+  // Cuando el proceso termina
+  pythonProcess.on("close", (code) => {
+    // Si hubo errores o el código de salida no es 0, algo falló
+    if (code !== 0 || errorData) {
+      res.status(500).json({
+        mensaje:
+          "No se pudo crear el archivo correspondiente, contactar administrador",
+        error: errorData,
+      });
+    } else {
+      res.json({ mensaje: "Archivo creado correctamente", data: returnData });
+    }
   });
 };

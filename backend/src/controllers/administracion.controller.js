@@ -81,6 +81,45 @@ export const getTxtAcumulacion = (req, res) => {
   });
 };
 
+export const txtBpcAcumulacion = (req, res) => {
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    ["C:\\Compartida Python\\Administracion\\txtBpcAcumulacion.py"],
+    {
+      detached: true,
+      stdio: ["ignore", "pipe", "pipe"], // Pipe para stdout y stderr
+    }
+  );
+  let outputData = "";
+
+  pythonProcess.stdout.on("data", (data) => {
+    outputData += data.toString();
+  });
+
+  pythonProcess.on("close", (codigo) => {
+    if (codigo === 0) {
+      res.status(200).send({
+        message: "Consulta ejecutada correctamente",
+      });
+    } else {
+      res.status(500).send({
+        message: `Error al ejecutar el script.`,
+        output: outputData.trim(), // Se puede obtener incluso en caso de error
+        exitCode: codigo,
+      });
+    }
+  });
+
+  pythonProcess.on("error", (error) => {
+    console.error(`Error al ejecutar el script de Python: ${error}`);
+    res.status(500).send({
+      message: "Error al ejecutar el script de Python",
+      output: outputData.trim(), // También se puede obtener en caso de error
+      exitCode: -1, // Un valor de código de salida personalizado para errores
+    });
+  });
+};
+
 export const getTxtRetiro = (req, res) => {
   const pythonProcess = spawn(
     "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
@@ -95,6 +134,45 @@ export const getTxtRetiro = (req, res) => {
   pythonProcess.stdout.on("data", (data) => {
     outputData += data.toString();
     console.log(outputData);
+  });
+
+  pythonProcess.on("close", (codigo) => {
+    if (codigo === 0) {
+      res.status(200).send({
+        message: "Consulta ejecutada correctamente",
+      });
+    } else {
+      res.status(500).send({
+        message: `Error al ejecutar el script.`,
+        output: outputData.trim(), // Se puede obtener incluso en caso de error
+        exitCode: codigo,
+      });
+    }
+  });
+
+  pythonProcess.on("error", (error) => {
+    console.error(`Error al ejecutar el script de Python: ${error}`);
+    res.status(500).send({
+      message: "Error al ejecutar el script de Python",
+      output: outputData.trim(), // También se puede obtener en caso de error
+      exitCode: -1, // Un valor de código de salida personalizado para errores
+    });
+  });
+};
+
+export const txtBpcRetiro = (req, res) => {
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    ["C:\\Compartida Python\\Administracion\\txtBpcRetiro.py"],
+    {
+      detached: true,
+      stdio: ["ignore", "pipe", "pipe"], // Pipe para stdout y stderr
+    }
+  );
+  let outputData = "";
+
+  pythonProcess.stdout.on("data", (data) => {
+    outputData += data.toString();
   });
 
   pythonProcess.on("close", (codigo) => {

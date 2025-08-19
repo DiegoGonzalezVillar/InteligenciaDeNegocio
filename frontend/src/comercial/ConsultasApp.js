@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     backgroundColor: "rgba(255, 255, 255, 0.5)",
   },
   container: {
-    maxHeight: 440,
+    maxHeight: 500,
     backgroundColor: "rgba(255, 255, 255, 0.5)",
   },
   modalDialog: {
@@ -67,6 +67,7 @@ export default function ConsulasApp() {
   const [filterCiudad, setFilterCiudad] = useState("");
   const [filterUltimaAccion, setFilterUltimaAccion] = useState("");
   const [filterCodigoPostal, setFilterCodigoPostal] = useState("");
+  const [filterRegimen, setFilterRegimen] = useState("");
   const [open, setOpen] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
@@ -86,50 +87,31 @@ export default function ConsulasApp() {
   const cerrarModal = () => setShow(false);
 
   useEffect(() => {
-    let filtered = arrayDatosConsultas;
-    if (
-      filterDepartamento === "" &&
-      filterCiudad === "" &&
-      filterUltimaAccion === "" &&
-      filterCodigoPostal === ""
-    ) {
-      setFilteredData(arrayDatosConsultas);
-      return;
-    }
-    if (filterDepartamento !== "") {
-      filtered = filtered.filter((item) => {
-        return item.departamento
-          .toLowerCase()
-          .includes(filterDepartamento.toLowerCase());
-      });
-    }
-
-    if (filterCiudad !== "") {
-      console.log(filterCiudad);
-      filtered = filtered.filter((item) => {
-        return item.ciudad.toLowerCase().includes(filterCiudad.toLowerCase());
-      });
-    }
-
-    if (filterUltimaAccion !== "") {
-      filtered = filtered.filter((item) => {
-        return item.respuesta
-          .toLowerCase()
-          .includes(filterUltimaAccion.toLowerCase());
-      });
-    }
-
-    if (filterCodigoPostal !== "") {
-      filtered = filtered.filter((item) => {
-        return item.codigoPostal === parseInt(filterCodigoPostal, 10);
-      });
-    }
+    const filtered = arrayDatosConsultas.filter((item) => {
+      return (
+        (!filterDepartamento ||
+          item.departamento
+            .toLowerCase()
+            .includes(filterDepartamento.toLowerCase())) &&
+        (!filterCiudad ||
+          item.ciudad.toLowerCase().includes(filterCiudad.toLowerCase())) &&
+        (!filterUltimaAccion ||
+          item.respuesta
+            .toLowerCase()
+            .includes(filterUltimaAccion.toLowerCase())) &&
+        (!filterCodigoPostal ||
+          item.codigoPostal === parseInt(filterCodigoPostal, 10)) &&
+        (!filterRegimen ||
+          item.regimen.toLowerCase().includes(filterRegimen.toLowerCase()))
+      );
+    });
     setFilteredData(filtered);
   }, [
     filterUltimaAccion,
     filterDepartamento,
     filterCiudad,
     filterCodigoPostal,
+    filterRegimen,
     arrayDatosConsultas,
   ]);
 
@@ -214,11 +196,11 @@ export default function ConsulasApp() {
             alignItems: "center",
             justifyContent: "space-between",
           }}
+          style={{ marginTop: "3rem" }}
         >
           <TextField
             label="Filtro por Departamento"
             onChange={(e) => setFilterDepartamento(e.target.value)}
-            // onChange={setFilterDepartamento(e.target.value);}
             value={filterDepartamento}
             style={{ marginRight: "1rem" }}
           />
@@ -242,8 +224,15 @@ export default function ConsulasApp() {
             style={{ marginRight: "1rem" }}
           />
 
+          <TextField
+            label="Filtro Regimen"
+            onChange={(e) => setFilterRegimen(e.target.value)}
+            value={filterRegimen}
+            style={{ marginRight: "1rem" }}
+          />
+
           <Button
-            style={{ color: "#BE3A4A", marginTop: "1em", marginLeft: "10rem" }}
+            style={{ color: "#BE3A4A", marginTop: "1em", marginLeft: "3rem" }}
             onClick={handleClickOpen}
           >
             Consultar
@@ -275,7 +264,7 @@ export default function ConsulasApp() {
         <TableContainer
           className={classes.container}
           component={Paper}
-          style={{ overflowX: "auto", marginTop: "1em", width: "auto" }}
+          style={{ overflowX: "auto", marginTop: "3em", width: "auto" }}
         >
           <Table className={classes.table} aria-label="data grid">
             <TableHead style={{ backgroundColor: "#BE3A4A" }}>
@@ -298,6 +287,9 @@ export default function ConsulasApp() {
                 <TableCell style={{ color: "white", width: 140 }}>
                   Codigo Postal
                 </TableCell>
+                <TableCell style={{ color: "white", width: 140 }}>
+                  Régimen
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -311,6 +303,7 @@ export default function ConsulasApp() {
                   <TableCell>{row.ciudad}</TableCell>
                   <TableCell>{row.respuesta}</TableCell>
                   <TableCell>{row.codigoPostal}</TableCell>
+                  <TableCell>{row.regimen}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

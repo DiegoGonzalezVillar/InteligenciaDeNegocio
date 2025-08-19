@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import { React, useState } from "react";
 import Titulo from "../componentes/Titulo";
 import { makeStyles } from "@material-ui/core/styles";
-import iafap from "../imagenes/isotipos.svg";
 import { URL } from "../../src/comercial/Constantes";
+import iafap from "../imagenes/isotipos.svg";
 import iafap2 from "../imagenes/isotipos2.svg";
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
 import {
   Card,
   CardActionArea,
@@ -17,7 +18,6 @@ import {
   DialogContentText,
   DialogActions,
 } from "@material-ui/core";
-import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles({
   card: {
@@ -39,12 +39,12 @@ const useStyles = makeStyles({
     marginTop: "15px",
   },
 });
-const MyComponent = () => {
-  const classes = useStyles();
+const MenuOperaciones = () => {
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [open, setOpen] = useState(false);
+  const classes = useStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,13 +54,24 @@ const MyComponent = () => {
     setOpen(false);
   };
 
-  const cuentasVst = async () => {
-    setOpen(false);
+  function detallePagosBpc() {
+    window.location.href = `/detallePagosBpc`;
+  }
+  function encontrarFoto() {
+    window.location.href = `/encontrarFoto`;
+  }
+
+  function detallePagosAnr() {
+    window.location.href = `/detallePagosAnr`;
+  }
+
+  const realizarPagosBpc = async () => {
     setLoading(true);
+    setOpen(false);
     try {
-      const response = await fetch(`${URL}getObtenerVst`);
+      const response = await fetch(`${URL}realizarPagosBpc`);
       const data = await response.text();
-      let mensaje = JSON.parse(data).message;
+      let mensaje = JSON.parse(data);
       setOpenSnackbar(true);
       setResponseMessage(mensaje);
     } catch (error) {
@@ -71,17 +82,9 @@ const MyComponent = () => {
     }
   };
 
-  function generarArchivoBpc() {
-    window.location.href = `/generarArchivoBpc`;
-  }
-
-  function generarArchivoAnr() {
-    window.location.href = `/generarArchivoAnr`;
-  }
-
   return (
     <div className="contenedor-principal2">
-      <Titulo className={classes.textoTitulo} title="Menú Prestaciones" />
+      <Titulo className={classes.textoTitulo} title="Menú Operaciones" />
       <div
         style={{
           display: "flex",
@@ -95,13 +98,11 @@ const MyComponent = () => {
             <CardMedia
               className={classes.media}
               image={iafap}
-              title="Generar archivo Bpc"
-              onClick={() => generarArchivoBpc()}
+              title="Encontrar foto"
+              onClick={() => encontrarFoto()}
             />
             <CardContent>
-              <Typography className={classes.texto}>
-                Generar Archivo Bpc
-              </Typography>
+              <Typography className={classes.texto}>Encontrar Foto</Typography>
             </CardContent>
           </CardActionArea>
         </Card>
@@ -110,11 +111,11 @@ const MyComponent = () => {
             <CardMedia
               className={classes.media}
               image={iafap2}
-              title="Cuentas VST"
-              onClick={() => handleClickOpen()}
+              title="Detalle Bpc"
+              onClick={() => detallePagosBpc()}
             />
             <CardContent>
-              <Typography className={classes.texto}>Cuentas VST</Typography>
+              <Typography className={classes.texto}>Detalle Bpc</Typography>
             </CardContent>
           </CardActionArea>
         </Card>
@@ -123,13 +124,24 @@ const MyComponent = () => {
             <CardMedia
               className={classes.media}
               image={iafap}
-              title="Generar archivo Anr"
-              onClick={() => generarArchivoAnr()}
+              title="Pagar Bpc"
+              onClick={() => handleClickOpen()}
             />
             <CardContent>
-              <Typography className={classes.texto}>
-                Generar Archivo Anr
-              </Typography>
+              <Typography className={classes.texto}>Pagar Bpc</Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <Card className={classes.card}>
+          <CardActionArea>
+            <CardMedia
+              className={classes.media}
+              image={iafap2}
+              title="Detalle ANR"
+              onClick={() => detallePagosAnr()}
+            />
+            <CardContent>
+              <Typography className={classes.texto}>Detalle ANR</Typography>
             </CardContent>
           </CardActionArea>
         </Card>
@@ -145,7 +157,7 @@ const MyComponent = () => {
         {loading && (
           <>
             <p>Cargando...</p>
-            <p>Puede demorar varios segundos!</p>
+            <p>Puede demorar varios minutos!</p>
           </>
         )}
       </div>
@@ -153,14 +165,14 @@ const MyComponent = () => {
         <DialogTitle className={classes.textoTitulo}>Confirmar</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ¿Está seguro que desea crear el txt de fallecidos?
+            ¿Está seguro que desea pagar las bpc?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClickClose} className={classes.texto}>
             Cancelar
           </Button>
-          <Button onClick={cuentasVst} className={classes.texto}>
+          <Button onClick={realizarPagosBpc} className={classes.texto}>
             Aceptar
           </Button>
         </DialogActions>
@@ -176,4 +188,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default MenuOperaciones;

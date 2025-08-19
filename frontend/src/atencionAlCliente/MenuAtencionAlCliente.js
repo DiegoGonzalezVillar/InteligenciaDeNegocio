@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Titulo from "../componentes/Titulo";
 import { makeStyles } from "@material-ui/core/styles";
-import iafap from "../imagenes/isotipos.svg";
+//import iafap from "../imagenes/isotipos.svg";
 import { URL } from "../../src/comercial/Constantes";
 import iafap2 from "../imagenes/isotipos2.svg";
 import Button from "@material-ui/core/Button";
@@ -54,13 +54,13 @@ const MyComponent = () => {
     setOpen(false);
   };
 
-  const cuentasVst = async () => {
+  const generarArchivoDeSubCuentas = async () => {
     setOpen(false);
     setLoading(true);
     try {
-      const response = await fetch(`${URL}getObtenerVst`);
+      const response = await fetch(`${URL}generarArchivoDeSubCuentas`);
       const data = await response.text();
-      let mensaje = JSON.parse(data).message;
+      let mensaje = JSON.parse(data);
       setOpenSnackbar(true);
       setResponseMessage(mensaje);
     } catch (error) {
@@ -71,17 +71,12 @@ const MyComponent = () => {
     }
   };
 
-  function generarArchivoBpc() {
-    window.location.href = `/generarArchivoBpc`;
-  }
-
-  function generarArchivoAnr() {
-    window.location.href = `/generarArchivoAnr`;
-  }
-
   return (
     <div className="contenedor-principal2">
-      <Titulo className={classes.textoTitulo} title="Menú Prestaciones" />
+      <Titulo
+        className={classes.textoTitulo}
+        title="Menú Atención al Cliente"
+      />
       <div
         style={{
           display: "flex",
@@ -94,41 +89,13 @@ const MyComponent = () => {
           <CardActionArea>
             <CardMedia
               className={classes.media}
-              image={iafap}
-              title="Generar archivo Bpc"
-              onClick={() => generarArchivoBpc()}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>
-                Generar Archivo Bpc
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
               image={iafap2}
-              title="Cuentas VST"
+              title="Cuentas por Afiliado"
               onClick={() => handleClickOpen()}
             />
             <CardContent>
-              <Typography className={classes.texto}>Cuentas VST</Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap}
-              title="Generar archivo Anr"
-              onClick={() => generarArchivoAnr()}
-            />
-            <CardContent>
               <Typography className={classes.texto}>
-                Generar Archivo Anr
+                Cuentas por Afiliado
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -153,14 +120,17 @@ const MyComponent = () => {
         <DialogTitle className={classes.textoTitulo}>Confirmar</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ¿Está seguro que desea crear el txt de fallecidos?
+            ¿Está seguro que desea crear el archivo de fondos por sub-cuentas?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClickClose} className={classes.texto}>
             Cancelar
           </Button>
-          <Button onClick={cuentasVst} className={classes.texto}>
+          <Button
+            onClick={generarArchivoDeSubCuentas}
+            className={classes.texto}
+          >
             Aceptar
           </Button>
         </DialogActions>

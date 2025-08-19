@@ -11,6 +11,7 @@ const GenerarArchivoBpc = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [cedula, setCedula] = useState("");
   const [porcentaje, setPorcentaje] = useState("");
+  const [favChecked, setFavChecked] = useState(false);
   const estilosTitulo = {
     color: "#BE3A4A",
     marginTop: "15px", // Por ejemplo, aquí se define el margen superior
@@ -25,6 +26,7 @@ const GenerarArchivoBpc = () => {
   const limpiaCampos = () => {
     setCedula("");
     setPorcentaje("");
+    setFavChecked(false);
   };
 
   const creaArchivoBpc = (event) => {
@@ -32,6 +34,7 @@ const GenerarArchivoBpc = () => {
     const formData = {
       cedula: cedula,
       porcentaje: porcentaje,
+      favChecked: favChecked,
     };
     if (cedula === "") {
       setResponseMessage("Debe ingresar una cedula");
@@ -91,7 +94,7 @@ const GenerarArchivoBpc = () => {
               <Form.Group
                 controlId="formBasicSueldo"
                 className="d-flex align-items-center"
-                style={{ marginTop: "10px", marginLeft: "20px" }}
+                style={{ marginTop: "20px", marginLeft: "20px" }}
               >
                 <Form.Label style={{ color: "#BE3A4A" }}>Porcentaje</Form.Label>
 
@@ -105,6 +108,22 @@ const GenerarArchivoBpc = () => {
                   placeholder="Porcentaje"
                   value={porcentaje}
                   onChange={(event) => setPorcentaje(event.target.value)}
+                />
+              </Form.Group>
+              <Form.Group
+                controlId="formBasicFondo"
+                className="d-flex align-items-center"
+                style={{ marginTop: "20px", marginLeft: "20px" }}
+              >
+                <Form.Label style={{ marginTop: "10px", color: "#BE3A4A" }}>
+                  Fondo Voluntario
+                </Form.Label>
+                <Form.Check
+                  style={{ color: "#BE3A4A", marginLeft: "30px" }}
+                  inline
+                  name="group1"
+                  checked={favChecked}
+                  onChange={(e) => setFavChecked(e.target.checked)}
                 />
               </Form.Group>
 

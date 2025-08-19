@@ -29,11 +29,73 @@ export const getCantidadDeAfiliados = async (req, res) => {
 };
 
 export const getDatosCurvaS = async (req, res) => {
-  //const workbook = XLSX.readFile("F:\\Usuario\\Escritorio\\df2024.xlsx");
-  const workbook = XLSX.readFile("C:\\Compartida Python\\df2024.xlsx");
+  /*const workbook = XLSX.readFile(
+    "F:\\Usuario\\Escritorio\\ratificados y finalizados al 30-04-2025.xlsx"
+  );*/
+  const workbook = XLSX.readFile("C:\\Compartida Python\\df2025.xlsx");
   const worksheet = workbook.Sheets[workbook.SheetNames[0]];
   const data = XLSX.utils.sheet_to_json(worksheet);
   res.send(data);
+};
+
+export const curvaSPorFecha = async (req, res) => {
+  const { fecha } = req.body;
+  const args = [fecha];
+  let returnData = "";
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+
+    ["C:\\Compartida Python\\Comercial\\curvaSPorFecha.py", ...args]
+  );
+
+  /* const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\anaconda3\\envs\\spyder\\python.exe",
+    [
+      "F:\\Usuario\\Escritorio\\Archivos Python\\archivos py\\curvaSPorFecha.py",
+      ...args,
+    ]
+  );*/
+
+  pythonProcess.stdout.on("data", (data) => {
+    returnData += data;
+  });
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  pythonProcess.on("close", (code) => {
+    res.json(returnData);
+  });
+};
+
+export const curvaS16713 = async (req, res) => {
+  const { fecha } = req.body;
+  const args = [fecha];
+  let returnData = "";
+
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+
+    ["C:\\Compartida Python\\Comercial\\curvaS16713.py", ...args]
+  );
+
+  /*
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\anaconda3\\envs\\spyder\\python.exe",
+    [
+      "F:\\Usuario\\Escritorio\\Archivos Python\\archivos py\\curvaS16713.py",
+      ...args,
+    ]
+  );
+*/
+  pythonProcess.stdout.on("data", (data) => {
+    returnData += data;
+  });
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  pythonProcess.on("close", (code) => {
+    res.json(returnData);
+  });
 };
 
 export const simuladorProyeccionJubilatoria = (req, res) => {
@@ -67,11 +129,19 @@ export const simuladorProyeccionJubilatoria = (req, res) => {
   ];
 
   let returnData = "";
-  const pythonProcess = spawn(
+  /*const pythonProcess = spawn(
     "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
-    ["C:\\Compartida Python\\Simulador\\simuladorPrueba.py", ...args]
+    ["C:\\Compartida Python\\Simulador\\simulador_nueva.py", ...args]
   );
-  //const pythonProcess = spawn("python", ["F:\\Usuario\\Escritorio\\script python simulador\\simuladorPrueba.py",...args,]);
+  /*const pythonProcess = spawn("python", [
+    "F:\\Usuario\\Escritorio\\Diego\\simulador\\simulador_nueva.py",
+    ...args,
+  ]);*/
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\anaconda3\\envs\\spyder\\python.exe",
+    ["F:\\Usuario\\Escritorio\\Diego\\simulador\\simulador_nueva.py", ...args]
+  );
+
   pythonProcess.stdout.on("data", (data) => {
     returnData += data;
   });
@@ -138,6 +208,14 @@ export const getDatosAppPorCantidad = async (req, res) => {
 export const afisPorAsesorPorAnio = async (req, res) => {
   const pool = await getConnection();
   const result = await pool.request().query(queries.afisPorAsesorPorAnio);
+  res.json(result.recordset);
+};
+
+export const ratificacionesPorAsesorPorAnio = async (req, res) => {
+  const pool = await getConnection();
+  const result = await pool
+    .request()
+    .query(queries.ratificacionesPorAsesorPorAnio);
   res.json(result.recordset);
 };
 
@@ -224,6 +302,37 @@ export const login = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const asignacionesDeOficio = (req, res) => {
+  let returnData = "";
+
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+
+    ["C:\\Compartida Python\\Comercial\\asignacionesDeOficio.py"]
+  );
+  /*
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\anaconda3\\envs\\spyder\\python.exe",
+    ["W:\\Comercial\\asignacionesDeOficio.py"]
+  );
+*/
+  pythonProcess.stdout.on("data", (data) => {
+    returnData += data;
+  });
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  pythonProcess.on("close", (code) => {
+    res.json(returnData);
+  });
+};
+
+export const todasLasAfisPorAsesor = async (req, res) => {
+  const pool = await getConnection();
+  const result = await pool.request().query(queries.todasLasAfisPorAsesor);
+  res.json(result.recordset);
 };
 
 export const cargarDatosParaConsultar = async (req, res) => {

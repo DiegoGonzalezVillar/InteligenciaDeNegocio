@@ -107,9 +107,7 @@ const AfisPorAsesorPorAño = () => {
   const options = {
     responsive: true,
     plugins: {
-      legend: {
-        position: "bottom",
-      },
+      legend: { display: false },
       datalabels: {
         anchor: "end",
         align: "top",

@@ -10,6 +10,7 @@ var _administracion = require("../controllers/administracion.controller");
 var _inversiones = require("../controllers/inversiones.controller");
 var _prestaciones = require("../controllers/prestaciones.controller");
 var _operaciones = require("../controllers/operaciones.controller");
+var _atencionAlCliente = require("../controllers/atencionAlCliente.controller");
 var router = (0, _express.Router)();
 router.post("/login", _afaps.login);
 router.get("/montevideoPeriferia", _afaps.getUltimaConsultaMontevideoPeriferia);
@@ -28,17 +29,19 @@ router.get("/getPendientesConsultasComercial", _afaps.getPendientesConsultasCome
 router.get("/afisPorDepartamento", _afaps.getAfisPorDepartamento);
 router.get("/getCantidadDeAfiliados", _afaps.getCantidadDeAfiliados);
 router.get("/getCantAfiliadosPorAsesorActualAnterior", _afaps.getCantAfiliadosPorAsesorActualAnterior);
-//router.get('/getCantPorEdadYPorSexoAsesor',getCantPorEdadYPorSexoAsesor)
 router.get("/getCantPorEdadYPorSexo", _afaps.getCantPorEdadYPorSexo);
 router.get("/getCantidadPorMail", _afaps.getCantidadPorMail);
 router.get("/getCantidadPorMailPorAnio", _afaps.getCantidadPorMailPorAnio);
 router.post("/simuladorProyeccionJubilatoria", _afaps.simuladorProyeccionJubilatoria);
 router.post("/ultimaConsulta", _afaps.cargarDatosParaConsultar);
-router.post("/getObtenerVst", _prestaciones.getObtenerVst);
-router.post("/getAnioDeDATBPS", _prestaciones.getObtenerVst);
 router.get("/afisPorAsesorPorAnio", _afaps.afisPorAsesorPorAnio);
+router.get("/ratificacionesPorAsesorPorAnio", _afaps.ratificacionesPorAsesorPorAnio);
 router.get("/afisPorAfap", _afaps.afisPorAfap);
 router.get("/afisUltimoDiaPorAfap", _afaps.afisUltimoDiaPorAfap);
+router.get("/asignacionesDeOficio", _afaps.asignacionesDeOficio);
+router.get("/todasLasAfisPorAsesor", _afaps.todasLasAfisPorAsesor);
+router.post("/curvaSPorFecha", _afaps.curvaSPorFecha);
+router.post("/curvaS16713", _afaps.curvaS16713);
 
 //INVERSIONES
 router.get("/ejecutarLimites30006", _inversiones.getLimites30006);
@@ -52,8 +55,20 @@ router.get("/letrasRm", _administracion.letrasRm);
 router.get("/informeDirectorio", _administracion.informeDirectorio);
 router.post("/valoresRentaBruta", _administracion.valoresRentaBruta);
 router.get("/creacionTableroDeControl", _administracion.creacionTableroDeControl);
+router.get("/txtBpcAcumulacion", _administracion.txtBpcAcumulacion);
+router.get("/txtBpcRetiro", _administracion.txtBpcRetiro);
 
 //OPERACIONES
 router.post("/encontrarFoto", _operaciones.encontrarFoto);
+router.get("/detallePagosBpc", _operaciones.detallePagosBpc);
+router.get("/realizarPagosBpc", _operaciones.realizarPagosBpc);
+router.get("/detallePagosAnr", _operaciones.detallePagosAnr);
+
+//PRESTACIONES
+router.get("/getObtenerVst", _prestaciones.getObtenerVst);
 router.post("/generarArchivoBpc", _prestaciones.generarArchivoBpc);
+router.post("/generarArchivoAnr", _prestaciones.generarArchivoAnr);
+
+//ATENCION AL CLIENTE
+router.get("/generarArchivoDeSubCuentas", _atencionAlCliente.generarArchivoDeSubCuentas);
 var _default = exports["default"] = router;

@@ -4,41 +4,33 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getObtenerVst = exports.generarArchivoBpc = void 0;
+exports.getObtenerVst = exports.generarArchivoBpc = exports.generarArchivoAnr = void 0;
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-var _connection = require("../database/connection");
-var XLSX = require("xlsx");
 var _require = require("child_process"),
   spawn = _require.spawn;
 var getObtenerVst = exports.getObtenerVst = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-    var excelFile, workbook, sheetName, sheetData, cedulasArray, cedulasString, query, pool, result;
+    var pythonProcess;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          excelFile = req.files.excelFile;
-          workbook = XLSX.read(excelFile.data);
-          sheetName = workbook.SheetNames[0];
-          sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-          cedulasArray = sheetData.map(function (item) {
-            return item.cedulas;
+          pythonProcess = spawn("C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe", ["C:\\Compartida Python\\Prestaciones\\fallecidos\\generarTxtFallecidos.py"], {
+            detached: true,
+            stdio: ["ignore", "pipe", "pipe"] // Pipe para stdout y stderr
           });
-          cedulasString = cedulasArray.join("','");
-          query = "\n      SELECT distinct CI, Subestado\n      FROM [192.168.20.2].[IAFAPCRM].[sysdba].[CRM_Comercial]\n      WHERE CI IN ('".concat(cedulasString, "') AND Subestado IN ('VST', 'CST')\n    ");
-          _context.next = 9;
-          return (0, _connection.getConnection)();
-        case 9:
-          pool = _context.sent;
-          _context.next = 12;
-          return pool.request().query(query);
-        case 12:
-          result = _context.sent;
-          res.json({
-            message: "Archivo Excel procesado exitosamente",
-            data: result.recordset
+          pythonProcess.on("close", function (codigo) {
+            if (codigo === 0) {
+              res.status(200).send({
+                message: "Consulta ejecutada correctamente"
+              });
+            } else {
+              res.status(500).send({
+                message: "Error al ejecutar el script. Codigo de salida ".concat(codigo)
+              });
+            }
           });
-        case 14:
+        case 2:
         case "end":
           return _context.stop();
       }
@@ -51,11 +43,13 @@ var getObtenerVst = exports.getObtenerVst = /*#__PURE__*/function () {
 var generarArchivoBpc = exports.generarArchivoBpc = function generarArchivoBpc(req, res) {
   var _req$body = req.body,
     cedula = _req$body.cedula,
-    porcentaje = _req$body.porcentaje;
-  var args = [cedula, porcentaje];
+    porcentaje = _req$body.porcentaje,
+    favChecked = _req$body.favChecked;
+  var args = [cedula, porcentaje, favChecked];
   var returnData = "";
   var pythonProcess = spawn("C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe", ["C:\\Compartida Python\\Prestaciones\\Creacion archivo bpc crm.py"].concat(args));
-  /*const pythonProcess = spawn("python", [
+  /*
+  const pythonProcess = spawn("python", [
     "F:\\Usuario\\Escritorio\\Archivos Python\\archivos py\\Creacion archivo bpc crm.py",
     ...args,
   ]);*/
@@ -68,5 +62,47 @@ var generarArchivoBpc = exports.generarArchivoBpc = function generarArchivoBpc(r
   pythonProcess.on("close", function (code) {
     console.log("child process exited with code ".concat(code));
     res.json(returnData);
+  });
+};
+var generarArchivoAnr = exports.generarArchivoAnr = function generarArchivoAnr(req, res) {
+  var fecha = req.body.fecha;
+  var args = [fecha];
+  var returnData = "";
+  var errorData = "";
+  var pythonProcess = spawn("C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe", ["C:\\Compartida Python\\Prestaciones\\creacion archivo anr.py"].concat(args));
+
+  /*
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\anaconda3\\envs\\spyder\\python.exe",
+    [
+      "F:\\Usuario\\Escritorio\\Archivos Python\\archivos py\\creacion archivo anr.py",
+      ...args,
+    ]
+  );
+  */
+  // Captura la salida estándar
+  pythonProcess.stdout.on("data", function (data) {
+    returnData += data.toString();
+  });
+
+  // Captura errores del proceso
+  pythonProcess.stderr.on("data", function (data) {
+    errorData += data.toString();
+  });
+
+  // Cuando el proceso termina
+  pythonProcess.on("close", function (code) {
+    // Si hubo errores o el código de salida no es 0, algo falló
+    if (code !== 0 || errorData) {
+      res.status(500).json({
+        mensaje: "No se pudo crear el archivo correspondiente, contactar administrador",
+        error: errorData
+      });
+    } else {
+      res.json({
+        mensaje: "Archivo creado correctamente",
+        data: returnData
+      });
+    }
   });
 };

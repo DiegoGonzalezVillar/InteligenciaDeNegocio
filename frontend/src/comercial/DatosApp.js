@@ -98,8 +98,6 @@ const DatosApp = () => {
     infoD();
   }, []);
 
-  console.log(informacionDisponible);
-
   const resultadoTotalCargadosApp = () => {
     const totalDatosApp = informacionDisponible.reduce(
       (total, item) => total + item.Cantidad,

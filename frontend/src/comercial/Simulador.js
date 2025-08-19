@@ -48,7 +48,6 @@ function Simulador() {
       saldoAcumulacion: saldoAcumulacion,
       saldoRetiro: saldoRetiro,
     };
-    console.log(actividad);
     if (sueldo === "" || edad === "" || añosActividad === "" || genero === "") {
       setResponseMessage("Debe completar todos los campos");
       setOpenSnackbar(true);
@@ -72,6 +71,7 @@ function Simulador() {
         .catch((error) => console.log(error));
     }
   };
+
   const handleKeyDown = (event) => {
     if (event.keyCode === 13) {
       handleSubmit(event);
@@ -380,7 +380,8 @@ function Simulador() {
 
           <div className="h-full">
             <Titulo style={estilosTitulo} title="Resultado" />
-            {respuestaProyeccion.length > 0 ? (
+            {respuestaProyeccion.length > 100 ? (
+              // Caso 1: respuestaProyeccion.length > 100
               <TableContainer style={{ marginTop: "20px" }} component={Paper}>
                 <Table sx={{ minWidth: 300 }} aria-label="simple table">
                   <TableHead style={{ backgroundColor: "#BE3A4A" }}>
@@ -417,23 +418,23 @@ function Simulador() {
                   </TableBody>
                 </Table>
               </TableContainer>
-            ) : (
+            ) : respuestaProyeccion.length > 0 ? (
               <TableContainer style={{ marginTop: "20px" }} component={Paper}>
                 <Table sx={{ minWidth: 300 }} aria-label="simple table">
                   <TableHead style={{ backgroundColor: "#BE3A4A" }}>
                     <TableRow>
                       <TableCell align="center" style={{ color: "white" }}>
-                        Edad
-                      </TableCell>
-                      <TableCell align="center" style={{ color: "white" }}>
-                        Jubilacion AFAP
+                        La persona no tiene causal jubilatorio a los 60 años
                       </TableCell>
                     </TableRow>
                   </TableHead>
                 </Table>
               </TableContainer>
+            ) : (
+              <div></div>
             )}
           </div>
+
           <Snackbar
             open={openSnackbar}
             onClose={() => setOpenSnackbar(false)}

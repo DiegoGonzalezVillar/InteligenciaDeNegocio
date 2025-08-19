@@ -6,18 +6,19 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  Grid,
   Typography,
 } from "@material-ui/core";
 import Titulo from "../componentes/Titulo";
 
 const useStyles = makeStyles({
   card: {
-    width: "50%",
-    height: "300%",
-    margin: "10px",
+    width: "95%",
+    height: "95%",
+    margin: "5px",
   },
   media: {
-    height: 240,
+    height: 280,
   },
   texto: {
     fontWeight: "bold",
@@ -29,156 +30,140 @@ const useStyles = makeStyles({
 const Tableros = () => {
   const classes = useStyles();
 
-  const estilosTitulo = {
-    color: "#BE3A4A",
-    marginTop: "15px",
+  const todasAfisPorAsesor = () => {
+    window.location.href = `/todasAfisPorAsesor`;
   };
 
-  /*function afisPorAsesor() {
-    window.location.href = `/afisPorAsesor`;
-  }*/
+  const detalleOficios = () => {
+    window.location.href = `/detalleOficios`;
+  };
 
-  function afisPorAsesorPorAnio() {
-    window.location.href = `/afisPorAsesorPorAnio`;
-  }
+  const curvaSPorFecha = () => {
+    window.location.href = `/curvaSPorFecha`;
+  };
 
-  function afisPorAsesorActualAnterior() {
-    window.location.href = `/afisPorAsesorActualAnterior`;
-  }
-
-  function curvaS() {
-    window.location.href = `/curvaS`;
-  }
-
-  function afisPorDepartamento() {
+  const afisPorDepartamento = () => {
     window.location.href = `/afisPorDepartamento`;
-  }
-  function cantidadPorEdadYPorSexo() {
+  };
+  const cantidadPorEdadYPorSexo = () => {
     window.location.href = `/cantidadPorEdadyPorSexo`;
-  }
-  function cantidadPorMail() {
+  };
+
+  const curvaS16713 = () => {
+    window.location.href = `/curvaS16713`;
+  };
+  /*
+  const cantidadPorMail = () => {
     window.location.href = `/cantidadPorMail`;
-  }
-
-  function afisPorAfap() {
-    window.location.href = `/afisPorAfap`;
-  }
-
+  };
+*/
   return (
     <div className="contenedor-principal2">
-      <Titulo style={estilosTitulo} title="Integración en Cifras" />
-      <div
-        style={{
-          display: "flex",
-          allowContent: "center",
-          alignItems: "center",
-          marginTop: "30px",
-        }}
-      >
-        <Card className={classes.card}>
+      <Titulo title="Integración en Cifras" />
+      <Grid container>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
           <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap}
-              title="Afiliaciones por Asesor"
-              onClick={() => afisPorAsesorPorAnio()}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>
-                Afiliaciones por Asesor Por Año
-              </Typography>
-            </CardContent>
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.media}
+                image={iafap2}
+                title="Todas Las Afiliaciones"
+                onClick={() => todasAfisPorAsesor()}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>
+                  Todas Las Afiliaciones
+                </Typography>
+              </CardContent>
+            </Card>
           </CardActionArea>
-        </Card>
-        <Card className={classes.card}>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
           <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap2}
-              title="Afiliaciones Actual vs Anterior"
-              onClick={() => afisPorAsesorActualAnterior()}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>
-                Afiliaciones Año Actual vs Anterior
-              </Typography>
-            </CardContent>
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.media}
+                image={iafap}
+                title="Detalle Oficios"
+                onClick={() => detalleOficios()}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>
+                  Detalle Oficios
+                </Typography>
+              </CardContent>
+            </Card>
           </CardActionArea>
-        </Card>
-        <Card className={classes.card}>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
           <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap}
-              title="Afiliaciones por Departamento"
-              onClick={() => afisPorDepartamento()}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>
-                Afiliaciones por Departamento
-              </Typography>
-            </CardContent>
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.media}
+                image={iafap2}
+                title="Afiliaciones por Departamento"
+                onClick={() => afisPorDepartamento()}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>
+                  Afis por departamento
+                </Typography>
+              </CardContent>
+            </Card>
           </CardActionArea>
-        </Card>
-        <Card className={classes.card}>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
           <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap2}
-              title="Afiliaciones por Edad y Sexo"
-              onClick={() => cantidadPorEdadYPorSexo()}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>
-                Afiliaciones por Edad y Sexo
-              </Typography>
-            </CardContent>
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.media}
+                image={iafap}
+                title="Afiliaciones por Edad y Sexo"
+                onClick={() => cantidadPorEdadYPorSexo()}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>
+                  Afis por edad y sexo
+                </Typography>
+              </CardContent>
+            </Card>
           </CardActionArea>
-        </Card>
+        </Grid>
 
-        <Card className={classes.card}>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
           <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap}
-              title="Curva S"
-              onClick={() => curvaS()}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>Curva S</Typography>
-            </CardContent>
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.media}
+                image={iafap2}
+                title="Curva S Por Fecha"
+                onClick={() => curvaSPorFecha()}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>
+                  Curva S Por Fecha
+                </Typography>
+              </CardContent>
+            </Card>
           </CardActionArea>
-        </Card>
+        </Grid>
 
-        <Card className={classes.card}>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
           <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap2}
-              title="Cantidad por Mail"
-              onClick={() => cantidadPorMail()}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>Mail por Asesor</Typography>
-            </CardContent>
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.media}
+                image={iafap}
+                title="Curva S 16713"
+                onClick={() => curvaS16713()}
+              />
+              <CardContent>
+                <Typography className={classes.texto}>Curva S 16713</Typography>
+              </CardContent>
+            </Card>
           </CardActionArea>
-        </Card>
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={iafap}
-              title="Afiliaciones por Afap"
-              onClick={() => afisPorAfap()}
-            />
-            <CardContent>
-              <Typography className={classes.texto}>
-                Afiliaciones por Afap
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

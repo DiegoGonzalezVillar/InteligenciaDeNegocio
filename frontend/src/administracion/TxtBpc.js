@@ -1,43 +1,24 @@
 import React, { useState } from "react";
 import Titulo from "../componentes/Titulo";
 import { URL } from "../../src/comercial/Constantes";
-import { makeStyles } from "@material-ui/core/styles";
-import iafap from "../imagenes/isotipos2.svg";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles({
-  card: {
-    width: "10%",
-    margin: "10px",
-  },
-  media: {
-    height: 180,
-    backgroundSize: "auto",
-  },
-  texto: {
-    fontWeight: "bold",
-    fontSize: 15,
+const TxtBpc = () => {
+  const estilosTitulo = {
     color: "#BE3A4A",
-    textAlign: "center",
-  },
-});
-
-const MyComponent = () => {
+    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
+    // Puedes agregar más propiedades de estilo según sea necesario
+  };
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const classes = useStyles();
-  const consulta30008 = async () => {
+
+  const txtAcumulacion = async () => {
     setMessage("");
     setLoading(true); // Establecer el estado de carga en true antes de la solicitud
 
     try {
-      const response = await fetch(`${URL}ejecutarLimites30008`);
+      const response = await fetch(`${URL}txtBpcAcumulacion`);
       const data = await response.text();
       let mensaje = JSON.parse(data).message;
       setMessage(mensaje); // Actualiza el estado con el mensaje de respuesta del servidor
@@ -49,12 +30,12 @@ const MyComponent = () => {
     }
   };
 
-  const consulta30006 = async () => {
+  const txtRetiro = async () => {
     setMessage("");
     setLoading(true); // Establecer el estado de carga en true antes de la solicitud
 
     try {
-      const response = await fetch(`${URL}ejecutarLimites30006`); // Llama al endpoint /ejecutar-bat en el servidor
+      const response = await fetch(`${URL}txtBpcRetiro`); // Llama al endpoint /ejecutar-bat en el servidor
       const data = await response.text();
       let mensaje = JSON.parse(data).message;
       setMessage(mensaje); // Actualiza el estado con el mensaje de respuesta del servidor
@@ -65,50 +46,48 @@ const MyComponent = () => {
       setLoading(false); // Establecer el estado de carga en false después de la solicitud (éxito o error)
     }
   };
-
   return (
     <div className="content">
       <div className="contenedor-principal2">
-        <Titulo title="Limites" />
+        <Titulo
+          style={estilosTitulo}
+          title="Generación de txt segun sub fondo"
+        />
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            marginTop: "50px",
           }}
         >
-          <Card className={classes.card}>
-            <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image={iafap}
-                title="Consulta 30006"
-                onClick={() => consulta30006()}
-              />
-              <CardContent>
-                <Typography className={classes.texto}>
-                  Consulta 30006
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+          <Button
+            style={{
+              color: "#BE3A4A",
+              marginTop: "5em",
+              border: "1px solid #BE3A4A",
+              borderRadius: "5px",
+              padding: "0.5em 1em",
+            }}
+            onClick={txtAcumulacion}
+            disabled={loading} // Deshabilita el botón mientras se carga
+          >
+            Acumulación
+          </Button>
 
-          <Card className={classes.card}>
-            <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image={iafap}
-                title="Consulta 30008"
-                onClick={() => consulta30008()}
-              />
-              <CardContent>
-                <Typography className={classes.texto}>
-                  Consulta 30008
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+          <Button
+            style={{
+              color: "#BE3A4A",
+              marginTop: "5em",
+              border: "1px solid #BE3A4A",
+              borderRadius: "5px",
+              marginLeft: "1em",
+              padding: "0.5em 1em",
+            }}
+            onClick={txtRetiro}
+            disabled={loading} // Deshabilita el botón mientras se carga
+          >
+            Retiro
+          </Button>
         </div>
         <div
           style={{
@@ -141,4 +120,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default TxtBpc;

@@ -74,17 +74,16 @@ max-width: 50%;
   }
 
   .contenedor-principal{
-    height: calc(100vh - 75px);
     background-image: url("../imagenes/logo3.png");
     background-attachment: fixed;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: rgba(75, 72, 122, 0.01);
+    background-color: rgba(230, 230, 230, 0.247);
   }
 
   .contenedor-principal2{
-    height: calc(100vh - 150px);
+    min-height: calc(100vh - 150px);
     margin-top: 75px;
     background-image: url("../imagenes/logo3.png");
     background-attachment: fixed;
@@ -92,4 +91,5 @@ max-width: 50%;
     background-position: center;
     background-repeat: no-repeat;
     background-color: rgba(230, 230, 230, 0.247);
+    box-sizing: border-box;
   }

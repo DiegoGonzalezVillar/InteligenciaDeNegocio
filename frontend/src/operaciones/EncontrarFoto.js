@@ -23,13 +23,6 @@ const MyComponent = () => {
   const rotateImage = (degree) => {
     setRotationDegree((prevDegree) => (prevDegree + degree) % 360);
   };
-
-  const estilosTitulo = {
-    color: "#BE3A4A",
-    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
-    // Puedes agregar más propiedades de estilo según sea necesario
-  };
-
   const fotoFomulario = (event) => {
     setMessage("");
     event.preventDefault();
@@ -52,11 +45,15 @@ const MyComponent = () => {
         .then((response) => response.json())
         .then((data) => {
           try {
-            console.log(data);
-            const dataSinComillas = data.replace(/"/g, "");
-            setFotoRecibida(dataSinComillas);
-            setShow(true);
-            setMessage(message);
+            if (data.replace(/"/g, "").trim() === "Sin foto") {
+              setResponseMessage("No existe la foto buscada");
+              setOpenSnackbar(true);
+            } else {
+              const dataSinComillas = data.replace(/"/g, "");
+              setFotoRecibida(dataSinComillas);
+              setShow(true);
+              setMessage(message);
+            }
           } catch (error) {
             console.log("Error al analizar el JSON:", error);
           }
@@ -74,7 +71,7 @@ const MyComponent = () => {
   return (
     <div className="content">
       <div className="contenedor-principal2">
-        <Titulo style={estilosTitulo} title="Encontrar Foto" />
+        <Titulo title="Encontrar Foto" />
         <Grid container>
           <Grid item xs={1} sm={1} md={4} lg={4} xl={4}></Grid>
           <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
@@ -221,6 +218,18 @@ const MyComponent = () => {
             onClose={() => setOpenSnackbar(false)}
             message={responseMessage}
             autoHideDuration={3000}
+            anchorOrigin={{
+              vertical: "center", // Puede ser 'top' o 'bottom'
+              horizontal: "center", // Puede ser 'left', 'center' o 'right'
+            }}
+            ContentProps={{
+              style: {
+                backgroundColor: "#E08223", // Cambia el color de fondo aquí
+                color: "white", // Cambia el color del texto
+                textAlign: "center", // Centrar el texto horizontalmente
+                justifyContent: "center", // Centrar el contenido dentro del Snackbar
+              },
+            }}
           />
         </div>
       </div>

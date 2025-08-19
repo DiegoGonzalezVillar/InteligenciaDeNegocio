@@ -4,12 +4,18 @@ import { URL } from "../../src/comercial/Constantes";
 import { makeStyles } from "@material-ui/core/styles";
 import iafap from "../imagenes/isotipos3.svg";
 import iafap2 from "../imagenes/isotipos2.svg";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
 import {
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
   Typography,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 
@@ -19,8 +25,8 @@ const useStyles = makeStyles({
     margin: "10px",
   },
   media: {
-    height: 200,
-    backgroundSize: "auto",
+    height: 180,
+    margin: "5px",
   },
   texto: {
     fontWeight: "bold",
@@ -28,17 +34,24 @@ const useStyles = makeStyles({
     color: "#BE3A4A",
     textAlign: "center",
   },
+  textoTitulo: {
+    color: "#BE3A4A",
+    marginTop: "15px",
+  },
 });
 const MyComponent = () => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const estilosTitulo = {
-    color: "#BE3A4A",
-    marginTop: "15px", // Por ejemplo, aquí se define el margen superior
-    // Puedes agregar más propiedades de estilo según sea necesario
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClickClose = () => {
+    setOpen(false);
   };
 
   function generacionTxt() {
@@ -53,8 +66,12 @@ const MyComponent = () => {
     window.location.href = `/valoresRentaBruta`;
   }
 
+  function generacionTxtBpc() {
+    window.location.href = `/generacionTxtBpc`;
+  }
+
   const informeDirectorio = async () => {
-    setLoading(true); // Establecer el estado de carga en true antes de la solicitud
+    setLoading(true);
 
     try {
       const response = await fetch(`${URL}informeDirectorio`);
@@ -71,11 +88,10 @@ const MyComponent = () => {
   };
 
   const creacionTableroDeControl = async () => {
-    setLoading(true); // Establecer el estado de carga en true antes de la solicitud
-
+    setLoading(true);
+    setOpen(false);
     try {
       const response = await fetch(`${URL}creacionTableroDeControl`);
-      console.log("llego aca");
       const data = await response.text();
       let mensaje = JSON.parse(data).message;
       setOpenSnackbar(true);
@@ -84,13 +100,13 @@ const MyComponent = () => {
       setOpenSnackbar(true);
       setResponseMessage(error);
     } finally {
-      setLoading(false); // Establecer el estado de carga en false después de la solicitud (éxito o error)
+      setLoading(false);
     }
   };
 
   return (
     <div className="contenedor-principal2">
-      <Titulo style={estilosTitulo} title="Menú Administración" />
+      <Titulo className={classes.textoTitulo} title="Menú Administración" />
       <div
         style={{
           display: "flex",
@@ -164,12 +180,25 @@ const MyComponent = () => {
               className={classes.media}
               image={iafap}
               title="Creacion tablero de control"
-              onClick={() => creacionTableroDeControl()}
+              onClick={() => handleClickOpen()}
             />
             <CardContent>
               <Typography className={classes.texto}>
                 Tablero de control
               </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <Card className={classes.card}>
+          <CardActionArea>
+            <CardMedia
+              className={classes.media}
+              image={iafap2}
+              title="Txt Bpc"
+              onClick={() => generacionTxtBpc()}
+            />
+            <CardContent>
+              <Typography className={classes.texto}>Txt Bpc</Typography>
             </CardContent>
           </CardActionArea>
         </Card>
@@ -189,6 +218,22 @@ const MyComponent = () => {
           </>
         )}
       </div>
+      <Dialog open={open} onClose={handleClickClose}>
+        <DialogTitle className={classes.textoTitulo}>Confirmar</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            ¿Está seguro que desea crear el tablero de control?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClickClose} className={classes.texto}>
+            Cancelar
+          </Button>
+          <Button onClick={creacionTableroDeControl} className={classes.texto}>
+            Aceptar
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Snackbar
         open={openSnackbar}
         onClose={() => setOpenSnackbar(false)}

@@ -9,7 +9,7 @@ const Titulo = (props) => {
         justifyContent: "center",
       }}
     >
-      <h4 style={props.style}>{props.title}</h4>
+      <h4 style={{ ...props.style, color: "#BE3A4A" }}>{props.title}</h4>
     </div>
   );
 };

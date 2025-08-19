@@ -16,7 +16,6 @@ import { FormControl, InputLabel, Select } from "@material-ui/core";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import "../style/MailPorAsesor.css";
 import Titulo from "../componentes/Titulo.js";
 
 ChartJS.register(

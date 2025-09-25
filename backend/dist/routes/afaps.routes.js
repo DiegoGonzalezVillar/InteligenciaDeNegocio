@@ -42,6 +42,7 @@ router.get("/asignacionesDeOficio", _afaps.asignacionesDeOficio);
 router.get("/todasLasAfisPorAsesor", _afaps.todasLasAfisPorAsesor);
 router.post("/curvaSPorFecha", _afaps.curvaSPorFecha);
 router.post("/curvaS16713", _afaps.curvaS16713);
+router.post("/infoPrestacionesSegunFecha", _afaps.infoPrestacionesSegunFecha);
 
 //INVERSIONES
 router.get("/ejecutarLimites30006", _inversiones.getLimites30006);

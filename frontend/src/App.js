@@ -48,6 +48,9 @@ import MenuAtencionAlCliente from "./atencionAlCliente/MenuAtencionAlCliente";
 import CurvaSPorFecha from "./cifras/CurvaSPorFecha";
 import CurvaS16713 from "./cifras/CurvaS16713";
 import GenerarArchivoAnr from "./prestaciones/GenerarArchivoAnr";
+import InfoPrestaciones from "./cifras/InfoPrestaciones";
+import MenuInformacion from "./cifras/MenuInformacion";
+import OficiosPorUsuario from "./cifras/OficiosPorUsuario";
 
 export const userContext = React.createContext();
 
@@ -159,6 +162,18 @@ const App = () => {
             <Route
               path="/generarArchivoAnr"
               element={<GenerarArchivoAnr />}
+            ></Route>
+            <Route
+              path="/tramitesPrestaciones"
+              element={<InfoPrestaciones />}
+            ></Route>
+            <Route
+              path="/menuInformacion"
+              element={<MenuInformacion />}
+            ></Route>
+            <Route
+              path="/oficiosPorUsuario"
+              element={<OficiosPorUsuario />}
             ></Route>
           </Routes>
 

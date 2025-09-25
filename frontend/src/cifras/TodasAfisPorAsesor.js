@@ -24,6 +24,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import ReporteAfiliacionesPDF from "./ReporteAfiliacionesPDF";
 
 ChartJS.register(
   BarElement,
@@ -36,7 +37,7 @@ ChartJS.register(
 
 const useStyles = makeStyles({
   tarjeta: {
-    width: "100%",
+    width: "90%",
     height: "100%",
     borderRadius: "15px",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
@@ -137,34 +138,38 @@ const GraficoBarrasApiladas = () => {
   }, [anioSeleccionado]);
 
   // Filtrar datos cuando cambian los datos originales o los regímenes seleccionados
+  const [datosVisibles, setDatosVisibles] = useState([]);
+
+  // en tu useEffect donde ya filtrás y calculás los totales:
   useEffect(() => {
     if (!arrayTodasLasAfisPorAsesor) return;
 
-    const datosVisibles = arrayTodasLasAfisPorAsesor.filter((d) => {
+    const filtrados = arrayTodasLasAfisPorAsesor.filter((d) => {
       const cumpleAnio =
         anioSeleccionado === "Todos" || d.anio === parseInt(anioSeleccionado);
-
       const cumpleMes =
         mesSeleccionado.includes("Todos") || mesSeleccionado.includes(d.mes);
-
       const cumpleRegimen = regimenesSeleccionados[d.regimen];
-
       return cumpleAnio && cumpleMes && cumpleRegimen;
     });
 
-    const total16713 = datosVisibles
+    // 👇 guardamos la data filtrada en el estado
+    setDatosVisibles(filtrados);
+
+    // con esa misma data calculás los totales
+    const total16713 = filtrados
       .filter((d) => d.regimen === "16713")
       .reduce((acc, d) => acc + d.cantidad_documentos, 0);
 
-    const total20130 = datosVisibles
+    const total20130 = filtrados
       .filter((d) => d.regimen === "20130")
       .reduce((acc, d) => acc + d.cantidad_documentos, 0);
 
-    const totalVoluntarias = datosVisibles
+    const totalVoluntarias = filtrados
       .filter((d) => d.regimen === "Voluntarias")
       .reduce((acc, d) => acc + d.cantidad_documentos, 0);
 
-    let totalAfiliaciones = totalVoluntarias + total20130 + total16713;
+    const totalAfiliaciones = total16713 + total20130 + totalVoluntarias;
 
     setTotal16713(total16713);
     setTotal20130(total20130);
@@ -359,44 +364,6 @@ const GraficoBarrasApiladas = () => {
       <Titulo title="Afiliaciones" />
       <Grid container style={{ marginTop: "5px" }}>
         <Grid item xs={9} style={{ marginTop: "10px", marginLeft: "30px" }}>
-          {/*{mostrarTabla ? (
-            <div className="overflow-x-auto mt-4">
-              <table className="table-auto border-collapse w-full text-sm text-left">
-                <thead>
-                  <tr>
-                    <th className="border px-4 py-2">Mes</th>
-                    {regimenesSeleccionados["16713"] && (
-                      <th className="border px-4 py-2">16713</th>
-                    )}
-                    {regimenesSeleccionados["20130"] && (
-                      <th className="border px-4 py-2">20130</th>
-                    )}
-                    {regimenesSeleccionados["Voluntarias"] && (
-                      <th className="border px-4 py-2">Voluntarias</th>
-                    )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {chartData.map((fila) => (
-                    <tr key={fila.mes}>
-                      <td className="border px-4 py-2">{fila.mes}</td>
-                      {regimenesSeleccionados["16713"] && (
-                        <td className="border px-4 py-2">{fila.total16713}</td>
-                      )}
-                      {regimenesSeleccionados["20130"] && (
-                        <td className="border px-4 py-2">{fila.total20130}</td>
-                      )}
-                      {regimenesSeleccionados["Voluntarias"] && (
-                        <td className="border px-4 py-2">
-                          {fila.totalVoluntarias}
-                        </td>
-                      )}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (  )}*/}
           <Bar data={chartData} options={opciones} />
         </Grid>
         <Grid item xs={2} style={{ marginLeft: "50px" }}>
@@ -405,15 +372,13 @@ const GraficoBarrasApiladas = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: "30px",
-              marginTop: "30px",
+              gap: "20px",
+              marginTop: "10px",
             }}
           >
+            <Titulo title="Filtros" />
             {/* Gráfica por */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              {/*<button onClick={() => setMostrarTabla((prev) => !prev)}>
-                {mostrarTabla ? "Ver Gráfica" : "Ver Tabla"}
-              </button>*/}
+            <div style={{ display: "flex", alignItems: "center" }}>
               <InputLabel style={{ color: "#BE3A4A", minWidth: "70px" }}>
                 Gráfica por:
               </InputLabel>
@@ -432,41 +397,15 @@ const GraficoBarrasApiladas = () => {
                 </Select>
               </FormControl>
             </div>
-            <Titulo title="Totales" />
-            <Card
-              className={classes.tarjeta}
+
+            {/* Año */}
+            <div
               style={{
-                marginLeft: "20px",
-                backgroundColor: "rgba(230, 230, 230, 0.247)",
+                display: "flex",
+                alignItems: "center",
+                gap: "15px",
               }}
             >
-              <CardContent
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center", // Centrado horizontal
-                  justifyContent: "center", // Centrado vertical (si Card tiene altura)
-                  height: "100%", // Asegura altura completa
-                }}
-              >
-                <Typography className={classes.texto}>
-                  16713: {total16713}
-                </Typography>
-                <Typography className={classes.texto2}>
-                  20130: {total20130}
-                </Typography>
-                <Typography className={classes.texto3}>
-                  Voluntarias: {totalVoluntarias}
-                </Typography>
-                <Typography className={classes.texto}>
-                  Total: {totalAfiliaciones}
-                </Typography>
-              </CardContent>
-            </Card>
-
-            <Titulo title="Filtros" />
-            {/* Año */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <InputLabel style={{ color: "#BE3A4A", minWidth: "70px" }}>
                 Año:
               </InputLabel>
@@ -552,6 +491,55 @@ const GraficoBarrasApiladas = () => {
                     </MenuItem>
                   ))}
                 </Select>
+              </FormControl>
+            </div>
+            <Titulo title="Totales" />
+            <Card
+              className={classes.tarjeta}
+              style={{
+                marginLeft: "20px",
+                backgroundColor: "rgba(230, 230, 230, 0.247)",
+              }}
+            >
+              <CardContent
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center", // Centrado horizontal
+                  justifyContent: "center", // Centrado vertical (si Card tiene altura)
+                  height: "100%", // Asegura altura completa
+                }}
+              >
+                <Typography className={classes.texto}>
+                  16713: {total16713}
+                </Typography>
+                <Typography className={classes.texto2}>
+                  20130: {total20130}
+                </Typography>
+                <Typography className={classes.texto3}>
+                  Voluntarias: {totalVoluntarias}
+                </Typography>
+                <Typography className={classes.texto}>
+                  Total: {totalAfiliaciones}
+                </Typography>
+              </CardContent>
+            </Card>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "15px",
+              }}
+            >
+              <FormControl style={{ width: "300px", marginLeft: "30px" }}>
+                <ReporteAfiliacionesPDF
+                  data={datosVisibles}
+                  anioSeleccionado={anioSeleccionado}
+                  mesSeleccionado={mesSeleccionado}
+                  regimenesSeleccionados={regimenesSeleccionados}
+                  agruparPor={agruparPor}
+                />
               </FormControl>
             </div>
           </div>

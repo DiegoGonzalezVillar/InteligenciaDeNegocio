@@ -105,7 +105,7 @@ const Navbar = () => {
     { label: "Simulador", path: "/simulador" },
     { label: "Prestaciones", path: "/prestaciones" },
     { label: "At. al Cliente", path: "/menuAtencionAlcliente" },
-    { label: "Informacion", path: "/tableros" },
+    { label: "Informacion", path: "/menuInformacion" },
   ];
 
   const renderToolbar = () => (

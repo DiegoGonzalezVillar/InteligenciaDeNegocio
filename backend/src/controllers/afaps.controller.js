@@ -67,6 +67,39 @@ export const curvaSPorFecha = async (req, res) => {
   });
 };
 
+export const infoPrestacionesSegunFecha = async (req, res) => {
+  const { desde, hasta } = req.body;
+  const args = [desde, hasta];
+  let returnData = "";
+
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+
+    [
+      "C:\\Compartida Python\\Prestaciones\\infoPrestacionesSegunFecha.py",
+      ...args,
+    ]
+  );
+  /*
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\anaconda3\\envs\\spyder\\python.exe",
+    [
+      "F:\\Usuario\\Escritorio\\Archivos Python\\archivos py\\infoPrestacionesSegunFecha.py",
+      ...args,
+    ]
+  );*/
+
+  pythonProcess.stdout.on("data", (data) => {
+    returnData += data;
+  });
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  pythonProcess.on("close", (code) => {
+    res.json(returnData);
+  });
+};
+
 export const curvaS16713 = async (req, res) => {
   const { fecha } = req.body;
   const args = [fecha];
@@ -326,6 +359,51 @@ export const asignacionesDeOficio = (req, res) => {
   });
   pythonProcess.on("close", (code) => {
     res.json(returnData);
+  });
+};
+
+export const oficiosPorUsuario = (req, res) => {
+  const pythonProcess = spawn(
+    "C:\\Users\\dgonzalez\\AppData\\Local\\anaconda3\\envs\\spyder\\python.exe",
+    [
+      "F:\\Usuario\\Escritorio\\Archivos Python\\archivos py\\oficiosPorUsuario.py",
+    ],
+    { env: process.env }
+  );
+
+  let out = "";
+  let err = "";
+
+  pythonProcess.stdout.on("data", (data) => {
+    out += data.toString("utf8"); // Buffer -> string
+  });
+
+  pythonProcess.stderr.on("data", (data) => {
+    err += data.toString("utf8"); // logs/errores
+  });
+
+  pythonProcess.on("close", (code) => {
+    if (code !== 0) {
+      console.error(err);
+      return res.status(500).json({ error: "python_failed", detail: err });
+    }
+    try {
+      const json = JSON.parse(out); // <- convertir texto JSON a objeto
+      return res.json(json); // <- enviar objeto (no string)
+    } catch (e) {
+      // Fallback por si hay basura alrededor del JSON
+      const start = out.indexOf("{");
+      const end = out.lastIndexOf("}");
+      if (start !== -1 && end !== -1) {
+        try {
+          return res.json(JSON.parse(out.slice(start, end + 1)));
+        } catch (_) {}
+      }
+      console.error("invalid_json", out.slice(0, 200), err);
+      return res
+        .status(500)
+        .json({ error: "invalid_json", outSnippet: out.slice(0, 200) });
+    }
   });
 };
 

@@ -1,0 +1,128 @@
+/* ===== Layout: una columna centrada ===== */
+.contenedor-principal2 .parent {
+  display: flex;
+  flex-direction: column;   /* apilar */
+  align-items: center;       /* centrar la columna */
+  gap: 12px;
+}
+
+/* ancho de cada bloque: ocupa el 100% hasta un máximo (ajustá el max si querés) */
+.contenedor-principal2 .parent > div {
+  width: min(1100px, 100%);
+  align-self: center;
+  height: fit-content;       /* que abrace a la tabla */
+  box-sizing: border-box;
+}
+
+/* ===== Orden explícito (sin tocar JSX) ===== */
+.contenedor-principal2 .div10 { order: 1; } /* Total */
+.contenedor-principal2 .div5  { order: 2; } /* Finalizados */
+.contenedor-principal2 .div11 { order: 3; } /* 16713 — MVD y CAN */
+.contenedor-principal2 .div3  { order: 4; } /* Canelones */
+.contenedor-principal2 .div4  { order: 5; } /* Montevideo */
+
+
+.contenedor-principal2 .table-wrapper {
+  overflow: auto;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.contenedor-principal2 .table-oficios {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.contenedor-principal2 .table-oficios th,
+.contenedor-principal2 .table-oficios td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #f1f1f1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.contenedor-principal2 .table-oficios thead th {
+  position: sticky;
+  top: 0;
+  background: #be3a4a;
+  color: white;
+  z-index: 1;
+}
+
+.contenedor-principal2 .table-oficios tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.contenedor-principal2 .loading,
+.contenedor-principal2 .error,
+.contenedor-principal2 .empty {
+  padding: 12px;
+  color: #444;
+}
+
+.contenedor-principal2 .error { color: #b00020; }
+
+.contenedor-principal2 .loading {
+  color: #be3a4a;
+  text-align: center;
+  margin: 16px 0;
+  font-weight: 800;
+}
+
+/* Negrita para la fila total en todas las tablas del componente */
+.contenedor-principal2 .table-oficios tr.row-total td {
+  font-weight: 700;
+}
+
+
+.contenedor-principal2 .table-oficios tr.row-total td {
+  border-top: 2px solid #ccc;
+}
+
+
+/* Reemplaza tu .parent (grid) por columns */
+.parent {
+  column-width: 380px;          /* ajusta el ancho deseado por tarjeta */
+  column-gap: 12px;
+}
+
+/* Cada item se comporta como “tarjeta” en columnas */
+.parent > div {
+  break-inside: avoid;    /* clave para que respete su altura */
+  width: 100%;
+  margin: 0 0 12px;
+}
+
+.contenedor-principal2 .table-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-bottom: 6px;
+}
+
+.contenedor-principal2 .btn-copy {
+  appearance: none;
+  border: 1px solid #eee;
+  background: #E28432;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.contenedor-principal2 .btn-copy:hover {
+  background: #ececec;
+}
+
+.loading,
+.error,
+.empty {
+  padding: 12px;
+  color: #444;
+}
+
+.error { color: #b00020; }
+
+        

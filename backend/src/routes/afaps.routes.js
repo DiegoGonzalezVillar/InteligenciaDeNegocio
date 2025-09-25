@@ -31,6 +31,8 @@ import {
   todasLasAfisPorAsesor,
   curvaSPorFecha,
   curvaS16713,
+  infoPrestacionesSegunFecha,
+  oficiosPorUsuario,
 } from "../controllers/afaps.controller";
 
 import {
@@ -101,6 +103,8 @@ router.get("/asignacionesDeOficio", asignacionesDeOficio);
 router.get("/todasLasAfisPorAsesor", todasLasAfisPorAsesor);
 router.post("/curvaSPorFecha", curvaSPorFecha);
 router.post("/curvaS16713", curvaS16713);
+router.post("/infoPrestacionesSegunFecha", infoPrestacionesSegunFecha);
+router.get("/oficiosPorUsuario", oficiosPorUsuario);
 
 //INVERSIONES
 router.get("/ejecutarLimites30006", getLimites30006);

@@ -45,9 +45,15 @@ const Tableros = () => {
   const afisPorDepartamento = () => {
     window.location.href = `/afisPorDepartamento`;
   };
+
+  const oficiosPorUsuario = () => {
+    window.location.href = `/oficiosPorUsuario`;
+  };
+
+  /*)
   const cantidadPorEdadYPorSexo = () => {
     window.location.href = `/cantidadPorEdadyPorSexo`;
-  };
+  };*/
 
   const curvaS16713 = () => {
     window.location.href = `/curvaS16713`;
@@ -118,12 +124,12 @@ const Tableros = () => {
               <CardMedia
                 className={classes.media}
                 image={iafap}
-                title="Afiliaciones por Edad y Sexo"
-                onClick={() => cantidadPorEdadYPorSexo()}
+                title="Detalle oficios por usuario"
+                onClick={() => oficiosPorUsuario()}
               />
               <CardContent>
                 <Typography className={classes.texto}>
-                  Afis por edad y sexo
+                  Detalle oficios por usuario
                 </Typography>
               </CardContent>
             </Card>
